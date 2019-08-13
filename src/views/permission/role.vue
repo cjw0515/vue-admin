@@ -4,19 +4,13 @@
 
     <el-table :data="rolesList" style="width: 100%;margin-top:30px;" border>
       <el-table-column align="center" label="Role Key" width="220">
-        <template slot-scope="scope">
-          {{ scope.row.key }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.key }}</template>
       </el-table-column>
       <el-table-column align="center" label="Role Name" width="220">
-        <template slot-scope="scope">
-          {{ scope.row.name }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.name }}</template>
       </el-table-column>
       <el-table-column align="header-center" label="Description">
-        <template slot-scope="scope">
-          {{ scope.row.description }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.description }}</template>
       </el-table-column>
       <el-table-column align="center" label="Operations">
         <template slot-scope="scope">
@@ -62,7 +56,13 @@
 <script>
 import path from 'path'
 import { deepClone } from '@/utils'
-import { getRoutes, getRoles, addRole, deleteRole, updateRole } from '@/api/role'
+import {
+  getRoutes,
+  getRoles,
+  addRole,
+  deleteRole,
+  updateRole
+} from '@/api/role'
 
 const defaultRole = {
   key: '',
@@ -113,9 +113,14 @@ export default {
 
       for (let route of routes) {
         // skip some route
-        if (route.hidden) { continue }
+        if (route.hidden) {
+          continue
+        }
 
-        const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route)
+        const onlyOneShowingChild = this.onlyOneShowingChild(
+          route.children,
+          route
+        )
 
         if (route.children && onlyOneShowingChild && !route.alwaysShow) {
           route = onlyOneShowingChild
@@ -124,7 +129,6 @@ export default {
         const data = {
           path: path.resolve(basePath, route.path),
           title: route.meta && route.meta.title
-
         }
 
         // recursive child routes
@@ -182,7 +186,9 @@ export default {
             message: 'Delete succed!'
           })
         })
-        .catch(err => { console.error(err) })
+        .catch(err => {
+          console.error(err)
+        })
     },
     generateTree(routes, basePath = '/', checkedKeys) {
       const res = []
@@ -192,10 +198,17 @@ export default {
 
         // recursive child routes
         if (route.children) {
-          route.children = this.generateTree(route.children, routePath, checkedKeys)
+          route.children = this.generateTree(
+            route.children,
+            routePath,
+            checkedKeys
+          )
         }
 
-        if (checkedKeys.includes(routePath) || (route.children && route.children.length >= 1)) {
+        if (
+          checkedKeys.includes(routePath) ||
+          (route.children && route.children.length >= 1)
+        ) {
           res.push(route)
         }
       }
@@ -205,7 +218,11 @@ export default {
       const isEdit = this.dialogType === 'edit'
 
       const checkedKeys = this.$refs.tree.getCheckedKeys()
-      this.role.routes = this.generateTree(deepClone(this.serviceRoutes), '/', checkedKeys)
+      this.role.routes = this.generateTree(
+        deepClone(this.serviceRoutes),
+        '/',
+        checkedKeys
+      )
 
       if (isEdit) {
         await updateRole(this.role.key, this.role)
@@ -248,7 +265,7 @@ export default {
 
       // Show parent if there are no child route to display
       if (showingChildren.length === 0) {
-        onlyOneChild = { ... parent, path: '', noShowingChildren: true }
+        onlyOneChild = { ...parent, path: '', noShowingChildren: true }
         return onlyOneChild
       }
 

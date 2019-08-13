@@ -12,6 +12,7 @@ const state = {
 
 const mutations = {
   SET_TOKEN: (state, token) => {
+    console.log('store set token')
     state.token = token
   },
   SET_INTRODUCTION: (state, introduction) => {
@@ -31,6 +32,8 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
+    console.log('store -> userlogin')
+    console.log(userInfo)
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
