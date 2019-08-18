@@ -1,4 +1,5 @@
-import { login, logout, getInfo } from '@/api/user'
+import { getInfo } from '@/api/user'
+import { login, logout } from '@/api/auth'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -33,13 +34,14 @@ const actions = {
   // user login
   login({ commit }, userInfo) {
     console.log('store -> userlogin')
-    console.log(userInfo)
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+      login({ email: username.trim(), password: password }).then(response => {
+        const { Authorization } = response
+        console.log(Authorization)
+        // 스토어, 쿠키에 토큰 저장
+        commit('SET_TOKEN', Authorization)
+        setToken(Authorization)
         resolve()
       }).catch(error => {
         reject(error)
