@@ -1,9 +1,13 @@
 <template>
   <div id="todoapp">
-    {{ user }}
     <Header />
     <TodoInput @addTodo="addTodo" />
-    <TodoList :props-data="todos" @removeTodo="removeTodo" />
+    <TodoList
+      :props-data="todos"
+      @setModTarget="setModTarget"
+      @modifyTodo="modifyTodo"
+      @removeTodo="removeTodo"
+    />
     <Footer />
   </div>
 </template>
@@ -13,7 +17,7 @@ import Header from './components/Header.vue'
 import TodoInput from './components/TodoInput.vue'
 import Footer from './components/Footer.vue'
 import TodoList from './components/TodoList.vue'
-import axios from 'axios'
+import { addTodo, getTodos, deleteTodo, modifyTodo } from '@/api/todo'
 
 export default {
   components: {
@@ -25,24 +29,52 @@ export default {
   data() {
     return {
       todos: [],
-      user: '',
       loading: false
     }
   },
   created: function() {
-    const url = 'http://127.0.0.1:5000/user/'
-    axios.get(url).then(res => {
-      console.log(res.data.data[0])
-    })
+    this.getTodos()
   },
   methods: {
     // 삽입
-    addTodo(text) {
-      this.todos.push(text)
+    async addTodo(text) {
+      const tempObj = {
+        todo: text
+      }
+      const { data } = await addTodo(tempObj)
+      console.log(data)
+      this.getTodos()
+    },
+    // 리스트
+    async getTodos() {
+      const { data } = await getTodos()
+      data.forEach(element => {
+        element['isModFlag'] = false
+      })
+      this.todos = data
     },
     // 제거
-    removeTodo(idx) {
-      this.todos.splice(idx, 1)
+    async removeTodo(idx) {
+      await deleteTodo(idx)
+      this.getTodos()
+    },
+    async modifyTodo(idx, data) {
+      await modifyTodo(idx, { todo: data })
+      this.setModTarget(idx, data)
+    },
+    setModTarget(idx, data) {
+      console.log(`data: ${data}`)
+      const newList = this.todos.map(el => {
+        const tmpEl = el.id === idx
+          ? {
+            ...el,
+            isModFlag: !el.isModFlag,
+            todo: data || el.todo
+          }
+          : { ...el }
+        return tmpEl
+      })
+      this.todos = newList
     }
   }
 }
