@@ -88,19 +88,6 @@ export const constantRoutes = [
         meta: { title: 'Profile', icon: 'user', noCache: true }
       }
     ]
-  },
-  {
-    path: '/todolist',
-    component: Layout,
-    redirect: '/todolist/index',
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/todolist/index'),
-        name: 'Todolist',
-        meta: { title: 'Todolist', icon: 'list' }
-      }
-    ]
   }
 ]
 
@@ -114,6 +101,20 @@ export const asyncRoutes = [
   // chartsRouter,
   // nestedRouter,
   tableRouter,
+  {
+    path: '/todolist',
+    component: Layout,
+    redirect: '/todolist/index',
+    name: 'TodoList',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/todolist/index'),
+        name: 'Todolist',
+        meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

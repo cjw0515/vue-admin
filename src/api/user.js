@@ -8,3 +8,11 @@ export function getInfo(token) {
     baseURL: process.env.VUE_APP_BASE_API
   })
 }
+
+export function getUserInfo(token) {
+  return request({
+    url: '/user/info',
+    method: 'get',
+    params: { token }
+  })
+}
