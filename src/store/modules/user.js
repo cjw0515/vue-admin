@@ -1,4 +1,4 @@
-import { getInfo } from '@/api/user'
+import { getUserInfo } from '@/api/user'
 import { login, logout } from '@/api/auth'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
@@ -38,7 +38,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ email: username.trim(), password: password }).then(response => {
         const { Authorization } = response
-        console.log(Authorization)
         // 스토어, 쿠키에 토큰 저장
         commit('SET_TOKEN', Authorization)
         setToken(Authorization)
@@ -52,14 +51,21 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-
+      getUserInfo(state.token).then(data => {
+        const permissionArr = []
+        permissionArr.push(data.group_name)
+        console.log(permissionArr)
+        const payload = {
+          roles: permissionArr,
+          introduction: 'I am a super administrator',
+          avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+          name: data.username
+        }
         if (!data) {
-          reject('Verification failed, please Login again.')
+          reject('인증에 실패하였습니다. 다시 시도해 주세요.')
         }
 
-        const { roles, name, avatar, introduction } = data
+        const { roles, name, avatar, introduction } = payload
 
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
@@ -70,7 +76,7 @@ const actions = {
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)
-        resolve(data)
+        resolve(payload)
       }).catch(error => {
         reject(error)
       })
