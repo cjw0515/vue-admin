@@ -45,7 +45,7 @@ service.interceptors.response.use(
     const resCode = response.status
 
     // if the custom code is not 20000, it is judged as an error.
-    console.log('mock code : ', res.code)
+    // console.log('mock code : ', res.code)
     console.log('code : ', resCode)
     if (Math.floor(resCode / 100) !== 2) {
       Message({
@@ -74,7 +74,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    console.log('code', error.response.status)
+    // console.log('code', error.response.status)
     if (error.response.status === 401) {
       Message({
         message: '아이디 혹은 비밀번호가 맞지 않습니다.',

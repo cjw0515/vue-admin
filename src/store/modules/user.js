@@ -36,7 +36,7 @@ const actions = {
     console.log('store -> userlogin')
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ email: username.trim(), password: password }).then(response => {
+      login({ username: username.trim(), password: password }).then(response => {
         const { Authorization } = response
         // 스토어, 쿠키에 토큰 저장
         commit('SET_TOKEN', Authorization)

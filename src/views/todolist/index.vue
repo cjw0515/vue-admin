@@ -41,6 +41,7 @@ export default {
       const tempObj = {
         todo: text
       }
+      console.log(text)
       const { data } = await addTodo(tempObj)
       console.log(data)
       this.getTodos()
@@ -48,6 +49,7 @@ export default {
     // 리스트
     async getTodos() {
       const { data } = await getTodos()
+      if (!data) return false
       data.forEach(element => {
         element['isModFlag'] = false
       })
@@ -65,13 +67,14 @@ export default {
     setModTarget(idx, data) {
       console.log(`data: ${data}`)
       const newList = this.todos.map(el => {
-        const tmpEl = el.id === idx
-          ? {
-            ...el,
-            isModFlag: !el.isModFlag,
-            todo: data || el.todo
-          }
-          : { ...el }
+        const tmpEl =
+          el.id === idx
+            ? {
+              ...el,
+              isModFlag: !el.isModFlag,
+              todo: data || el.todo
+            }
+            : { ...el }
         return tmpEl
       })
       this.todos = newList
