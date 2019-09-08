@@ -115,6 +115,43 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/code',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'CodeManagement',
+    meta: {
+      title: 'code',
+      icon: 'example',
+      roles: ['admin']
+    },
+    children: [
+      {
+        path: 'master-code',
+        component: () => import('@/views/master-code/index'),
+        name: 'MasterCode',
+        meta: { title: '마스터 코드 관리' }
+      },
+      {
+        path: 'age-code',
+        component: () => import('@/views/age-code/index'),
+        name: 'AgeCode',
+        meta: { title: '연령 코드 관리' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
