@@ -133,7 +133,7 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     name: 'CodeManagement',
     meta: {
-      title: 'code',
+      title: '코드 관리',
       icon: 'example',
       roles: ['admin']
     },
