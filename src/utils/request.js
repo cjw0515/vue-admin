@@ -41,7 +41,6 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    console.log('test')
     const res = response.data
     const resCode = response.status
 
