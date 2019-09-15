@@ -1,13 +1,18 @@
 <template>
   <div class="app-container">
     <FilterContainer />
-    <TableContainer />
+    <TableContainer v-if="tableData.length > 0" :table-data="tableData" />
   </div>
 </template>
 <script>
 // import Pagination from '@/components/Pagination'
-import FilterContainer from './components/FilterContainer'
-import TableContainer from './components/TableContainer'
+import FilterContainer from "./components/FilterContainer";
+import TableContainer from "./components/TableContainer";
+import {
+  // getAMasterCode,
+  getMasterCodes
+  // modifyMasterCode
+} from "@/api/master-code";
 
 export default {
   components: { FilterContainer, TableContainer },
@@ -19,17 +24,33 @@ export default {
         importance: undefined,
         title: undefined,
         type: undefined,
-        sort: '+id'
+        sort: "+id"
       },
-      importanceOptions: [1, 2, 3]
-    }
+      importanceOptions: [1, 2, 3],
+      tableData: []
+    };
+  },
+  created: function() {
+    this.getMasterCodes(0, 1);
   },
   methods: {
     handleFilter() {
-      this.listQuery.page = 1
+      this.listQuery.page = 1;
+    },
+    async getMasterCodes(parent_code, depth) {
+      const data = await getMasterCodes(parent_code, depth);
+      let newList = [];
+      newList = data.map(el => {
+        return {
+          ...el,
+          status: el.status === 1,
+          hasChildren: el.depth >= 0
+        };
+      });
+      this.tableData = newList;
     }
   }
-}
+};
 </script>
 <style>
 </style>
