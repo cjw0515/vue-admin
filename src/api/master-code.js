@@ -1,13 +1,5 @@
 import request from '@/utils/request'
 
-export function addmasterCode(data) {
-  return request({
-    url: '/masterCode/',
-    method: 'post',
-    data
-  })
-}
-
 export function getAMasterCode(code) {
   return request({
     url: `/masterCode/${code}`,
@@ -22,14 +14,7 @@ export function getMasterCodes(parentCode, depth) {
   })
 }
 
-export function deletemasterCode(key) {
-  return request({
-    url: `/masterCode/${key}`,
-    method: 'delete'
-  })
-}
-
-export function modifyMasterCode(code, data) {
+export function updateMasterCode(code, data) {
   return request({
     url: `/masterCode/${code}`,
     method: 'put',
