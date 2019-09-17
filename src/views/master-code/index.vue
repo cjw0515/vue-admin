@@ -46,8 +46,7 @@ export default {
       return arr.map(el => {
         return {
           ...el,
-          status: el.status === 1,
-          hasChildren: el.depth >= 0
+          hasChildren: el.childCnt > 0
         }
       })
     }
