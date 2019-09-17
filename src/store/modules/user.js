@@ -51,7 +51,7 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getUserInfo(state.token).then(data => {
+      getUserInfo().then(data => {
         const permissionArr = []
         permissionArr.push(data.group_name)
         console.log(permissionArr)
