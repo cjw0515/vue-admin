@@ -23,7 +23,14 @@
       </el-table-column>
       <el-table-column label="사용여부" width="220">
         <template slot-scope="scope">
-          <el-switch v-model.lazy="scope.row.status" active-value="1" inactive-value="0" active-text="사용" inactive-text="사용 안함" @change="handleEdit(scope.row)" />
+          <el-switch
+            v-model.lazy="scope.row.status"
+            active-value="1"
+            inactive-value="0"
+            active-text="사용"
+            inactive-text="사용 안함"
+            @change="handleEdit(scope.row)"
+          />
         </template>
       </el-table-column>
       <el-table-column label="Operations">
@@ -36,9 +43,7 @@
     <!-- 다이얼로그 -->
     <el-dialog title="코드 수정" :visible.sync="dialogFormVisible">
       <el-form :model="form">
-        <el-form-item label="코드" :label-width="formLabelWidth">
-          {{ form.codeNo }}
-        </el-form-item>
+        <el-form-item label="코드" :label-width="formLabelWidth">{{ form.codeNo }}</el-form-item>
         <el-form-item label="코드 명" :label-width="formLabelWidth">
           <el-input v-model="form.codeName" autocomplete="off" />
         </el-form-item>
@@ -74,14 +79,15 @@ export default {
       formLabelWidth: '120px'
     }
   },
-  mounted: function() {
-  },
+  mounted: function() {},
   methods: {
     async handleEdit(row, modPayload) {
-      const payload = !modPayload ? {
-        codeName: row.codeName,
-        status: row.status
-      } : modPayload
+      const payload = !modPayload
+        ? {
+          codeName: row.codeName,
+          status: row.status
+        }
+        : modPayload
       try {
         await updateMasterCode(row.codeNo, payload)
         this.$notify({
@@ -96,13 +102,6 @@ export default {
       }
     },
     handleUpdateName(row) {
-      // this.temp = Object.assign({}, row) // copy obj
-      // this.temp.timestamp = new Date(this.temp.timestamp)
-      // this.dialogStatus = 'update'
-      // this.dialogFormVisible = true
-      // this.$nextTick(() => {
-      //   this.$refs['dataForm'].clearValidate()
-      // })
       this.dialogFormVisible = true
       this.form.codeName = row.codeName
       this.form.codeNo = row.codeNo
