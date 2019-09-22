@@ -1,24 +1,18 @@
 import request from '@/utils/request'
 
-export function getAcodeAge(code) {
-  return request({
-    url: `/codeAge/${code}`,
-    method: 'GET'
-  })
-}
-
 export function getcodeAges(query) {
   return request({
     url: `/codeAge/`,
     method: 'GET',
-    param: query
+    params: query
   })
 }
 
-export function updatecodeAge(code, data) {
+export function updateCodeAge(query, data) {
   return request({
-    url: `/codeAge/${code}`,
-    method: 'put',
+    url: `/codeAge/`,
+    method: 'PUT',
+    params: query,
     data
   })
 }
