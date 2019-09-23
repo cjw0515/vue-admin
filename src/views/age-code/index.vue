@@ -1,6 +1,10 @@
 <template>
   <div class="app-container">
-    <FilterContainer />
+    <FilterContainer
+      :list-query="listQuery"
+      :options="options"
+      @getList="getcodeAges"
+    />
     <TableContainer
       v-if="tableData.length > 0"
       v-loading="listLoading"
@@ -24,14 +28,21 @@ export default {
       listQuery: {
         page: 1,
         perPage: 10,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
+        query: '',
+        queryType: '',
+        code: '',
         sort: '+id'
       },
-      listLoading: true,
+      options: {
+        queryOptions: [{ label: '나이', value: 'age' }, { label: '명칭', value: 'ageName' }],
+        codeTypesOptions: [
+          { label: '별칭(A)', value: 'A' },
+          { label: '그룹(C)', value: 'C' },
+          { label: '공식명칭(O)', value: 'O' }
+        ]
+      },
+      listLoading: false,
       total: 0,
-      importanceOptions: [1, 2, 3],
       tableData: []
     }
   },
@@ -39,10 +50,8 @@ export default {
     this.getcodeAges(this.listQuery)
   },
   methods: {
-    handleFilter() {
-      this.listQuery.page = 1
-    },
-    async getcodeAges(query) {
+    async getcodeAges(query, page) {
+      if (page) { this.listQuery.page = page }
       this.listLoading = true
       const { data } = await getcodeAges(query)
       this.tableData = this.addAditionalValue(data.list)
