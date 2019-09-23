@@ -2,8 +2,14 @@
   <div>
     <!-- 나이 | 분류코드 / 코드명 | 명칭 | 사용여부 | 동작  -->
     <el-table :data="tableData" :row-class-name="tableRowClassName" style="width: 100%">
-      <el-table-column label="나이" width="250" prop="age" />
-
+      <el-table-column label="나이" width="250">
+        <template slot-scope="{row}">
+          <template v-if="row.edit">
+            <el-input v-model="row.age" class="edit-input" size="small" />
+          </template>
+          <span v-else>{{ row.age }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="분류코드 / 코드명" width="220">
         <template slot-scope="{row}">
           <template v-if="row.edit">
@@ -29,7 +35,7 @@
               type="success"
               size="small"
               icon="el-icon-circle-check-outline"
-              @click="confirmEdit(row)"
+              @click="handleEdit(row)"
             >Ok</el-button>
             <el-button
               class="cancel-btn"
@@ -53,6 +59,7 @@
         <template slot-scope="scope">
           <el-switch
             v-model.lazy="scope.row.status"
+            :disabled="scope.row.edit"
             active-value="1"
             inactive-value="0"
             active-text="사용"
@@ -66,8 +73,8 @@
     <pagination
       v-show="total>0"
       :total="total"
-      :page.sync="page"
-      :limit.sync="perPage"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.perPage"
       layout="prev, pager, next"
       @pagination="getList"
     />
@@ -113,41 +120,38 @@ export default {
   },
   mounted: function() {},
   methods: {
-    async handleEdit(row, modPayload) {
-      console.log('handle edit')
+    async handleEdit(row) {
       const codeKeys = {
+        ageNo: row.originalAge,
+        gbn: row.originalGbn,
+        ageName: row.originalAgeName
+        // status: row.status
+      }
+      const payload = {
+        status: row.status,
         ageNo: row.age,
         gbn: row.gbn,
-        ageName: row.agename,
-        status: row.status
+        ageName: row.ageName
       }
-      console.log(codeKeys)
-      const payload = !modPayload
-      console.log(payload)
-        ? {
-          status: row.status
-        }
-        : modPayload
       try {
         await updateCodeAge(codeKeys, payload)
-        this.$notify({
-          title: 'Success!',
-          message: '업데이트 되었습니다!',
-          type: 'success',
-          duration: 2000
+        this.$message({
+          message: '수정되었습니다!',
+          type: 'success'
         })
-        return true
+        row.originalAge = row.age
+        row.originalGbn = row.gbn
+        row.originalAgeName = row.ageName
+        row.edit = false
       } catch (err) {
         row.status = row.status === '1' ? '0' : '1'
+        row.age = row.originalAge
+        row.gbn = row.originalGbn
+        row.ageName = row.originalAgeName
       }
     },
     getList() {
-      console.log(this.page)
-      this.$emit('getList', {
-        ...this.listQuery,
-        page: this.page,
-        perPage: this.perPage
-      })
+      this.$emit('getList', this.listQuery)
     },
     cancelEdit(row) {
       row.age = row.originalAge
@@ -159,22 +163,6 @@ export default {
         message: '수정 취소',
         type: 'warning'
       })
-    },
-    handleUpdateName(row) {
-      this.dialogFormVisible = true
-      this.form.codeName = row.codeName
-      this.form.codeNo = row.codeNo
-      this.tmpRow = row
-    },
-    handleClickConfirm() {
-      const payload = {
-        codeName: this.form.codeName,
-        status: this.tmpRow.status
-      }
-      if (this.handleEdit(this.tmpRow, payload)) {
-        this.dialogFormVisible = false
-        this.tmpRow.codeName = this.form.codeName
-      }
     },
     tableRowClassName({ row, rowIndex }) {
       return row.status === '0' ? 'warning-row' : ''
