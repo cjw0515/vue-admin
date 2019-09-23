@@ -1,17 +1,28 @@
 <template>
   <div class="filter-container">
     <el-select
-      v-model="listQuery.importance"
+      v-model="listQuery.code"
+      placeholder="분류코드/코드명"
+      clearable
+      style="width: 180px"
+      class="filter-item"
+      @change="handleSearch"
+    >
+      <el-option v-for="item in options.codeTypesOptions" :key="item.value" :label="item.label" :value="item.value" />
+    </el-select>
+    <el-select
+      v-model="listQuery.queryType"
       placeholder="구분"
       clearable
       style="width: 90px"
       class="filter-item"
+      @change="resetQuery"
     >
-      <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
+      <el-option v-for="item in options.queryOptions" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
     <el-input
-      v-model="listQuery.title"
-      placeholder="Title"
+      v-model="listQuery.query"
+      :placeholder="selectedOption"
       style="width: 200px;"
       class="filter-item"
     />
@@ -19,30 +30,54 @@
       class="filter-item"
       type="primary"
       icon="el-icon-search"
+      @click="handleSearch"
     >Search</el-button>
+    <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit">
+      Add
+    </el-button>
   </div>
 </template>
 <script>
 export default {
+  props: {
+    listQuery: {
+      type: Object,
+      defualt: function() {
+        return {}
+      }
+    },
+    options: {
+      type: Object,
+      defualt: function() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
-      listQuery: {
-        page: 1,
-        limit: 20,
-        importance: undefined,
-        title: undefined,
-        type: undefined,
-        sort: '+id'
-      },
-      importanceOptions: [1, 2, 3],
-      sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }]
+
+      // sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }]
+    }
+  },
+  computed: {
+    selectedOption: function() {
+      return this.listQuery.queryType
     }
   },
   methods: {
-    handleFilter() {
-      this.listQuery.page = 1
+    handleSearch() {
+      this.$emit('getList', this.listQuery, 1)
+    },
+    resetQuery() {
+      this.listQuery.query = ''
     }
   }
+  // watch: {
+  //   listQuery: {
+  //     handler: function(){this.listQuery.query = ''},
+  //     deep: true
+  //   }
+  // }
 }
 </script>
 <style>
