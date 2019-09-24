@@ -11,6 +11,7 @@
       <el-option v-for="item in options.codeTypesOptions" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
     <el-select
+      ref="queryTypeBox"
       v-model="listQuery.queryType"
       placeholder="구분"
       clearable
@@ -25,6 +26,7 @@
       :placeholder="selectedOption"
       style="width: 200px;"
       class="filter-item"
+      @keyup.native="chkSelectBox()"
     />
     <el-button
       class="filter-item"
@@ -64,12 +66,21 @@ export default {
       return this.listQuery.queryType
     }
   },
+  mounted: function() {
+
+  },
   methods: {
     handleSearch() {
       this.$emit('getList', this.listQuery, 1)
     },
     resetQuery() {
       this.listQuery.query = ''
+    },
+    chkSelectBox() {
+      if (!this.$refs.queryTypeBox.value) {
+        this.resetQuery()
+        this.$refs.queryTypeBox.focus()
+      }
     }
   }
   // watch: {
