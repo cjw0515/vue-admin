@@ -5,7 +5,6 @@
   </div>
 </template>
 <script>
-// import Pagination from '@/components/Pagination'
 import FilterContainer from './components/FilterContainer'
 import TableContainer from './components/TableContainer'
 import {
