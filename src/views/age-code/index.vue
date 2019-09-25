@@ -3,7 +3,9 @@
     <FilterContainer
       :list-query="listQuery"
       :options="options"
+      :form-dialog-visible="formDialogVisible"
       @getList="getcodeAges"
+      @toggleDialog="toggleDialog"
     />
     <TableContainer
       v-if="tableData.length > 0"
@@ -14,15 +16,21 @@
       @addValue="addAditionalValue"
       @getList="getcodeAges"
     />
+    <FormDialog
+      :form-dialog-visible="formDialogVisible"
+      :form-label-width="formLabelWidth"
+      @toggleDialog="toggleDialog"
+    />
   </div>
 </template>
 <script>
 import FilterContainer from './components/FilterContainer'
 import TableContainer from './components/TableContainer'
+import FormDialog from './components/FormDialog'
 import { getcodeAges } from '@/api/age-code'
 
 export default {
-  components: { FilterContainer, TableContainer },
+  components: { FilterContainer, TableContainer, FormDialog },
   data() {
     return {
       listQuery: {
@@ -43,7 +51,10 @@ export default {
       },
       listLoading: false,
       total: 0,
-      tableData: []
+      tableData: [],
+      formDialogVisible: false,
+      tmpRow: {},
+      formLabelWidth: '120px'
     }
   },
   created: function() {
@@ -71,6 +82,9 @@ export default {
         el.originalStatus = el.status
         return el
       })
+    },
+    toggleDialog() {
+      this.formDialogVisible = !this.formDialogVisible
     }
   }
 }
