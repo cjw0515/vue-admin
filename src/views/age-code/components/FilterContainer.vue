@@ -34,7 +34,7 @@
       icon="el-icon-search"
       @click="handleSearch"
     >Search</el-button>
-    <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit">
+    <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleClickAdd">
       Add
     </el-button>
   </div>
@@ -53,6 +53,10 @@ export default {
       defualt: function() {
         return {}
       }
+    },
+    formDialogVisible: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -81,6 +85,9 @@ export default {
         this.resetQuery()
         this.$refs.queryTypeBox.focus()
       }
+    },
+    handleClickAdd() {
+      this.$emit('toggleDialog')
     }
   }
   // watch: {
