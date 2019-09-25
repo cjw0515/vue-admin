@@ -16,3 +16,11 @@ export function updateCodeAge(query, data) {
     data
   })
 }
+
+export function addCodeAge(data) {
+  return request({
+    url: `/codeAge/`,
+    method: 'POST',
+    data
+  })
+}
