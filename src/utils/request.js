@@ -1,7 +1,8 @@
 import axios from 'axios'
+import router from '@/router'
 import { Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
@@ -23,7 +24,6 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
     return Promise.reject(error)
   }
 )
@@ -58,22 +58,17 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
     // console.log('code', error.response.status)
+    Message({
+      message: error.response.data.message || '시스템 에러입니다. 관리자에게 문의해주세요.',
+      type: 'error',
+      duration: 5 * 1000
+    })
     if (error.response.status === 401) {
-      Message({
-        message: '아이디 혹은 비밀번호가 맞지 않습니다.',
-        type: 'error',
-        duration: 5 * 1000
-      })
-    } else {
-      Message({
-        message: error.message,
-        type: 'error',
-        duration: 5 * 1000
-      })
+      removeToken()
+      router.push(`/login`)
     }
-    return Promise.reject(error)
+    return Promise.reject(new Error(error.response.data.message || 'Error'))
   }
 )
 
