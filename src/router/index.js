@@ -160,6 +160,31 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/user',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'UserManagement',
+    meta: {
+      title: '사용자 관리',
+      icon: 'user',
+      roles: ['admin']
+    },
+    children: [
+      {
+        path: 'user',
+        component: () => import('@/views/master-code/index'),
+        name: 'User',
+        meta: { title: '유저 관리' }
+      },
+      {
+        path: 'age-code',
+        component: () => import('@/views/age-code/index'),
+        name: 'AgeCode',
+        meta: { title: '연령 코드 관리' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
