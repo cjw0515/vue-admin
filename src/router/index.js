@@ -197,10 +197,10 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'user',
-        component: () => import('@/views/master-code/index'),
-        name: 'User',
-        meta: { title: '유저 관리' }
+        path: 'academy',
+        component: () => import('@/views/academy/index'),
+        name: 'Academy',
+        meta: { title: '학원 정보' }
       },
       {
         path: 'age-code',

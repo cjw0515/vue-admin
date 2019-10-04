@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import { addCodeAge } from '@/api/age-code'
+import { addCodeAge } from '@/api/insti/age-code'
 
 export default {
   props: {
