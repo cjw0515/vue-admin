@@ -56,7 +56,7 @@
   </div>
 </template>
 <script>
-import { getMasterCodes, updateMasterCode } from '@/api/master-code'
+import { getMasterCodes, updateMasterCode } from '@/api/insti/master-code'
 import { parseTime } from '@/utils/index'
 
 export default {

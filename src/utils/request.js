@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '@/router'
 import { Message } from 'element-ui'
 import store from '@/store'
-import { getToken, removeToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/admin/auth'
 
 // create an axios instance
 const service = axios.create({

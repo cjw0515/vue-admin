@@ -27,7 +27,7 @@
 import FilterContainer from './components/FilterContainer'
 import TableContainer from './components/TableContainer'
 import FormDialog from './components/FormDialog'
-import { getcodeAges } from '@/api/age-code'
+import { getcodeAges } from '@/api/insti/age-code'
 
 export default {
   components: { FilterContainer, TableContainer, FormDialog },

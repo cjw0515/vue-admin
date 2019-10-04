@@ -11,7 +11,7 @@ import {
   // getAMasterCode,
   getMasterCodes
   // modifyMasterCode
-} from '@/api/master-code'
+} from '@/api/insti/master-code'
 
 export default {
   components: { FilterContainer, TableContainer },
