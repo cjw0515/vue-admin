@@ -28,12 +28,40 @@
 
         <el-row>
           <el-col :span="12">
-            <el-form-item label="주소(도로명)" prop="age">
+            <div class="sub-title">주소(도로명)</div>
+            <el-form-item prop="age" label="주소" :label-width="formDialogData.formLabelWidth">
               <el-input v-model.number="formData.age" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="주소(지번)" prop="age">
+            <div class="sub-title">주소(지번)</div>
+            <el-form-item prop="age" label="주소" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item prop="age" label="빌딩" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item prop="age" label="동" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item prop="age" label="우편번호" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item prop="age" label="우편번호" :label-width="formDialogData.formLabelWidth">
               <el-input v-model.number="formData.age" autocomplete="off" />
             </el-form-item>
           </el-col>
