@@ -36,11 +36,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column
-        label="수정"
-        fixed="right"
-        align="center"
-      >
+      <el-table-column label="수정" fixed="right" align="center">
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click.native.prevent="handleClickEdit(row)">Edit</el-button>
         </template>
@@ -78,7 +74,13 @@ export default {
     listQuery: {
       type: Object,
       defualt: function() {
-        return {}
+        return {
+          page: 1,
+          perPage: 10,
+          query: '',
+          queryType: '',
+          sort: '+id'
+        }
       }
     }
   },
@@ -128,8 +130,7 @@ export default {
       }
     },
     handleClickEdit() {
-      console.log('edit clicked')
-      this.$emit('toggleDialog')
+      this.$emit('toggleDialog', 'update')
     },
     getList() {
       this.$emit('getList', this.listQuery)

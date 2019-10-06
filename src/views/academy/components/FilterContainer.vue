@@ -9,24 +9,28 @@
       class="filter-item"
       @change="resetQuery"
     >
-      <el-option v-for="item in options.queryOptions" :key="item.value" :label="item.label" :value="item.value" />
+      <el-option
+        v-for="item in options.queryOptions"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      />
     </el-select>
     <el-input
-      v-model="listQuery.query"
+      v-model="query"
       :placeholder="selectedOption"
       style="width: 200px;"
       class="filter-item"
-      @keyup.native="chkSelectBox()"
+      @keyup.native="handleKeyup($event)"
     />
+    <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleSearch">Search</el-button>
     <el-button
       class="filter-item"
+      style="margin-left: 10px;"
       type="primary"
-      icon="el-icon-search"
-      @click="handleSearch"
-    >Search</el-button>
-    <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleClickAdd">
-      Add
-    </el-button>
+      icon="el-icon-edit"
+      @click="handleClickAdd"
+    >Add</el-button>
   </div>
 </template>
 <script>
@@ -35,24 +39,30 @@ export default {
     listQuery: {
       type: Object,
       defualt: function() {
-        return {}
+        return {
+          page: 1,
+          perPage: 10,
+          query: '',
+          queryType: '',
+          sort: '+id'
+        }
       }
     },
     options: {
       type: Object,
       defualt: function() {
-        return {}
+        return {
+          queryOptions: [
+            { label: '이름', value: 'instiName' },
+            { label: '학원번호', value: 'instiNumber' }
+          ]
+        }
       }
-    },
-    formDialogVisible: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
     return {
-
-      // sortOptions: [{ label: 'ID Ascending', key: '+id' }, { label: 'ID Descending', key: '-id' }]
+      query: this.listQuery.query
     }
   },
   computed: {
@@ -60,32 +70,28 @@ export default {
       return this.listQuery.queryType
     }
   },
-  mounted: function() {
-
-  },
+  mounted: function() {},
   methods: {
     handleSearch() {
-      this.$emit('getList', this.listQuery, 1)
+      this.$emit('getList', { ...this.listQuery, query: this.query }, 1)
     },
     resetQuery() {
-      this.listQuery.query = ''
+      this.query = ''
     },
-    chkSelectBox() {
+    handleKeyup(e) {
+      if (e.keyCode === 13) {
+        this.handleSearch()
+        return false
+      }
       if (!this.$refs.queryTypeBox.value) {
         this.resetQuery()
         this.$refs.queryTypeBox.focus()
       }
     },
     handleClickAdd() {
-      this.$emit('toggleDialog')
+      this.$emit('toggleDialog', 'create')
     }
   }
-  // watch: {
-  //   listQuery: {
-  //     handler: function(){this.listQuery.query = ''},
-  //     deep: true
-  //   }
-  // }
 }
 </script>
 <style>

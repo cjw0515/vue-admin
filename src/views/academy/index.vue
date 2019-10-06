@@ -3,7 +3,6 @@
     <FilterContainer
       :list-query="listQuery"
       :options="options"
-      :form-dialog-visible="formDialogVisible"
       @getList="getAcademies"
       @toggleDialog="toggleDialog"
     />
@@ -17,11 +16,7 @@
       @getList="getAcademies"
       @toggleDialog="toggleDialog"
     />
-    <FormDialog
-      :form-dialog-visible="formDialogVisible"
-      :form-label-width="formLabelWidth"
-      @toggleDialog="toggleDialog"
-    />
+    <FormDialog :form-dialog-data="formDialogData" @toggleDialog="toggleDialog" />
   </div>
 </template>
 <script>
@@ -39,7 +34,6 @@ export default {
         perPage: 10,
         query: '',
         queryType: '',
-        code: '',
         sort: '+id'
       },
       options: {
@@ -51,9 +45,18 @@ export default {
       listLoading: false,
       total: 0,
       tableData: [],
-      formDialogVisible: false,
-      tmpRow: {},
-      formLabelWidth: '120px'
+      formDialogData: {
+        formDialogVisible: false,
+        dialogStatus: 'create',
+        textMap: {
+          update: '학원 수정',
+          create: '학원 추가'
+        },
+        width: '50%',
+        formLabelWidth: '120px',
+        idx: 0
+      },
+      tmpRow: {}
     }
   },
   created: function() {
@@ -61,7 +64,9 @@ export default {
   },
   methods: {
     async getAcademies(query, page) {
-      if (page) { this.listQuery.page = page }
+      if (page) {
+        this.listQuery.page = page
+      }
       this.listLoading = true
       const { data } = await getAcademies(query)
       this.tableData = this.addAditionalValue(data.list)
@@ -78,9 +83,13 @@ export default {
         return el
       })
     },
-    toggleDialog() {
-      console.log('edit clicked')
-      this.formDialogVisible = !this.formDialogVisible
+    toggleDialog(mode, idx) {
+      this.formDialogData = {
+        ...this.formDialogData,
+        formDialogVisible: !this.formDialogData.formDialogVisible,
+        dialogStatus: mode || 'create',
+        idx: idx
+      }
     }
   }
 }

@@ -1,26 +1,45 @@
 <template>
   <div>
     <!-- 다이얼로그 -->
-    <el-dialog title="연령 코드 추가" :visible="formDialogVisible" :before-close="handleClickClose">
-      <el-form ref="ageInertForm" :model="formData" :rules="rules">
-        <el-form-item label="나이" :label-width="formLabelWidth" prop="age">
-          <el-input v-model.number="formData.age" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="분류코드" :label-width="formLabelWidth" prop="gbn">
-          <el-select
-            v-model="formData.gbn"
-            placeholder="분류코드/코드명"
-            clearable
-            style="width: 180px"
-            class="filter-item"
-          >
-            <el-option v-for="item in codeTypesOptions" :key="item.value" :label="item.label" :value="item.value" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="명칭" :label-width="formLabelWidth" prop="ageName">
-          <el-input v-model="formData.ageName" autocomplete="off" />
-        </el-form-item>
+    <el-dialog
+      :title="formDialogData.textMap[formDialogData.dialogStatus]"
+      :visible="formDialogData.formDialogVisible"
+      :before-close="handleClickClose"
+      :width="formDialogData.width"
+    >
+      <el-form
+        ref="ageInertForm"
+        :model="formData"
+        :rules="rules"
+        :label-position="formDialogData.labelPosition"
+      >
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="공식이름" prop="age">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="한글 이름" prop="age">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="주소(도로명)" prop="age">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="주소(지번)" prop="age">
+              <el-input v-model.number="formData.age" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
+
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
@@ -33,16 +52,25 @@ import { addCodeAge } from '@/api/insti/age-code'
 
 export default {
   props: {
-    formDialogVisible: {
-      type: Boolean,
-      default: false
-    },
-    formLabelWidth: {
-      type: String,
-      default: '120px'
+    formDialogData: {
+      type: Object,
+      default: function() {
+        return {
+          dialogStatus: 'create',
+          formDialogVisible: false,
+          textMap: {
+            update: '수정',
+            create: '추가'
+          },
+          width: '70%',
+          formLabelWidth: '120px',
+          labelPosition: 'top',
+          idx: 0
+        }
+      }
     }
   },
-  data: function() {
+  data() {
     return {
       formData: {
         age: '',
@@ -55,18 +83,26 @@ export default {
         { label: '공식명칭(O)', value: 'O' }
       ],
       rules: {
-        gbn: [{ required: true, message: '분류코드를 선택해 주세요.', trigger: 'blur' }],
+        gbn: [
+          {
+            required: true,
+            message: '분류코드를 선택해 주세요.',
+            trigger: 'blur'
+          }
+        ],
         age: [
           { required: true, message: '나이를 기입해주세요.' },
           { type: 'number', message: '나이는 숫자여야만 합니다.' }
         ],
-        ageName: [{ required: true, message: '명칭을 적어주세요.', trigger: 'blur' }]
+        ageName: [
+          { required: true, message: '명칭을 적어주세요.', trigger: 'blur' }
+        ]
       }
     }
   },
   methods: {
     handleClickConfirm() {
-      this.$refs['ageInertForm'].validate((valid) => {
+      this.$refs['ageInertForm'].validate(valid => {
         if (valid) {
           addCodeAge(this.formData).then(() => {
             this.$message({
@@ -93,5 +129,4 @@ export default {
 }
 </script>
 <style>
-
 </style>
