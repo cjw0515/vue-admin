@@ -56,7 +56,7 @@
 <script>
 import { updateCodeAge } from '@/api/insti/age-code'
 // import { parseTime } from '@/utils/index'
-import Pagination from '@/components/Pagination' // secondary package based on el-pagination
+import Pagination from '@/components/Pagination'
 
 export default {
   components: { Pagination },
