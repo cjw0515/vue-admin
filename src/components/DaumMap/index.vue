@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import loadScriptOnce from "load-script-once";
+import loadScriptOnce from 'load-script-once'
 const MapTypeId = {
   ROADMAP: 1,
   NORMAL: 1,
@@ -16,25 +16,25 @@ const MapTypeId = {
   BICYCLE: 8,
   BICYCLE_HYBRID: 9,
   USE_DISTRICT: 10
-};
+}
 const EVENTS = [
-  "center_changed",
-  "zoom_start",
-  "zoom_changed",
-  "bounds_changed",
-  "click",
-  "dblclick",
-  "rightclick",
-  "mousemove",
-  "dragstart",
-  "drag",
-  "dragend",
-  "idle",
-  "tilesloaded",
-  "maptypeid_changed"
-];
+  'center_changed',
+  'zoom_start',
+  'zoom_changed',
+  'bounds_changed',
+  'click',
+  'dblclick',
+  'rightclick',
+  'mousemove',
+  'dragstart',
+  'drag',
+  'dragend',
+  'idle',
+  'tilesloaded',
+  'maptypeid_changed'
+]
 export default {
-  name: "VueDaumMap",
+  name: 'VueDaumMap',
   props: {
     appKey: {
       type: String,
@@ -92,18 +92,18 @@ export default {
   watch: {
     level() {
       if (!this.map) {
-        return;
+        return
       }
-      this.map.setLevel(this.level);
+      this.map.setLevel(this.level)
     },
     center: {
       handler() {
         if (!this.map) {
-          return;
+          return
         }
         this.map.setCenter(
           new daum.maps.LatLng(this.center.lat, this.center.lng)
-        );
+        )
       },
       deep: true
     }
@@ -112,18 +112,18 @@ export default {
     loadScriptOnce(
       `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
         this.appKey
-      }&libraries=${this.libraries.join(",")}`
+      }&libraries=${this.libraries.join(',')}`
     )
       .then(() => {
         daum.maps.load(() => {
-          this.render();
-          this.bindEvents();
-          this.$emit("load", this.map, this.marker);
-        });
+          this.render()
+          this.bindEvents()
+          this.$emit('load', this.map, this.marker)
+        })
       })
       .catch(err => {
-        console.error(err);
-      });
+        console.error(err)
+      })
   },
   methods: {
     render() {
@@ -139,43 +139,43 @@ export default {
         projectionId: this.projectionId,
         tileAnimation: this.tileAnimation,
         keyboardShortcuts: this.keyboardShortcuts
-      };
-      this.map = new daum.maps.Map(this.$el, options); // 지도 생성 및 객체 리턴
+      }
+      this.map = new daum.maps.Map(this.$el, options) // 지도 생성 및 객체 리턴
       this.marker = new kakao.maps.Marker({
         position: this.map.getCenter()
-      });
-      this.marker.setMap(this.map);
+      })
+      this.marker.setMap(this.map)
     },
     bindEvents() {
       const handlers = {
         bounds_changed: this.onChange,
         idle: this.onChange
-      };
+      }
       for (const event of EVENTS) {
-        this.bindEvent(event, handlers[event]);
+        this.bindEvent(event, handlers[event])
       }
     },
     bindEvent(event, handler) {
-      console.log(handler);
+      console.log(handler)
       daum.maps.event.addListener(this.map, event, (...args) => {
-        this.$emit(event, args);
-        if (typeof handler === "function") {
-          handler();
+        this.$emit(event, args)
+        if (typeof handler === 'function') {
+          handler()
         }
-      });
+      })
     },
     onChange() {
-      const level = this.map.getLevel();
-      const latlng = this.map.getCenter();
-      this.$emit("update:level", level);
-      this.$emit("update:center", {
+      const level = this.map.getLevel()
+      const latlng = this.map.getCenter()
+      this.$emit('update:level', level)
+      this.$emit('update:center', {
         lat: latlng.getLat(),
         lng: latlng.getLng()
-      });
+      })
     }
   },
   MapTypeId: MapTypeId
-};
+}
 </script>
 
 <style scoped>
