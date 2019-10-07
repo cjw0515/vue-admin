@@ -114,7 +114,6 @@
               </el-container>
             </el-container>
           </el-col>
-
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -125,8 +124,8 @@
   </div>
 </template>
 <script>
-import { addCodeAge } from '@/api/insti/age-code'
-import VueDaumMap from '@/components/DaumMap'
+import { addCodeAge } from "@/api/insti/age-code";
+import VueDaumMap from "@/components/DaumMap";
 
 export default {
   components: { VueDaumMap },
@@ -135,89 +134,91 @@ export default {
       type: Object,
       default: function() {
         return {
-          dialogStatus: 'create',
+          dialogStatus: "create",
           formDialogVisible: false,
           textMap: {
-            update: '수정',
-            create: '추가'
+            update: "수정",
+            create: "추가"
           },
-          width: '70%',
-          formLabelWidth: '120px',
-          labelPosition: 'top',
+          width: "70%",
+          formLabelWidth: "120px",
+          labelPosition: "top",
           idx: 0
-        }
+        };
       }
     }
   },
   data() {
     return {
       formData: {
-        age: '',
-        gbn: '',
-        ageName: ''
+        age: "",
+        gbn: "",
+        ageName: ""
       },
       codeTypesOptions: [
-        { label: '별칭(A)', value: 'A' },
-        { label: '그룹(C)', value: 'C' },
-        { label: '공식명칭(O)', value: 'O' }
+        { label: "별칭(A)", value: "A" },
+        { label: "그룹(C)", value: "C" },
+        { label: "공식명칭(O)", value: "O" }
       ],
       rules: {
         gbn: [
           {
             required: true,
-            message: '분류코드를 선택해 주세요.',
-            trigger: 'blur'
+            message: "분류코드를 선택해 주세요.",
+            trigger: "blur"
           }
         ],
         age: [
-          { required: true, message: '나이를 기입해주세요.' },
-          { type: 'number', message: '나이는 숫자여야만 합니다.' }
+          { required: true, message: "나이를 기입해주세요." },
+          { type: "number", message: "나이는 숫자여야만 합니다." }
         ],
         ageName: [
-          { required: true, message: '명칭을 적어주세요.', trigger: 'blur' }
+          { required: true, message: "명칭을 적어주세요.", trigger: "blur" }
         ]
       },
-      mapAPIKey: 'fa5bbaa22e298e97f79812b9ff7994d0', // 테스트용 appkey
+      mapAPIKey: "fa5bbaa22e298e97f79812b9ff7994d0", // 테스트용 appkey
       center: { lat: 33.450701, lng: 126.570667 }, // 지도의 중심 좌표
       level: 3, // 지도의 레벨(확대, 축소 정도),
       mapTypeId: VueDaumMap.MapTypeId.NORMAL, // 맵 타입
       libraries: [], // 추가로 불러올 라이브러리
-      map: null // 지도 객체. 지도가 로드되면 할당됨.
-    }
+      map: null, // 지도 객체. 지도가 로드되면 할당됨.
+      marker: null
+    };
   },
   mounted: function() {
-    console.log('mounted')
+    console.log("mounted");
   },
   methods: {
     handleClickConfirm() {
-      this.$refs['ageInertForm'].validate(valid => {
+      this.$refs["ageInertForm"].validate(valid => {
         if (valid) {
           addCodeAge(this.formData).then(() => {
             this.$message({
-              message: '등록되었습니다!',
-              type: 'success'
-            })
-            this.$emit('toggleDialog')
-            this.resetForm()
-          })
+              message: "등록되었습니다!",
+              type: "success"
+            });
+            this.$emit("toggleDialog");
+            this.resetForm();
+          });
         }
-      })
+      });
     },
     handleClickClose() {
-      this.$emit('toggleDialog')
+      this.$emit("toggleDialog");
     },
     resetForm() {
       this.formData = {
-        age: '',
-        gbn: '',
-        ageName: ''
-      }
+        age: "",
+        gbn: "",
+        ageName: ""
+      };
     },
-    onLoad(map) {
-      this.map = map
+    onLoad(map, marker) {
+      this.map = map;
+      this.marker = marker;
     }
   }
-}
+};
 </script>
 <style>
 .line {
@@ -230,9 +231,9 @@ export default {
   line-height: 200px;
 }
 .sub-title {
-    line-height: 24px;
-    font-size: 18px;
-    color: #1890ff;
-    font-weight: bold
+  line-height: 24px;
+  font-size: 18px;
+  color: #1890ff;
+  font-weight: bold;
 }
 </style>
