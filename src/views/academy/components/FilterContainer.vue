@@ -1,6 +1,16 @@
 <template>
   <div class="filter-container">
     <el-select
+      v-model="listQuery.chkOption"
+      placeholder="확인/미확인"
+      clearable
+      style="width: 140px"
+      class="filter-item"
+      @change="handleSearch"
+    >
+      <el-option v-for="item in options.chkOptions" :key="item.value" :label="item.label" :value="item.value" />
+    </el-select>
+    <el-select
       ref="queryTypeBox"
       v-model="listQuery.queryType"
       placeholder="검색 조건"
@@ -44,6 +54,7 @@ export default {
           perPage: 10,
           query: '',
           queryType: '',
+          chkOption: '',
           sort: '+id'
         }
       }
