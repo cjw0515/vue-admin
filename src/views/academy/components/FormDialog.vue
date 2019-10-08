@@ -8,20 +8,19 @@
       :width="formDialogData.width"
     >
       <el-form
-        ref="ageInertForm"
+        ref="academyForm"
         :model="formData"
-        :rules="rules"
         :label-position="formDialogData.labelPosition"
       >
         <el-row>
           <el-col :span="12">
-            <el-form-item label="공식이름" prop="age">
-              <el-input v-model.number="formData.age" style="padding: 5px" autocomplete="off" />
+            <el-form-item label="공식이름" prop="instiName">
+              <el-input v-model.number="formData.instiName" style="padding: 5px" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="한글 이름" prop="age">
-              <el-input v-model.number="formData.age" style="padding: 5px" autocomplete="off" />
+            <el-form-item label="한글 이름" prop="instiKname">
+              <el-input v-model.number="formData.instiKname" style="padding: 5px" autocomplete="off" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -29,60 +28,60 @@
         <el-row>
           <el-col :span="12">
             <div style="margin: 20px 0;" class="sub-title">주소(도로명)</div>
-            <el-form-item prop="age" label="주소" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="address1" label="주소" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.address1" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <div style="margin: 20px 0;" class="sub-title">주소(지번)</div>
-            <el-form-item prop="age" label="주소" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="oldAddress" label="주소" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.oldAddress" autocomplete="off" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="12">
-            <el-form-item prop="age" label="빌딩" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="building" label="빌딩" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.building" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="age" label="동" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="address3" label="동" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.address3" autocomplete="off" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="12">
-            <el-form-item prop="age" label="우편번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="zipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.zipcode" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="age" label="우편번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="oldZipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.oldZipcode" autocomplete="off" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row>
           <el-col :span="5">
-            <el-form-item prop="age" label="전화번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="itemValue" label="전화번호" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.itemValue" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="1" class="line">-</el-col>
           <el-col :span="2">
-            <el-form-item prop="age">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="itemValue">
+              <el-input v-model.number="formData.itemValue" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="1" class="line">-</el-col>
           <el-col :span="2">
-            <el-form-item prop="age">
-              <el-input v-model.number="formData.age" autocomplete="off" />
+            <el-form-item prop="itemValue">
+              <el-input v-model.number="formData.itemValue" autocomplete="off" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -92,11 +91,11 @@
             <div style="margin: 20px 0;" class="sub-title">지리정보</div>
             <el-container>
               <el-aside>
-                <el-form-item prop="age" label="위도">
-                  <el-input v-model.number="formData.age" autocomplete="off" />
+                <el-form-item prop="latitude" label="위도">
+                  <el-input v-model.number="formData.latitude" autocomplete="off" />
                 </el-form-item>
-                <el-form-item prop="age" label="경도">
-                  <el-input v-model.number="formData.age" autocomplete="off" />
+                <el-form-item prop="longitude" label="경도">
+                  <el-input v-model.number="formData.longitude" autocomplete="off" />
                 </el-form-item>
               </el-aside>
               <el-container>
@@ -109,10 +108,25 @@
                     :libraries="libraries"
                     style="width:500px;height:400px;"
                     @load="onLoad"
+                    @click="handleClickMap"
                   />
                 </el-main>
               </el-container>
             </el-container>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="5">
+            <div style="margin: 20px 0;" class="sub-title">확인여부</div>
+            <el-form-item prop="confirmYn">
+              <el-switch
+                v-model="formData.confirmYn"
+                active-value=1
+                inactive-value=0
+                active-text="확인"
+              />
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -124,7 +138,7 @@
   </div>
 </template>
 <script>
-import { addCodeAge } from '@/api/insti/age-code'
+import { getAAcademy, updateAcademy } from '@/api/insti/academy'
 import VueDaumMap from '@/components/DaumMap'
 
 export default {
@@ -134,7 +148,7 @@ export default {
       type: Object,
       default: function() {
         return {
-          dialogStatus: 'create',
+          dialogStatus: 'update',
           formDialogVisible: false,
           textMap: {
             update: '수정',
@@ -151,30 +165,40 @@ export default {
   data() {
     return {
       formData: {
-        age: '',
-        gbn: '',
-        ageName: ''
+        instiName: '',
+        instiKname: '',
+        address1: '',
+        address3: '',
+        building: '',
+        zipcode: '',
+        oldAddress: '',
+        oldZipcode: '',
+        latitude: '',
+        longitude: '',
+        updId: '',
+        confirmYn: '',
+        itemName: '',
+        itemValue: '',
       },
-      codeTypesOptions: [
-        { label: '별칭(A)', value: 'A' },
-        { label: '그룹(C)', value: 'C' },
-        { label: '공식명칭(O)', value: 'O' }
-      ],
       rules: {
-        gbn: [
-          {
-            required: true,
-            message: '분류코드를 선택해 주세요.',
-            trigger: 'blur'
-          }
-        ],
-        age: [
-          { required: true, message: '나이를 기입해주세요.' },
-          { type: 'number', message: '나이는 숫자여야만 합니다.' }
-        ],
-        ageName: [
-          { required: true, message: '명칭을 적어주세요.', trigger: 'blur' }
-        ]
+        // age: [
+        //   { required: true, message: '나이를 기입해주세요.',trigger: 'blur' },
+        //   { type: 'number', message: '나이는 숫자여야만 합니다.' }
+        // ],
+        instiName: [{required: true, message: '기입해 주세요.'}],
+        instiKname: [{required: true, message: '기입해 주세요.'}],
+        address1: [{required: true, message: '기입해 주세요.'}],
+        address3: [{required: true, message: '기입해 주세요.'}],
+        building: [{required: true, message: '기입해 주세요.'}],
+        zipcode: [{required: true, message: '기입해 주세요.'}],
+        oldAddress: [{required: true, message: '기입해 주세요.'}],
+        oldZipcode: [{required: true, message: '기입해 주세요.'}],
+        latitude: [{required: true, message: '기입해 주세요.'}],
+        longitude: [{required: true, message: '기입해 주세요.'}],
+        updId: [{required: true, message: '기입해 주세요.'}],
+        confirmYn: [{required: true, message: '기입해 주세요.'}],
+        itemName: [{required: true, message: '기입해 주세요.'}],
+        itemValue        : [{required: true, message: '기입해 주세요.'}],
       },
       mapAPIKey: 'fa5bbaa22e298e97f79812b9ff7994d0', // 테스트용 appkey
       center: { lat: 33.450701, lng: 126.570667 }, // 지도의 중심 좌표
@@ -185,37 +209,76 @@ export default {
       marker: null
     }
   },
-  mounted: function() {
-    console.log('mounted')
-  },
   methods: {
     handleClickConfirm() {
-      this.$refs['ageInertForm'].validate(valid => {
-        if (valid) {
-          addCodeAge(this.formData).then(() => {
-            this.$message({
-              message: '등록되었습니다!',
-              type: 'success'
-            })
-            this.$emit('toggleDialog')
-            this.resetForm()
-          })
-        }
-      })
+      // this.$refs['academyForm'].validate(valid => {
+      //   if (valid) {
+      //     updateAcademy(this.formData).then(() => {
+      //       this.$message({
+      //         message: '수정되었습니다!',
+      //         type: 'success'
+      //       })
+      //       this.$emit('toggleDialog')
+      //       this.resetForm()
+      //     })
+      //   }
+      // })
     },
     handleClickClose() {
       this.$emit('toggleDialog')
     },
     resetForm() {
       this.formData = {
-        age: '',
-        gbn: '',
-        ageName: ''
+        instiName: '',
+        instiKname: '',
+        address1: '',
+        address3: '',
+        building: '',
+        zipcode: '',
+        oldAddress: '',
+        oldZipcode: '',
+        latitude: '',
+        longitude: '',
+        updId: '',
+        confirmYn: 0,
+        itemName: '',
+        itemValue: '',
       }
     },
-    onLoad(map, marker) {
-      this.map = map
-      this.marker = marker
+    onLoad(map) {
+      console.log('onload')
+      this.map = map      
+    },
+    handleClickMap(e){
+      const latlng = e[0].latLng
+      this.marker.setPosition(latlng)
+      this.formData.latitude = latlng.getLat()
+      this.formData.longitude = latlng.getLng()
+    },
+    async getAAcademy(id){
+      const { data } = await getAAcademy(id)
+
+      for(let key in this.formData){
+        this.formData[key] = data[key]
+      }
+      this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
+      this.marker = new kakao.maps.Marker({
+        position: this.map.getCenter()
+      })
+      this.marker.setMap(this.map)        
+    },
+    setCenter(centerObj){
+      this.center = centerObj
+    }
+  },
+  watch: {
+    formDialogData: {
+      handler(){
+        if(this.formDialogData.idx){
+          this.getAAcademy(this.formDialogData.idx)
+        }
+      },
+      deep: true
     }
   }
 }

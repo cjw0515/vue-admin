@@ -129,8 +129,8 @@ export default {
         row.ageName = row.originalAgeName
       }
     },
-    handleClickEdit() {
-      this.$emit('toggleDialog', 'update')
+    handleClickEdit(row) {      
+      this.$emit('toggleDialog', 'update', row.instiNumber)
     },
     getList() {
       this.$emit('getList', this.listQuery)
