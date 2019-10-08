@@ -8,11 +8,17 @@ export function getAcademies(query) {
   })
 }
 
-export function updateCodeAge(query, data) {
+export function getAAcademy(id) {
   return request({
-    url: `/codeAge/`,
+    url: `/academy/${id}`,
+    method: 'GET'
+  })
+}
+
+export function updateAcademy(id, data) {
+  return request({
+    url: `/academy/${id}`,
     method: 'PUT',
-    params: query,
     data
   })
 }
