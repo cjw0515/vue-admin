@@ -34,12 +34,17 @@ export default {
         perPage: 10,
         query: '',
         queryType: '',
+        chkOption: '',
         sort: '+id'
       },
       options: {
         queryOptions: [
           { label: '이름', value: 'instiName' },
           { label: '학원번호', value: 'instiNumber' }
+        ],
+        chkOptions: [
+          { label: '확인', value: 1 },
+          { label: '미확인', value: 0 }
         ]
       },
       listLoading: false,
