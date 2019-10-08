@@ -203,10 +203,10 @@ export const asyncRoutes = [
         meta: { title: '학원 정보' }
       },
       {
-        path: 'age-code',
-        component: () => import('@/views/age-code/index'),
-        name: 'AgeCode',
-        meta: { title: '연령 코드 관리' }
+        path: 'facility',
+        component: () => import('@/views/facility/index'),
+        name: 'Facility',
+        meta: { title: '주변 시설' }
       }
     ]
   },
