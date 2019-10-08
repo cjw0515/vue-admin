@@ -129,7 +129,7 @@ export default {
         row.ageName = row.originalAgeName
       }
     },
-    handleClickEdit(row) {      
+    handleClickEdit(row) {
       this.$emit('toggleDialog', 'update', row.instiNumber)
     },
     getList() {

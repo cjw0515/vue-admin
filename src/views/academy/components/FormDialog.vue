@@ -122,8 +122,8 @@
             <el-form-item prop="confirmYn">
               <el-switch
                 v-model="formData.confirmYn"
-                active-value=1
-                inactive-value=0
+                active-value="1"
+                inactive-value="0"
                 active-text="확인"
               />
             </el-form-item>
@@ -178,27 +178,27 @@ export default {
         updId: '',
         confirmYn: '',
         itemName: '',
-        itemValue: '',
+        itemValue: ''
       },
       rules: {
         // age: [
         //   { required: true, message: '나이를 기입해주세요.',trigger: 'blur' },
         //   { type: 'number', message: '나이는 숫자여야만 합니다.' }
         // ],
-        instiName: [{required: true, message: '기입해 주세요.'}],
-        instiKname: [{required: true, message: '기입해 주세요.'}],
-        address1: [{required: true, message: '기입해 주세요.'}],
-        address3: [{required: true, message: '기입해 주세요.'}],
-        building: [{required: true, message: '기입해 주세요.'}],
-        zipcode: [{required: true, message: '기입해 주세요.'}],
-        oldAddress: [{required: true, message: '기입해 주세요.'}],
-        oldZipcode: [{required: true, message: '기입해 주세요.'}],
-        latitude: [{required: true, message: '기입해 주세요.'}],
-        longitude: [{required: true, message: '기입해 주세요.'}],
-        updId: [{required: true, message: '기입해 주세요.'}],
-        confirmYn: [{required: true, message: '기입해 주세요.'}],
-        itemName: [{required: true, message: '기입해 주세요.'}],
-        itemValue        : [{required: true, message: '기입해 주세요.'}],
+        instiName: [{ required: true, message: '기입해 주세요.' }],
+        instiKname: [{ required: true, message: '기입해 주세요.' }],
+        address1: [{ required: true, message: '기입해 주세요.' }],
+        address3: [{ required: true, message: '기입해 주세요.' }],
+        building: [{ required: true, message: '기입해 주세요.' }],
+        zipcode: [{ required: true, message: '기입해 주세요.' }],
+        oldAddress: [{ required: true, message: '기입해 주세요.' }],
+        oldZipcode: [{ required: true, message: '기입해 주세요.' }],
+        latitude: [{ required: true, message: '기입해 주세요.' }],
+        longitude: [{ required: true, message: '기입해 주세요.' }],
+        updId: [{ required: true, message: '기입해 주세요.' }],
+        confirmYn: [{ required: true, message: '기입해 주세요.' }],
+        itemName: [{ required: true, message: '기입해 주세요.' }],
+        itemValue: [{ required: true, message: '기입해 주세요.' }]
       },
       mapAPIKey: 'fa5bbaa22e298e97f79812b9ff7994d0', // 테스트용 appkey
       center: { lat: 33.450701, lng: 126.570667 }, // 지도의 중심 좌표
@@ -207,6 +207,16 @@ export default {
       libraries: [], // 추가로 불러올 라이브러리
       map: null, // 지도 객체. 지도가 로드되면 할당됨.
       marker: null
+    }
+  },
+  watch: {
+    formDialogData: {
+      handler() {
+        if (this.formDialogData.idx) {
+          this.getAAcademy(this.formDialogData.idx)
+        }
+      },
+      deep: true
     }
   },
   methods: {
@@ -242,43 +252,33 @@ export default {
         updId: '',
         confirmYn: 0,
         itemName: '',
-        itemValue: '',
+        itemValue: ''
       }
     },
     onLoad(map) {
       console.log('onload')
-      this.map = map      
+      this.map = map
     },
-    handleClickMap(e){
+    handleClickMap(e) {
       const latlng = e[0].latLng
       this.marker.setPosition(latlng)
       this.formData.latitude = latlng.getLat()
       this.formData.longitude = latlng.getLng()
     },
-    async getAAcademy(id){
+    async getAAcademy(id) {
       const { data } = await getAAcademy(id)
 
-      for(let key in this.formData){
+      for (const key in this.formData) {
         this.formData[key] = data[key]
       }
       this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
       this.marker = new kakao.maps.Marker({
         position: this.map.getCenter()
       })
-      this.marker.setMap(this.map)        
+      this.marker.setMap(this.map)
     },
-    setCenter(centerObj){
+    setCenter(centerObj) {
       this.center = centerObj
-    }
-  },
-  watch: {
-    formDialogData: {
-      handler(){
-        if(this.formDialogData.idx){
-          this.getAAcademy(this.formDialogData.idx)
-        }
-      },
-      deep: true
     }
   }
 }
