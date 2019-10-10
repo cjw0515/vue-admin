@@ -86,7 +86,8 @@ export default {
     }
   },
   data: () => ({
-    map: null
+    map: null,
+    marker: null
   }),
   watch: {
     level() {
@@ -102,7 +103,7 @@ export default {
         }
         this.map.setCenter(
           new daum.maps.LatLng(this.center.lat, this.center.lng)
-        )            
+        )
       },
       deep: true
     }
@@ -117,7 +118,7 @@ export default {
         daum.maps.load(() => {
           this.render()
           this.bindEvents()
-          this.$emit('load', this.map)
+          this.$emit('load', this.map, this.marker)
         })
       })
       .catch(err => {
@@ -140,6 +141,13 @@ export default {
         keyboardShortcuts: this.keyboardShortcuts
       }
       this.map = new daum.maps.Map(this.$el, options) // 지도 생성 및 객체 리턴
+      this.marker = new kakao.maps.Marker({
+        position: this.map.getCenter()
+      })
+      this.marker.setMap(this.map)
+      // this.$nextTick(function(){
+
+      //   })
     },
     bindEvents() {
       const handlers = {

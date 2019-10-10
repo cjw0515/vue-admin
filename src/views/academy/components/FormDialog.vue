@@ -11,6 +11,7 @@
         ref="academyForm"
         :model="formData"
         :label-position="formDialogData.labelPosition"
+        :rules="rules"
       >
         <el-row>
           <el-col :span="12">
@@ -68,20 +69,20 @@
 
         <el-row>
           <el-col :span="5">
-            <el-form-item prop="itemValue" label="전화번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.itemValue" autocomplete="off" />
+            <el-form-item prop="phonNum1" label="전화번호" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model.number="formData.phonNum1" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="1" class="line">-</el-col>
           <el-col :span="2">
-            <el-form-item prop="itemValue">
-              <el-input v-model.number="formData.itemValue" autocomplete="off" />
+            <el-form-item prop="phonNum2">
+              <el-input v-model.number="formData.phonNum2" autocomplete="off" />
             </el-form-item>
           </el-col>
           <el-col :span="1" class="line">-</el-col>
           <el-col :span="2">
-            <el-form-item prop="itemValue">
-              <el-input v-model.number="formData.itemValue" autocomplete="off" />
+            <el-form-item prop="phonNum3">
+              <el-input v-model.number="formData.phonNum3" autocomplete="off" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -178,7 +179,10 @@ export default {
         updId: '',
         confirmYn: '',
         itemName: '',
-        itemValue: ''
+        itemValue: '',
+        phonNum1: 0,
+        phonNum2: 0,
+        phonNum3: 0
       },
       rules: {
         // age: [
@@ -186,17 +190,16 @@ export default {
         //   { type: 'number', message: '나이는 숫자여야만 합니다.' }
         // ],
         instiName: [{ required: true, message: '기입해 주세요.' }],
-        instiKname: [{ required: true, message: '기입해 주세요.' }],
-        address1: [{ required: true, message: '기입해 주세요.' }],
-        address3: [{ required: true, message: '기입해 주세요.' }],
-        building: [{ required: true, message: '기입해 주세요.' }],
-        zipcode: [{ required: true, message: '기입해 주세요.' }],
-        oldAddress: [{ required: true, message: '기입해 주세요.' }],
-        oldZipcode: [{ required: true, message: '기입해 주세요.' }],
+        // instiKname: [{ required: true, message: '기입해 주세요.' }],
+        // address1: [{ required: true, message: '기입해 주세요.' }],
+        // address3: [{ required: true, message: '기입해 주세요.' }],
+        // building: [{ required: true, message: '기입해 주세요.' }],
+        // zipcode: [{ required: true, message: '기입해 주세요.' }],
+        // oldAddress: [{ required: true, message: '기입해 주세요.' }],
+        // oldZipcode: [{ required: true, message: '기입해 주세요.' }],
         latitude: [{ required: true, message: '기입해 주세요.' }],
         longitude: [{ required: true, message: '기입해 주세요.' }],
-        updId: [{ required: true, message: '기입해 주세요.' }],
-        confirmYn: [{ required: true, message: '기입해 주세요.' }],
+        // confirmYn: [{ required: true, message: '기입해 주세요.' }],
         itemName: [{ required: true, message: '기입해 주세요.' }],
         itemValue: [{ required: true, message: '기입해 주세요.' }]
       },
@@ -255,9 +258,9 @@ export default {
         itemValue: ''
       }
     },
-    onLoad(map) {
-      console.log('onload')
+    onLoad(map, marker) {
       this.map = map
+      this.marker = marker
     },
     handleClickMap(e) {
       const latlng = e[0].latLng
@@ -272,13 +275,13 @@ export default {
         this.formData[key] = data[key]
       }
       this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
-      this.marker = new kakao.maps.Marker({
-        position: this.map.getCenter()
-      })
-      this.marker.setMap(this.map)
+      this.marker.setPosition(new kakao.maps.LatLng(this.formData.latitude, this.formData.longitude))
     },
     setCenter(centerObj) {
       this.center = centerObj
+    },
+    parsedPhoneNumber(idx) {
+      return
     }
   }
 }
