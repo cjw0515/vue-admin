@@ -1,11 +1,4 @@
 import { asyncRoutes, constantRoutes } from '@/router'
-import {
-  getRoutes,
-  getRoles,
-  addRole,
-  deleteRole,
-  updateRole
-} from '@/api/admin/role'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -63,39 +56,9 @@ const actions = {
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
-      // ===============테스트 ===================
-      getRoutes().then(res => {
-        console.log('test')
-        const data = res.data
-        const asyncRoutes2 = []
-
-        data.forEach(element => {
-          const tmpRoute = {
-            path: element.path,
-            component: () => import(`@${element.component}`),
-            redirect: element.redirect,
-            name: element.name,
-            children: [
-              {
-                path: 'index',
-                component: () => import('@/views/todolist/index'),
-                name: 'Todolist',
-                meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
-              }
-            ]
-          }
-          asyncRoutes2.push(tmpRoute)
-          console.log(element.path)
-        })
-        accessedRoutes = asyncRoutes2
-        commit('SET_ROUTES', accessedRoutes)
-        console.log(accessedRoutes)
-        resolve(accessedRoutes)
-      })
-      // ===============테스트 ===================
-      // commit('SET_ROUTES', accessedRoutes)
-      // console.log(accessedRoutes)
-      // resolve(accessedRoutes)
+      commit('SET_ROUTES', accessedRoutes)
+      console.log(accessedRoutes)
+      resolve(accessedRoutes)
     })
   }
 }
