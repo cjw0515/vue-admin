@@ -6,6 +6,7 @@ import {
   deleteRole,
   updateRole
 } from '@/api/admin/role'
+import { getAdminMenus } from '@/api/admin/admin-menu'
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -64,6 +65,7 @@ const actions = {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
       // ===============테스트 ===================
+      console.log(getAdminMenus().then(res => { console.log(res) }))
       getRoutes().then(res => {
         console.log('test')
         const data = res.data
