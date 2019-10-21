@@ -1,4 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
+import { switchBooleanVal } from '@/utils/'
 import {
   getRoutes,
   getRoles,
@@ -72,15 +73,17 @@ const actions = {
         const asyncRoutes2 = []
 
         data.forEach(element => {
+          // const tmpModulePath = `@/views/todolist/index`
+          const tmpModulePath = `index`
           const tmpRoute = {
             path: element.path,
-            component: () => import(`@${element.component}`),
+            component: () => import(`../../layout`),
             redirect: element.redirect,
             name: element.name,
             children: [
               {
                 path: 'index',
-                component: () => import('@/views/todolist/index'),
+                component: () => import(`../../views/todolist/${tmpModulePath}`),
                 name: 'Todolist',
                 meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
               }
