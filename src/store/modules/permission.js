@@ -10,6 +10,15 @@ import {
 import { getAdminMenus } from '@/api/admin/admin-menu'
 
 /**
+ * 라우트 객체 생성
+ * @param routes
+ */
+function createRoutes(routes) {
+  console.log('here')
+  console.log(routes)
+}
+
+/**
  * Use meta.role to determine if the current user has permission
  * @param roles
  * @param route
@@ -66,41 +75,43 @@ const actions = {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
       // ===============테스트 ===================
-      console.log(getAdminMenus().then(res => { console.log(res) }))
-      getRoutes().then(res => {
-        console.log('test')
-        const data = res.data
-        const asyncRoutes2 = []
+      console.log(getAdminMenus().then(({ data }) => {         
+         const routesObjs = createRoutes(data)
+        }))
+      // getRoutes().then(res => {
+      //   console.log('test')
+      //   const data = res.data
+      //   const asyncRoutes2 = []
 
-        data.forEach(element => {
-          // const tmpModulePath = `@/views/todolist/index`
-          const tmpModulePath = `index`
-          const tmpRoute = {
-            path: element.path,
-            component: () => import(`../../layout`),
-            redirect: element.redirect,
-            name: element.name,
-            children: [
-              {
-                path: 'index',
-                component: () => import(`../../views/todolist/${tmpModulePath}`),
-                name: 'Todolist',
-                meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
-              }
-            ]
-          }
-          asyncRoutes2.push(tmpRoute)
-          console.log(element.path)
-        })
-        accessedRoutes = asyncRoutes2
-        commit('SET_ROUTES', accessedRoutes)
-        console.log(accessedRoutes)
-        resolve(accessedRoutes)
-      })
+      //   data.forEach(element => {
+      //     // const tmpModulePath = `@/views/todolist/index`
+      //     const tmpModulePath = `index`
+      //     const tmpRoute = {
+      //       path: element.path,
+      //       component: () => import(`../../layout`),
+      //       redirect: element.redirect,
+      //       name: element.name,
+      //       children: [
+      //         {
+      //           path: 'index',
+      //           component: () => import(`../../views/todolist/${tmpModulePath}`),
+      //           name: 'Todolist',
+      //           meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
+      //         }
+      //       ]
+      //     }
+      //     asyncRoutes2.push(tmpRoute)
+      //     console.log(element.path)
+      //   })
+      //   accessedRoutes = asyncRoutes2
+      //   commit('SET_ROUTES', accessedRoutes)
+      //   console.log(accessedRoutes)
+      //   resolve(accessedRoutes)
+      // })
       // ===============테스트 ===================
-      // commit('SET_ROUTES', accessedRoutes)
-      // console.log(accessedRoutes)
-      // resolve(accessedRoutes)
+      commit('SET_ROUTES', accessedRoutes)
+      console.log(accessedRoutes)
+      resolve(accessedRoutes)
     })
   }
 }
