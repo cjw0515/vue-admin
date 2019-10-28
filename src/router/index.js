@@ -118,13 +118,14 @@ export const asyncRoutes = [
       {
         path: 'index',
         component: () => import('@/views/todolist/index'),
-        name: 'Todolist',
+        name: 'List',
         meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
       }
     ]
   },
   {
     path: '/icon',
+    name: 'Icon',
     component: Layout,
     children: [
       {
@@ -151,6 +152,31 @@ export const asyncRoutes = [
         component: () => import('@/views/master-code/index'),
         name: 'MasterCode',
         meta: { title: '마스터 코드 관리' }
+      },
+      {
+        path: 'age-code',
+        component: () => import('@/views/age-code/index'),
+        name: 'AgeCode',
+        meta: { title: '연령 코드 관리' }
+      }
+    ]
+  },
+  {
+    path: '/admin-menu',
+    component: Layout,
+    redirect: 'noRedirect',
+    name: 'AdminMenu',
+    meta: {
+      title: '메뉴관리',
+      icon: 'user',
+      roles: ['admin']
+    },
+    children: [
+      {
+        path: 'menu',
+        component: () => import('@/views/master-code/index'),
+        name: 'Menu',
+        meta: { title: '메뉴관리' }
       },
       {
         path: 'age-code',
