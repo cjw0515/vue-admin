@@ -174,7 +174,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'menu',
-        component: () => import('@/views/master-code/index'),
+        component: () => import('@/views/admin-menu/index'),
         name: 'Menu',
         meta: { title: '메뉴관리' }
       },
