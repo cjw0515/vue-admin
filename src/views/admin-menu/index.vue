@@ -32,6 +32,7 @@ export default {
   },
   created: function() {
     this.getMasterCodes(0, 1)
+    this.getAdminMenus()
   },
   methods: {
     handleFilter() {
@@ -39,6 +40,10 @@ export default {
     },
     async getMasterCodes(parent_code, depth) {
       const data = await getMasterCodes(parent_code, depth)
+      // this.tableData = this.addAditionalValue(data);
+    },
+    async getAdminMenus() {
+      const { data } = await getAdminMenus()
       this.tableData = this.addAditionalValue(data)
     },
     addAditionalValue(arr) {

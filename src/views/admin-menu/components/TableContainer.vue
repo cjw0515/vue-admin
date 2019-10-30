@@ -3,41 +3,10 @@
     <el-table
       :data="tableData"
       :row-class-name="tableRowClassName"
-      row-key="codeNo"
-      lazy
-      :load="load"
-      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+      row-key="id"
       style="width: 100%"
     >
-      <el-table-column label="코드명" width="250" prop="codeName" />
-      <el-table-column label="코드" width="220">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.codeNo }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="등록일" width="220">
-        <template slot-scope="scope">
-          <i class="el-icon-time" />
-          <span style="margin-left: 10px">{{ dispTime(scope.row.regDate) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="사용여부" width="220">
-        <template slot-scope="scope">
-          <el-switch
-            v-model.lazy="scope.row.status"
-            active-value="1"
-            inactive-value="0"
-            active-text="사용"
-            inactive-text="사용 안함"
-            @change="handleEdit(scope.row)"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column label="Operations">
-        <template slot-scope="{row}">
-          <el-button type="primary" size="mini" @click="handleUpdateName(row)">Edit</el-button>
-        </template>
-      </el-table-column>
+      <el-table-column label="메뉴명" width="250" prop="name" />
     </el-table>
 
     <!-- 다이얼로그 -->
