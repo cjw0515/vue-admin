@@ -1,17 +1,12 @@
 <template>
   <div class="app-container">
     <FilterContainer />
-    <TableContainer
-      v-if="tableData.length > 0"
-      :table-data="tableData"
-      @addValue="addAditionalValue"
-    />
+    <TableContainer v-if="tableData.length > 0" :table-data="tableData" />
   </div>
 </template>
 <script>
 import FilterContainer from './components/FilterContainer'
 import TableContainer from './components/TableContainer'
-import { getMasterCodes } from '@/api/insti/master-code'
 import { getAdminMenus } from '@/api/admin/admin-menu'
 
 export default {
@@ -31,29 +26,15 @@ export default {
     }
   },
   created: function() {
-    this.getMasterCodes(0, 1)
     this.getAdminMenus()
   },
   methods: {
     handleFilter() {
       this.listQuery.page = 1
     },
-    async getMasterCodes(parent_code, depth) {
-      const data = await getMasterCodes(parent_code, depth)
-      // this.tableData = this.addAditionalValue(data);
-    },
     async getAdminMenus() {
       const { data } = await getAdminMenus()
-      this.tableData = this.addAditionalValue(data)
-    },
-    addAditionalValue(arr) {
-      if (arr.length <= 0) return []
-      return arr.map(el => {
-        return {
-          ...el,
-          hasChildren: el.childCnt > 0
-        }
-      })
+      this.tableData = data
     }
   }
 }

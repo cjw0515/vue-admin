@@ -1,12 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
 import { switchBooleanVal } from '@/utils/'
-import {
-  getRoutes,
-  getRoles,
-  addRole,
-  deleteRole,
-  updateRole
-} from '@/api/admin/role'
 import { getAdminMenus } from '@/api/admin/admin-menu'
 
 /**
@@ -14,19 +7,30 @@ import { getAdminMenus } from '@/api/admin/admin-menu'
  * @param routes
  */
 function createRoutes(routes, accessedRoutes) {
-  let resRoutes = []
+  const resRoutes = []
   let tmpObj = {}
   routes.forEach(route => {
     accessedRoutes.forEach(accRoute => {
-      if(route.name === accRoute.name && route.status == 1){
-        tmpObj = accRoute
+      if (route.name === accRoute.name && route.status == 1) {
+        tmpObj = {
+          ...accRoute,
+          component: accRoute.component,
+          path: route.path,
+          name: route.name,
+          meta: {
+            title: route.title,
+            icon: route.title,
+            roles: route.title
+          }
+        }
+
         resRoutes.push(tmpObj)
-        if(route.children && accRoute.children){
+        if (route.children && accRoute.children) {
           tmpObj['children'] = createRoutes(route.children, accRoute.children)
         }
       }
     })
-  });
+  })
 
   return resRoutes
 }
@@ -87,11 +91,10 @@ const actions = {
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
-      // ===============테스트 ===================
       getAdminMenus().then(({ data }) => {
-         const routesObjs = createRoutes(data, accessedRoutes)
-         commit('SET_ROUTES', routesObjs)
-         resolve(routesObjs)
+        const routesObjs = createRoutes(data, accessedRoutes)
+        commit('SET_ROUTES', routesObjs)
+        resolve(routesObjs)
       })
       // commit('SET_ROUTES', accessedRoutes)
       // console.log(accessedRoutes)

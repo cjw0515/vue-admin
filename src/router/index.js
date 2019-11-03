@@ -162,9 +162,7 @@ export const asyncRoutes = [
     ]
   },
   {
-    path: '/admin-menu',
     component: Layout,
-    redirect: 'noRedirect',
     name: 'AdminMenu',
     meta: {
       title: '메뉴관리',
