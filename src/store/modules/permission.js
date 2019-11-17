@@ -1,5 +1,4 @@
 import { asyncRoutes, constantRoutes } from '@/router'
-import { switchBooleanVal } from '@/utils/'
 import { getAdminMenus } from '@/api/admin/admin-menu'
 
 /**
@@ -11,17 +10,12 @@ function createRoutes(routes, accessedRoutes) {
   let tmpObj = {}
   routes.forEach(route => {
     accessedRoutes.forEach(accRoute => {
-      if (route.name === accRoute.name && route.status == 1) {
+      if (route.name === accRoute.name && route.status) {
         tmpObj = {
           ...accRoute,
-          component: accRoute.component,
           path: route.path,
           name: route.name,
-          meta: {
-            title: route.title,
-            icon: route.title,
-            roles: route.title
-          }
+          meta: route.meta
         }
 
         resRoutes.push(tmpObj)
@@ -92,8 +86,10 @@ const actions = {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
       getAdminMenus().then(({ data }) => {
+        console.log(data)
         const routesObjs = createRoutes(data, accessedRoutes)
         commit('SET_ROUTES', routesObjs)
+        console.log(routesObjs)
         resolve(routesObjs)
       })
       // commit('SET_ROUTES', accessedRoutes)

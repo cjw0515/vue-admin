@@ -165,22 +165,13 @@ export const asyncRoutes = [
     component: Layout,
     name: 'AdminMenu',
     meta: {
-      title: '메뉴관리',
-      icon: 'user',
-      roles: ['admin']
+      icon: 'user'
     },
     children: [
       {
-        path: 'menu',
         component: () => import('@/views/admin-menu/index'),
         name: 'Menu',
         meta: { title: '메뉴관리' }
-      },
-      {
-        path: 'age-code',
-        component: () => import('@/views/age-code/index'),
-        name: 'AgeCode',
-        meta: { title: '연령 코드 관리' }
       }
     ]
   },
