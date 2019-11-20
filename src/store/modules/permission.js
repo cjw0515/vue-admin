@@ -85,16 +85,13 @@ const actions = {
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
-      getAdminMenus().then(({ data }) => {
-        console.log(data)
-        const routesObjs = createRoutes(data, accessedRoutes)
-        commit('SET_ROUTES', routesObjs)
-        console.log(routesObjs)
-        resolve(routesObjs)
-      })
-      // commit('SET_ROUTES', accessedRoutes)
-      // console.log(accessedRoutes)
-      // resolve(accessedRoutes)
+      // getAdminMenus().then(({ data }) => {
+      //   const routesObjs = createRoutes(data, accessedRoutes)
+      //   commit('SET_ROUTES', routesObjs)
+      //   resolve(routesObjs)
+      // })
+      commit('SET_ROUTES', accessedRoutes)
+      resolve(accessedRoutes)
     })
   }
 }

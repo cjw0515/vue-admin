@@ -109,33 +109,63 @@ export const asyncRoutes = [
   // chartsRouter,
   // nestedRouter,
   tableRouter,
+  // {
+  //   path: '/todolist',
+  //   component: Layout,
+  //   redirect: '/todolist/index',
+  //   name: 'TodoList',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/todolist/index'),
+  //       name: 'List',
+  //       meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/icon',
+  //   name: 'Icon',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/icons/index'),
+  //       name: 'Icons',
+  //       meta: { title: 'Icons', icon: 'icon', noCache: true }
+  //     }
+  //   ]
+  // },
+  // {
+  //   component: Layout,
+  //   name: 'AdminMenu',
+  //   meta: {
+  //     icon: 'user'
+  //   },
+  //   children: [
+  //     {
+  //       component: () => import('@/views/admin-menu/index'),
+  //       name: 'Menu',
+  //       meta: { title: '메뉴관리' }
+  //     }
+  //   ]
+  // },
   {
-    path: '/todolist',
     component: Layout,
-    redirect: '/todolist/index',
-    name: 'TodoList',
+    name: 'AdminMenu',
+    path: '/admin-menu',
+    meta: {
+      icon: 'user'
+    },
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/todolist/index'),
-        name: 'List',
-        meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
+        component: () => import('@/views/admin-menu/index'),
+        name: 'Menu',
+        path: '/menu',
+        meta: { title: '메뉴관리' }        
       }
     ]
-  },
-  {
-    path: '/icon',
-    name: 'Icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index'),
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
-      }
-    ]
-  },
+  },  
   {
     path: '/code',
     component: Layout,
@@ -158,20 +188,6 @@ export const asyncRoutes = [
         component: () => import('@/views/age-code/index'),
         name: 'AgeCode',
         meta: { title: '연령 코드 관리' }
-      }
-    ]
-  },
-  {
-    component: Layout,
-    name: 'AdminMenu',
-    meta: {
-      icon: 'user'
-    },
-    children: [
-      {
-        component: () => import('@/views/admin-menu/index'),
-        name: 'Menu',
-        meta: { title: '메뉴관리' }
       }
     ]
   },
