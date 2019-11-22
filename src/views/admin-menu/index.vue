@@ -11,15 +11,17 @@
       v-loading="listLoading"      
       :table-data="tableData" 
     />
+    <FormDialog :form-dialog-data="formDialogData" @toggleDialog="toggleDialog" />    
   </div>
 </template>
 <script>
 import FilterContainer from './components/FilterContainer'
 import TableContainer from './components/TableContainer'
 import { getAdminMenus } from '@/api/admin/admin-menu'
+import FormDialog from './components/FormDialog'
 
 export default {
-  components: { FilterContainer, TableContainer },
+  components: { FilterContainer, TableContainer, FormDialog },
   data() {
     return {
       listQuery: {
@@ -47,8 +49,8 @@ export default {
         formDialogVisible: false,
         dialogStatus: 'create',
         textMap: {
-          update: '학원 수정',
-          create: '학원 추가'
+          update: '메뉴 수정',
+          create: '메뉴 추가'
         },
         width: '50%',
         formLabelWidth: '120px',

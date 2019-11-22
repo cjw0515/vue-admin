@@ -71,7 +71,7 @@ export default {
       this.listQuery.page = 1
     },
     handleClickAdd() {
-      // this.$emit('toggleDialog', 'create')
+      this.$emit('toggleDialog', 'create')
     }    
   }
 }
