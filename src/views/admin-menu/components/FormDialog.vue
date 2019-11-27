@@ -7,130 +7,84 @@
       :before-close="handleClickClose"
       :width="formDialogData.width"
     >
-      <el-form
-        ref="academyForm"
+      <!-- <el-form
+        ref="menuForm"
         :model="formData"
         :label-position="formDialogData.labelPosition"
         :rules="rules"
       >
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="공식이름" prop="instiName">
-              <el-input v-model.number="formData.instiName" style="padding: 5px" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="한글 이름" prop="instiKname">
-              <el-input v-model.number="formData.instiKname" style="padding: 5px" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <div style="margin: 20px 0;" class="sub-title">주소(도로명)</div>
-            <el-form-item prop="address1" label="주소" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.address1" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <div style="margin: 20px 0;" class="sub-title">주소(지번)</div>
-            <el-form-item prop="oldAddress" label="주소" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.oldAddress" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item prop="building" label="빌딩" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.building" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item prop="address3" label="동" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.address3" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item prop="zipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.zipcode" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item prop="oldZipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.oldZipcode" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="5">
-            <el-form-item prop="phonNum1" label="전화번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.phonNum1" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="1" class="line">-</el-col>
-          <el-col :span="2">
-            <el-form-item prop="phonNum2">
-              <el-input v-model.number="formData.phonNum2" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="1" class="line">-</el-col>
-          <el-col :span="2">
-            <el-form-item prop="phonNum3">
-              <el-input v-model.number="formData.phonNum3" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="24">
-            <div style="margin: 20px 0;" class="sub-title">지리정보</div>
-            <el-container>
-              <el-aside>
-                <el-form-item prop="latitude" label="위도">
-                  <el-input v-model.number="formData.latitude" autocomplete="off" />
-                </el-form-item>
-                <el-form-item prop="longitude" label="경도">
-                  <el-input v-model.number="formData.longitude" autocomplete="off" />
-                </el-form-item>
-              </el-aside>
-              <el-container>
-                <el-main>
-                  <vue-daum-map
-                    :app-key="mapAPIKey"
-                    :center.sync="center"
-                    :level.sync="level"
-                    :map-type-id="mapTypeId"
-                    :libraries="libraries"
-                    style="width:500px;height:400px;"
-                    @load="onLoad"
-                    @click="handleClickMap"
-                  />
-                </el-main>
-              </el-container>
-            </el-container>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="5">
-            <div style="margin: 20px 0;" class="sub-title">확인여부</div>
-            <el-form-item prop="confirmYn">
-              <el-switch
-                v-model="formData.confirmYn"
-                active-value="1"
-                inactive-value="0"
-                active-text="확인"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
+      </el-form> -->
+		<el-form 
+		:model="ruleForm" 
+		:rules="rules" 
+		ref="ruleForm" label-width="120px" class="demo-ruleForm">
+			<el-form-item label="최상위 여부" prop="delivery" :label-position="top">
+				<el-switch 
+				v-model="ruleForm.delivery"
+				active-text="최상위메뉴"
+				inactive-text="하위메뉴"
+				/>
+			</el-form-item>			
+			<el-form-item label="메뉴선택">
+				<el-tree
+				:data="tableData"
+				node-key="id"
+				highlight-current
+				:expand-on-click-node="false">
+					<span class="custom-tree-node" slot-scope="{ node, data }">
+						<span
+						@click="handleClickMenuNode(node, data)"
+						>{{ data.meta.title }}</span>
+					</span>
+				</el-tree>
+			</el-form-item>			
+			<el-form-item label="상위메뉴" prop="name">
+				<el-input v-model="ruleForm.name"></el-input>
+			</el-form-item>
+			<el-form-item label="Activity zone" prop="region">
+				<el-select v-model="ruleForm.region" placeholder="Activity zone">
+				<el-option label="Zone one" value="shanghai"></el-option>
+				<el-option label="Zone two" value="beijing"></el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item label="Activity time" required>
+				<el-col :span="11">
+				<el-form-item prop="date1">
+					<el-date-picker type="date" placeholder="Pick a date" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
+				</el-form-item>
+				</el-col>
+				<el-col class="line" :span="2">-</el-col>
+				<el-col :span="11">
+				<el-form-item prop="date2">
+					<el-time-picker placeholder="Pick a time" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
+				</el-form-item>
+				</el-col>
+			</el-form-item>
+			<el-form-item label="Instant delivery" prop="delivery">
+				<el-switch v-model="ruleForm.delivery"></el-switch>
+			</el-form-item>
+			<el-form-item label="Activity type" prop="type">
+				<el-checkbox-group v-model="ruleForm.type">
+				<el-checkbox label="Online activities" name="type"></el-checkbox>
+				<el-checkbox label="Promotion activities" name="type"></el-checkbox>
+				<el-checkbox label="Offline activities" name="type"></el-checkbox>
+				<el-checkbox label="Simple brand exposure" name="type"></el-checkbox>
+				</el-checkbox-group>
+			</el-form-item>
+			<el-form-item label="Resources" prop="resource">
+				<el-radio-group v-model="ruleForm.resource">
+				<el-radio label="Sponsorship"></el-radio>
+				<el-radio label="Venue"></el-radio>
+				</el-radio-group>
+			</el-form-item>
+			<el-form-item label="Activity form" prop="desc">
+				<el-input type="textarea" v-model="ruleForm.desc"></el-input>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
+				<el-button @click="resetForm('ruleForm')">Reset</el-button>
+			</el-form-item>
+		</el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
@@ -140,10 +94,8 @@
 </template>
 <script>
 import { getAAcademy, updateAcademy } from '@/api/insti/academy'
-import VueDaumMap from '@/components/DaumMap'
 
 export default {
-  components: { VueDaumMap },
   props: {
     formDialogData: {
       type: Object,
@@ -161,7 +113,11 @@ export default {
           idx: 0
         }
       }
-    }
+	},
+	tableData: {
+		type: Array,
+		default: () => []
+	}
   },
   data() {
 
@@ -181,6 +137,17 @@ export default {
   //     },
 
     return {
+		top: "top",
+        ruleForm: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
       formData: {
         instiName: '',
         instiKname: '',
@@ -219,23 +186,6 @@ export default {
         itemName: [{ required: true, message: '기입해 주세요.' }],
         itemValue: [{ required: true, message: '기입해 주세요.' }]
       },
-      mapAPIKey: 'fa5bbaa22e298e97f79812b9ff7994d0', // 테스트용 appkey
-      center: { lat: 33.450701, lng: 126.570667 }, // 지도의 중심 좌표
-      level: 3, // 지도의 레벨(확대, 축소 정도),
-      mapTypeId: VueDaumMap.MapTypeId.NORMAL, // 맵 타입
-      libraries: [], // 추가로 불러올 라이브러리
-      map: null, // 지도 객체. 지도가 로드되면 할당됨.
-      marker: null
-    }
-  },
-  watch: {
-    formDialogData: {
-      handler() {
-        if (this.formDialogData.idx) {
-          this.getAAcademy(this.formDialogData.idx)
-        }
-      },
-      deep: true
     }
   },
   methods: {
@@ -255,67 +205,13 @@ export default {
     },
     handleClickClose() {
       this.$emit('toggleDialog')
-    },
-    resetForm() {
-      this.formData = {
-        instiName: '',
-        instiKname: '',
-        address1: '',
-        address3: '',
-        building: '',
-        zipcode: '',
-        oldAddress: '',
-        oldZipcode: '',
-        latitude: '',
-        longitude: '',
-        updId: '',
-        confirmYn: 0,
-        itemName: '',
-        itemValue: ''
-      }
-    },
-    onLoad(map, marker) {
-      this.map = map
-      this.marker = marker
-    },
-    handleClickMap(e) {
-      const latlng = e[0].latLng
-      this.marker.setPosition(latlng)
-      this.formData.latitude = latlng.getLat()
-      this.formData.longitude = latlng.getLng()
-    },
-    async getAAcademy(id) {
-      const { data } = await getAAcademy(id)
-
-      for (const key in this.formData) {
-        this.formData[key] = data[key]
-      }
-      this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
-      this.marker.setPosition(new kakao.maps.LatLng(this.formData.latitude, this.formData.longitude))
-    },
-    setCenter(centerObj) {
-      this.center = centerObj
-    },
-    parsedPhoneNumber(idx) {
-      return
-    }
+	},
+	handleClickMenuNode(node, data){
+		this.ruleForm.name = data.meta.title
+		console.log(data)
+	}
   }
 }
 </script>
 <style>
-.line {
-  text-align: center;
-}
-.el-aside {
-  background-color: rgb(255, 255, 255);
-  color: #333;
-  text-align: center;
-  line-height: 200px;
-}
-.sub-title {
-  line-height: 24px;
-  font-size: 18px;
-  color: #1890ff;
-  font-weight: bold;
-}
 </style>

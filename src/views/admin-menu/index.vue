@@ -11,7 +11,10 @@
       v-loading="listLoading"      
       :table-data="tableData" 
     />
-    <FormDialog :form-dialog-data="formDialogData" @toggleDialog="toggleDialog" />    
+    <FormDialog 
+      :form-dialog-data="formDialogData" 
+      :table-data="tableData"
+      @toggleDialog="toggleDialog" />    
   </div>
 </template>
 <script>
