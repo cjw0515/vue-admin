@@ -56,7 +56,7 @@ export default {
           create: '메뉴 추가'
         },
         width: '50%',
-        formLabelWidth: '120px',
+        formLabelWidth: '150px',
         idx: 0
       },      
     }

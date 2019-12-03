@@ -6,84 +6,103 @@
       :visible="formDialogData.formDialogVisible"
       :before-close="handleClickClose"
       :width="formDialogData.width"
-    >
-      <!-- <el-form
-        ref="menuForm"
-        :model="formData"
-        :label-position="formDialogData.labelPosition"
-        :rules="rules"
-      >
-      </el-form> -->
-		<el-form 
-		:model="ruleForm" 
-		:rules="rules" 
-		ref="ruleForm" label-width="120px" class="demo-ruleForm">
-			<el-form-item label="최상위 여부" prop="delivery" :label-position="top">
-				<el-switch 
-				v-model="ruleForm.delivery"
-				active-text="최상위메뉴"
-				inactive-text="하위메뉴"
-				/>
-			</el-form-item>			
-			<el-form-item label="메뉴선택">
-				<el-tree
-				:data="tableData"
-				node-key="id"
-				highlight-current
-				:expand-on-click-node="false">
-					<span class="custom-tree-node" slot-scope="{ node, data }">
-						<span
-						@click="handleClickMenuNode(node, data)"
-						>{{ data.meta.title }}</span>
-					</span>
-				</el-tree>
-			</el-form-item>			
-			<el-form-item label="상위메뉴" prop="name">
-				<el-input v-model="ruleForm.name"></el-input>
-			</el-form-item>
-			<el-form-item label="Activity zone" prop="region">
-				<el-select v-model="ruleForm.region" placeholder="Activity zone">
-				<el-option label="Zone one" value="shanghai"></el-option>
-				<el-option label="Zone two" value="beijing"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="Activity time" required>
-				<el-col :span="11">
-				<el-form-item prop="date1">
-					<el-date-picker type="date" placeholder="Pick a date" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-				</el-form-item>
-				</el-col>
-				<el-col class="line" :span="2">-</el-col>
-				<el-col :span="11">
-				<el-form-item prop="date2">
-					<el-time-picker placeholder="Pick a time" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-				</el-form-item>
-				</el-col>
-			</el-form-item>
-			<el-form-item label="Instant delivery" prop="delivery">
-				<el-switch v-model="ruleForm.delivery"></el-switch>
-			</el-form-item>
-			<el-form-item label="Activity type" prop="type">
-				<el-checkbox-group v-model="ruleForm.type">
-				<el-checkbox label="Online activities" name="type"></el-checkbox>
-				<el-checkbox label="Promotion activities" name="type"></el-checkbox>
-				<el-checkbox label="Offline activities" name="type"></el-checkbox>
-				<el-checkbox label="Simple brand exposure" name="type"></el-checkbox>
-				</el-checkbox-group>
-			</el-form-item>
-			<el-form-item label="Resources" prop="resource">
-				<el-radio-group v-model="ruleForm.resource">
-				<el-radio label="Sponsorship"></el-radio>
-				<el-radio label="Venue"></el-radio>
-				</el-radio-group>
-			</el-form-item>
-			<el-form-item label="Activity form" prop="desc">
-				<el-input type="textarea" v-model="ruleForm.desc"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
-				<el-button @click="resetForm('ruleForm')">Reset</el-button>
-			</el-form-item>
+    >    
+		<el-form
+		:model="formData"
+		:rules="rules"
+    :label-position="labelPosition"
+    :inline="true"
+		ref="menuForm">
+
+        <el-row>
+          <el-form-item label="최상위 여부" :label-width="formDialogData.formLabelWidth">
+            <el-switch
+            v-model="isTopLevelMenu"
+            active-text="하위메뉴"
+            inactive-text="최상위메뉴"
+            />
+          </el-form-item>
+        </el-row>
+
+      <el-row v-if="isTopLevelMenu">
+        <el-form-item label="상위 메뉴 선택" :label-width="formDialogData.formLabelWidth">
+          <el-tree
+          :data="tableData"
+          node-key="id"
+          highlight-current
+          :expand-on-click-node="false">
+            <span slot-scope="{ node, data }">
+              <span
+              @click="handleClickMenuNode(node, data)"
+              >{{ data.meta.title }}</span>
+            </span>
+          </el-tree>        
+        </el-form-item>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <el-form-item prop="title" label="메뉴 명" :label-width="formDialogData.formLabelWidth">
+            <el-input v-model="formData.title" autocomplete="off" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="10">
+          <el-form-item prop="path" label="경로" :label-width="formDialogData.formLabelWidth">
+            <el-input v-model="formData.path" autocomplete="off" />
+          </el-form-item>
+        </el-col>        
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <el-form-item prop="redirect" label="리다이렉트 경로" :label-width="formDialogData.formLabelWidth">
+            <el-input v-model="formData.path" autocomplete="off" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="10">
+          <el-form-item label="캐시 여부" prop="noCache" :label-width="formDialogData.formLabelWidth">
+            <el-switch
+            v-model="formData.noCache"
+            active-text="사용"
+            inactive-text="사용안함"
+            />
+          </el-form-item>          
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <el-form-item prop="roles" label="권한" :label-width="formDialogData.formLabelWidth">
+            <el-input v-model="formData.roles" autocomplete="off" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="10">
+           <el-form-item label="히스토리fix 여부" prop="affix" :label-width="formDialogData.formLabelWidth">
+            <el-switch
+            v-model="formData.affix"
+            active-text="사용"
+            inactive-text="사용안함"
+            />
+          </el-form-item>          
+        </el-col>        
+      </el-row>
+
+      <el-row>
+        <el-col :span="10">
+          <el-form-item prop="icon" label="아이콘" :label-width="formDialogData.formLabelWidth">
+            <el-input v-model="formData.icon" autocomplete="off" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="10">
+          <el-form-item label="히스토리 사용 여부" prop="breadcrumb" :label-width="formDialogData.formLabelWidth">
+            <el-switch
+            v-model="formData.breadcrumb"
+            active-text="사용"
+            inactive-text="사용안함"
+            />
+          </el-form-item>          
+        </el-col>  
+      </el-row>
 		</el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickClose">Cancel</el-button>
@@ -109,34 +128,20 @@ export default {
           },
           width: '70%',
           formLabelWidth: '120px',
-          labelPosition: 'top',
+          labelPosition: 'left',
           idx: 0
         }
       }
-	},
-	tableData: {
-		type: Array,
-		default: () => []
-	}
+    },
+    tableData: {
+      type: Array,
+      default: () => []
+    }
   },
   data() {
-
-  //     "parentId": 0,
-  //     "name": "TodoList",
-  //     "path": "/todolist",
-  //     "redirect": false,
-  //     "regUser": "",
-  //     "status": true,
-  //     "meta": {
-  //       "roles": "admin",
-  //       "title": "todolist",
-  //       "icon": "list",
-  //       "noCache": false,
-  //       "affix": false,
-  //       "breadcrumb": false
-  //     },
-
     return {
+      labelPosition: "left",
+      isTopLevelMenu: false,
 		top: "top",
         ruleForm: {
           name: '',
@@ -149,23 +154,18 @@ export default {
           desc: ''
         },
       formData: {
-        instiName: '',
-        instiKname: '',
-        address1: '',
-        address3: '',
-        building: '',
-        zipcode: '',
-        oldAddress: '',
-        oldZipcode: '',
-        latitude: '',
-        longitude: '',
-        updId: '',
-        confirmYn: '',
-        itemName: '',
-        itemValue: '',
-        phonNum1: 0,
-        phonNum2: 0,
-        phonNum3: 0
+        parentId: 0,
+        name: "TodoList",
+        path: "/todolist",
+        redirect: false,
+        regUser: "",
+        status: true,
+        roles: "admin",
+        title: "todolist",
+        icon: "list",
+        noCache: false,
+        affix: false,
+        breadcrumb: false
       },
       rules: {
         // age: [
@@ -207,7 +207,7 @@ export default {
       this.$emit('toggleDialog')
 	},
 	handleClickMenuNode(node, data){
-		this.ruleForm.name = data.meta.title
+		this.formData.parentId = data.meta.parentId
 		console.log(data)
 	}
   }
