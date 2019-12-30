@@ -4,7 +4,7 @@ export function login(data) {
   console.log('api/login')
   const rest = request({
     url: '/auth/login',
-    method: 'post',
+    method: 'POST',
     data
     // baseURL: process.env.VUE_APP_BASE_AUTH_API
   })
@@ -14,6 +14,6 @@ export function login(data) {
 export function logout() {
   return request({
     url: '/auth/logout',
-    method: 'post'
+    method: 'POST'
   })
 }

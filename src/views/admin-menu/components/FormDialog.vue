@@ -41,14 +41,18 @@
       </el-row>
 
       <el-row>
-        <el-col :span="10">
+        <el-col :span="10">          
           <el-form-item prop="title" label="메뉴 명" :label-width="formDialogData.formLabelWidth">
-            <el-input v-model="formData.title" autocomplete="off" />
+            <el-tooltip content="프론트에 노출되는 메뉴 이름입니다." placement="top">
+              <el-input v-model="formData.title" autocomplete="off" />
+            </el-tooltip>
           </el-form-item>
         </el-col>
         <el-col :span="10">
           <el-form-item prop="path" label="경로" :label-width="formDialogData.formLabelWidth">
-            <el-input v-model="formData.path" autocomplete="off" />
+            <el-tooltip content="메뉴의 경로입니다." placement="top">
+              <el-input v-model="formData.path" autocomplete="off" />
+            </el-tooltip>
           </el-form-item>
         </el-col>        
       </el-row>
@@ -56,16 +60,20 @@
       <el-row>
         <el-col :span="10">
           <el-form-item prop="redirect" label="리다이렉트 경로" :label-width="formDialogData.formLabelWidth">
-            <el-input v-model="formData.path" autocomplete="off" />
+            <el-tooltip content="히스토리 태그에서 클릭 시 리다이렉트 되는 경로입니다." placement="top">
+              <el-input v-model="formData.redirect" autocomplete="off" />
+            </el-tooltip>
           </el-form-item>
         </el-col>
         <el-col :span="10">
           <el-form-item label="캐시 여부" prop="noCache" :label-width="formDialogData.formLabelWidth">
-            <el-switch
-            v-model="formData.noCache"
-            active-text="사용"
-            inactive-text="사용안함"
-            />
+            <el-tooltip content="사용 시, 페이지가 캐싱되지 않습니다." placement="right">
+              <el-switch
+              v-model="formData.noCache"
+              active-text="사용"
+              inactive-text="사용안함"
+              />
+            </el-tooltip> 
           </el-form-item>          
         </el-col>
       </el-row>
@@ -78,11 +86,13 @@
         </el-col>
         <el-col :span="10">
            <el-form-item label="히스토리fix 여부" prop="affix" :label-width="formDialogData.formLabelWidth">
-            <el-switch
-            v-model="formData.affix"
-            active-text="사용"
-            inactive-text="사용안함"
-            />
+             <el-tooltip content="사용 시 히스토리 태그에 고정됩니다." placement="right">
+              <el-switch
+              v-model="formData.affix"
+              active-text="사용"
+              inactive-text="사용안함"
+              />
+             </el-tooltip> 
           </el-form-item>          
         </el-col>        
       </el-row>
@@ -94,13 +104,15 @@
           </el-form-item>
         </el-col>
         <el-col :span="10">
-          <el-form-item label="히스토리 사용 여부" prop="breadcrumb" :label-width="formDialogData.formLabelWidth">
-            <el-switch
-            v-model="formData.breadcrumb"
-            active-text="사용"
-            inactive-text="사용안함"
-            />
-          </el-form-item>          
+          <el-tooltip content="사용 안함으로 설정 시 히스토리 태그에서 보이지 않습니다." placement="right">
+            <el-form-item label="히스토리 사용 여부" prop="breadcrumb" :label-width="formDialogData.formLabelWidth">
+              <el-switch
+              v-model="formData.breadcrumb"
+              active-text="사용"
+              inactive-text="사용안함"
+              />
+            </el-form-item>          
+          </el-tooltip>
         </el-col>  
       </el-row>
 		</el-form>
@@ -112,7 +124,8 @@
   </div>
 </template>
 <script>
-import { getAAcademy, updateAcademy } from '@/api/insti/academy'
+import { getAmenu, addMenu } from '@/api/admin/admin-menu'
+import store from '@/store/'
 
 export default {
   props: {
@@ -142,74 +155,55 @@ export default {
     return {
       labelPosition: "left",
       isTopLevelMenu: false,
-		top: "top",
-        ruleForm: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
-        },
+		  top: "top",        
       formData: {
         parentId: 0,
-        name: "TodoList",
-        path: "/todolist",
-        redirect: false,
-        regUser: "",
+        name: "",
+        path: "",
+        redirect: "",
+        regUser: store.getters.name,
         status: true,
-        roles: "admin",
-        title: "todolist",
-        icon: "list",
+        roles: "",
+        title: "",
+        icon: "",
         noCache: false,
         affix: false,
         breadcrumb: false
       },
       rules: {
-        // age: [
-        //   { required: true, message: '나이를 기입해주세요.',trigger: 'blur' },
-        //   { type: 'number', message: '나이는 숫자여야만 합니다.' }
-        // ],
-        instiName: [{ required: true, message: '기입해 주세요.' }],
-        // instiKname: [{ required: true, message: '기입해 주세요.' }],
-        // address1: [{ required: true, message: '기입해 주세요.' }],
-        // address3: [{ required: true, message: '기입해 주세요.' }],
-        // building: [{ required: true, message: '기입해 주세요.' }],
-        // zipcode: [{ required: true, message: '기입해 주세요.' }],
-        // oldAddress: [{ required: true, message: '기입해 주세요.' }],
-        // oldZipcode: [{ required: true, message: '기입해 주세요.' }],
-        latitude: [{ required: true, message: '기입해 주세요.' }],
-        longitude: [{ required: true, message: '기입해 주세요.' }],
-        // confirmYn: [{ required: true, message: '기입해 주세요.' }],
-        itemName: [{ required: true, message: '기입해 주세요.' }],
-        itemValue: [{ required: true, message: '기입해 주세요.' }]
+        parentId: 0,
+        name: [{ required: true, message: '필수 항목입니다.' }],
+        path: [{ required: true, message: '필수 항목입니다.' }],
+        status: true,
+        roles: [{ required: true, message: '필수 항목입니다.' }],
+        title: [{ required: true, message: '필수 항목입니다.' }],
       },
     }
   },
   methods: {
     handleClickConfirm() {
-      // this.$refs['academyForm'].validate(valid => {
-      //   if (valid) {
-      //     updateAcademy(this.formData).then(() => {
-      //       this.$message({
-      //         message: '수정되었습니다!',
-      //         type: 'success'
-      //       })
-      //       this.$emit('toggleDialog')
-      //       this.resetForm()
-      //     })
-      //   }
-      // })
+      this.$refs['menuForm'].validate(valid => {
+        if (valid) {
+          addMenu(this.formData).then(() => {
+            this.$message({
+              message: this.formDialogData.dialogStatus == 'create' ? '메뉴가 추가되었습니다!' : '메뉴가 수정되었습니다!',
+              type: 'success'
+            })
+            this.$emit('toggleDialog')            
+          })
+        }
+      })
     },
     handleClickClose() {
       this.$emit('toggleDialog')
 	},
-	handleClickMenuNode(node, data){
-		this.formData.parentId = data.meta.parentId
-		console.log(data)
-	}
+    handleClickMenuNode(node, data){
+      this.formData.parentId = data.parentId
+      console.log(data.parentId)
+    }
+  },
+  mounted: function(){
+    console.log(store.getters.name)
   }
 }
 </script>
