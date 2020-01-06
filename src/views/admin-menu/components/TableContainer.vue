@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-table
-      :data="tableData"
+      :data="filterMenu(tableData)"
       :row-class-name="tableRowClassName"
       row-key="id"
       style="width: 100%"
@@ -21,36 +21,24 @@
         </template>
       </el-table-column>  
       <el-table-column label="최종 수정자" width="250" prop="lastModUser" />
-      <el-table-column label="사용여부" width="220">
+      <el-table-column label="노출여부" width="220" fixed="right">
         <template slot-scope="scope">
           <el-switch
-            v-model.lazy="scope.row.status"
-            active-text="사용"
-            inactive-text="사용 안함"
+            v-model.lazy="scope.row.hidden"
+            inactive-text="노출"
+            active-text="숨김"
             @change="handleEdit(scope.row)"
           />
         </template>
       </el-table-column>
     </el-table>
-
-    <!-- 다이얼로그 -->
-    <el-dialog title="코드 수정" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="코드" :label-width="formLabelWidth">{{ form.codeNo }}</el-form-item>
-        <el-form-item label="코드 명" :label-width="formLabelWidth">
-          <el-input v-model="form.codeName" autocomplete="off" />
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 <script>
-import { getMasterCodes, updateMasterCode } from '@/api/insti/master-code'
+import { updateMenu } from '@/api/admin/admin-menu'
 import { parseTime } from '@/utils/index'
+import router from '@/router'
+import store from '@/store'
 
 export default {
   props: {
@@ -59,6 +47,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    listQuery: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -72,59 +64,45 @@ export default {
       formLabelWidth: '120px'
     }
   },
-  mounted: function() {},
+  mounted: function() {
+    // console.log(this.tableData)
+  },
   methods: {
     async handleEdit(row, modPayload) {
       const payload = !modPayload
-        ? {
-          codeName: row.codeName,
-          status: row.status
-        }
-        : modPayload
+      ? {
+        id: row.id,
+        status: row.hidden
+      }
+      : modPayload
       try {
-        await updateMasterCode(row.codeNo, payload)
-        this.$notify({
-          title: 'Success!',
-          message: '업데이트 되었습니다!',
-          type: 'success',
-          duration: 2000
+        await updateMenu(payload)
+        this.$message({
+          message: '수정되었습니다!',
+          type: 'success'
         })
+        this.resetRouter()
         return true
       } catch (err) {
-        row.status = row.status === '1' ? '0' : '1'
-      }
-    },
-    handleUpdateName(row) {
-      this.dialogFormVisible = true
-      this.form.codeName = row.codeName
-      this.form.codeNo = row.codeNo
-      this.tmpRow = row
-    },
-    handleClickConfirm() {
-      const payload = {
-        codeName: this.form.codeName,
-        status: this.tmpRow.status
-      }
-      if (this.handleEdit(this.tmpRow, payload)) {
-        this.dialogFormVisible = false
-        this.tmpRow.codeName = this.form.codeName
+        row.hidden = row.hidden === true ? false : true
       }
     },
     tableRowClassName({ row, rowIndex }) {
-      return row.status === '0' ? 'warning-row' : ''
-    },
-    async load(row, treeNode, resolve) {
-      const res = await getMasterCodes(row.codeNo, row.depth + 1)
-      const tmpArr = res.map(el => {
-        return {
-          ...el,
-          hasChildren: el.childCnt > 0
-        }
-      })
-      resolve(tmpArr)
+      return row.hidden === true ? 'warning-row' : ''
     },
     dispTime(time) {
-      return parseTime(time, '{y}-{m}-{d}')
+      return time ? parseTime(time, '{y}-{m}-{d}') : '-'
+    },
+    async resetRouter(){
+      // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
+      const { roles } = await store.dispatch('user/getInfo')
+      // generate accessible routes map based on roles
+      const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+      // dynamically add accessible routes
+      router.addRoutes(accessRoutes)
+    },
+    filterMenu(tableData){
+      return tableData.filter(data => !this.listQuery.query || data.meta.title.toLowerCase().includes(this.listQuery.query.toLowerCase()))
     }
   }
 }

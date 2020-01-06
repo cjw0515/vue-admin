@@ -15,9 +15,9 @@ export function getAmenu(id) {
   })
 }
 
-export function updateMenu(id, data) {
+export function updateMenu(data) {
   return request({
-    url: `/adminMenu/${id}`,
+    url: `/adminMenu/${data.id}`,
     method: 'PUT',
     data
   })

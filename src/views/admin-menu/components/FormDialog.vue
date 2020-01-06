@@ -6,7 +6,7 @@
       :visible="formDialogData.formDialogVisible"
       :before-close="handleClickClose"
       :width="formDialogData.width"
-    >    
+    >
 		<el-form
 		:model="formData"
 		:rules="rules"
@@ -15,15 +15,23 @@
 		ref="menuForm">
 
         <el-row>
-          <el-form-item label="최상위 여부" :label-width="formDialogData.formLabelWidth">
-            <el-switch
-            v-model="isTopLevelMenu"
-            active-text="하위메뉴"
-            inactive-text="최상위메뉴"
+          <el-col :span="10">
+            <el-form-item label="최상위 여부" :label-width="formDialogData.formLabelWidth">
+              <el-switch
+              v-model="isTopLevelMenu"
+              active-text="하위메뉴"
+              inactive-text="최상위메뉴"
             />
-          </el-form-item>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item prop="name" label="라우터 명" :label-width="formDialogData.formLabelWidth">
+              <el-tooltip content="뷰 라우터 이름입니다." placement="top">
+                <el-input v-model="formData.name" autocomplete="off" />
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
         </el-row>
-
       <el-row v-if="isTopLevelMenu">
         <el-form-item label="상위 메뉴 선택" :label-width="formDialogData.formLabelWidth">
           <el-tree
@@ -36,12 +44,12 @@
               @click="handleClickMenuNode(node, data)"
               >{{ data.meta.title }}</span>
             </span>
-          </el-tree>        
+          </el-tree>
         </el-form-item>
       </el-row>
 
       <el-row>
-        <el-col :span="10">          
+        <el-col :span="10">
           <el-form-item prop="title" label="메뉴 명" :label-width="formDialogData.formLabelWidth">
             <el-tooltip content="프론트에 노출되는 메뉴 이름입니다." placement="top">
               <el-input v-model="formData.title" autocomplete="off" />
@@ -54,7 +62,7 @@
               <el-input v-model="formData.path" autocomplete="off" />
             </el-tooltip>
           </el-form-item>
-        </el-col>        
+        </el-col>
       </el-row>
 
       <el-row>
@@ -73,8 +81,8 @@
               active-text="사용"
               inactive-text="사용안함"
               />
-            </el-tooltip> 
-          </el-form-item>          
+            </el-tooltip>
+          </el-form-item>
         </el-col>
       </el-row>
 
@@ -92,9 +100,9 @@
               active-text="사용"
               inactive-text="사용안함"
               />
-             </el-tooltip> 
-          </el-form-item>          
-        </el-col>        
+             </el-tooltip>
+          </el-form-item>
+        </el-col>
       </el-row>
 
       <el-row>
@@ -111,9 +119,9 @@
               active-text="사용"
               inactive-text="사용안함"
               />
-            </el-form-item>          
+            </el-form-item>
           </el-tooltip>
-        </el-col>  
+        </el-col>
       </el-row>
 		</el-form>
       <span slot="footer" class="dialog-footer">
@@ -155,7 +163,7 @@ export default {
     return {
       labelPosition: "left",
       isTopLevelMenu: false,
-		  top: "top",        
+		  top: "top",
       formData: {
         parentId: 0,
         name: "",
@@ -171,10 +179,8 @@ export default {
         breadcrumb: false
       },
       rules: {
-        parentId: 0,
         name: [{ required: true, message: '필수 항목입니다.' }],
         path: [{ required: true, message: '필수 항목입니다.' }],
-        status: true,
         roles: [{ required: true, message: '필수 항목입니다.' }],
         title: [{ required: true, message: '필수 항목입니다.' }],
       },
@@ -189,7 +195,9 @@ export default {
               message: this.formDialogData.dialogStatus == 'create' ? '메뉴가 추가되었습니다!' : '메뉴가 수정되었습니다!',
               type: 'success'
             })
-            this.$emit('toggleDialog')            
+            this.$emit('toggleDialog')
+            this.$emit('getData')
+            this.$refs['menuForm'].resetFields()
           })
         }
       })
@@ -198,7 +206,8 @@ export default {
       this.$emit('toggleDialog')
 	},
     handleClickMenuNode(node, data){
-      this.formData.parentId = data.parentId
+      console.log(data.id)
+      this.formData.parentId = data.id
       console.log(data.parentId)
     }
   },

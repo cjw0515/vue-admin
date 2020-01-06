@@ -2,7 +2,7 @@
   <div class="filter-container">
     <el-select
       v-model="listQuery.chkOption"
-      placeholder="확인/미확인"
+      placeholder="메뉴명/등록자"
       clearable
       style="width: 140px"
       class="filter-item"
@@ -11,7 +11,7 @@
       <el-option v-for="item in options.chkOptions" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
     <el-input
-      v-model="listQuery.title"
+      v-model="listQuery.query"
       placeholder="Title"
       style="width: 200px;"
       class="filter-item"

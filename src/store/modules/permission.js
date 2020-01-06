@@ -12,8 +12,9 @@ function createRoutes(routes, accessedRoutes) {
     accessedRoutes.forEach(accRoute => {
       if (route.name === accRoute.name && route.status) {
         tmpObj = {
-          ...accRoute,
+          component: accRoute.component,
           path: route.path,
+          hidden: route.hidden,
           name: route.name,
           meta: route.meta
         }
@@ -85,13 +86,13 @@ const actions = {
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
-      // getAdminMenus().then(({ data }) => {
-      //   const routesObjs = createRoutes(data, accessedRoutes)
-      //   commit('SET_ROUTES', routesObjs)
-      //   resolve(routesObjs)
-      // })
-      commit('SET_ROUTES', accessedRoutes)
-      resolve(accessedRoutes)
+      getAdminMenus().then(({ data }) => {
+        const routesObjs = createRoutes(data, accessedRoutes)
+        commit('SET_ROUTES', routesObjs)
+        resolve(routesObjs)
+      })
+      // commit('SET_ROUTES', accessedRoutes)
+      // resolve(accessedRoutes)
     })
   }
 }

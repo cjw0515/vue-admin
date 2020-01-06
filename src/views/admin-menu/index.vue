@@ -1,20 +1,22 @@
 <template>
   <div class="app-container">
     <FilterContainer
-      :list-query="listQuery"
+      :list-query.sync="listQuery"
       :options="options"
       @toggleDialog="toggleDialog"
-      @getAdminMenus="getAdminMenus"    
+      @getAdminMenus="getAdminMenus"
     />
-    <TableContainer 
-      v-if="tableData.length > 0" 
-      v-loading="listLoading"      
-      :table-data="tableData" 
-    />
-    <FormDialog 
-      :form-dialog-data="formDialogData" 
+    <TableContainer
+      v-if="tableData.length > 0"
+      v-loading="listLoading"
+      :list-query.sync="listQuery"
       :table-data="tableData"
-      @toggleDialog="toggleDialog" />    
+    />
+    <FormDialog
+      :form-dialog-data="formDialogData"
+      :table-data="tableData"
+      @getData="getAdminMenus"
+      @toggleDialog="toggleDialog" />
   </div>
 </template>
 <script>
@@ -44,7 +46,7 @@ export default {
           { label: '확인', value: 1 },
           { label: '미확인', value: 0 }
         ]
-      },      
+      },
       listLoading: false,
       importanceOptions: [1, 2, 3],
       tableData: [],
@@ -58,7 +60,7 @@ export default {
         width: '50%',
         formLabelWidth: '150px',
         idx: 0
-      },      
+      },
     }
   },
   created: function() {
@@ -79,7 +81,7 @@ export default {
         dialogStatus: mode || 'create',
         idx: idx
       }
-    }    
+    }
   }
 }
 </script>
