@@ -6,6 +6,7 @@
       :visible="formDialogData.formDialogVisible"
       :before-close="handleClickClose"
       :width="formDialogData.width"
+      :destroy-on-close="true"
     >
       <el-form
         ref="academyForm"
@@ -13,137 +14,197 @@
         :label-position="formDialogData.labelPosition"
         :rules="rules"
       >
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="공식이름" prop="instiName">
-              <el-input v-model.number="formData.instiName" style="padding: 5px" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="한글 이름" prop="instiKname">
-              <el-input v-model.number="formData.instiKname" style="padding: 5px" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <div style="margin: 20px 0;" class="sub-title">주소(도로명)</div>
-            <el-form-item prop="address1" label="주소" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.address1" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <div style="margin: 20px 0;" class="sub-title">주소(지번)</div>
-            <el-form-item prop="oldAddress" label="주소" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.oldAddress" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item prop="building" label="빌딩" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.building" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item prop="address3" label="동" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.address3" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="12">
-            <el-form-item prop="zipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.zipcode" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item prop="oldZipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.oldZipcode" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="5">
-            <el-form-item prop="phonNum1" label="전화번호" :label-width="formDialogData.formLabelWidth">
-              <el-input v-model.number="formData.phonNum1" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="1" class="line">-</el-col>
-          <el-col :span="2">
-            <el-form-item prop="phonNum2">
-              <el-input v-model.number="formData.phonNum2" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="1" class="line">-</el-col>
-          <el-col :span="2">
-            <el-form-item prop="phonNum3">
-              <el-input v-model.number="formData.phonNum3" autocomplete="off" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row>
-          <el-col :span="24">
-            <div style="margin: 20px 0;" class="sub-title">지리정보</div>
-            <el-container>
-              <el-aside>
-                <el-form-item prop="latitude" label="위도">
-                  <el-input v-model.number="formData.latitude" autocomplete="off" />
+        <el-card shadow="hover" class="box-card">
+          <div slot="header" class="clearfix">
+            <span class="card-name">일반</span>
+          </div>
+          <div>
+            <el-row>
+              <div class="sub-title">이름</div>
+              <el-col :span="12">
+                <el-form-item label="공식이름" prop="instiName">
+                  <el-input v-model.number="formData.instiName" style="padding: 5px;width: 70%" autocomplete="off" />
                 </el-form-item>
-                <el-form-item prop="longitude" label="경도">
-                  <el-input v-model.number="formData.longitude" autocomplete="off" />
+              </el-col>
+              <el-col :span="12">
+                <el-form-item label="한글 이름" prop="instiKname">
+                  <el-input v-model.number="formData.instiKname" style="padding: 5px;width: 70%" autocomplete="off" />
                 </el-form-item>
-              </el-aside>
-              <el-container>
-                <el-main>
-                  <vue-daum-map
-                    :app-key="mapAPIKey"
-                    :center.sync="center"
-                    :level.sync="level"
-                    :map-type-id="mapTypeId"
-                    :libraries="libraries"
-                    style="width:500px;height:400px;"
-                    @load="onLoad"
-                    @click="handleClickMap"
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <div class="sub-title">주소(도로명)</div>
+                <el-form-item prop="address1" label="주소" :label-width="formDialogData.formLabelWidth">
+                  <el-input v-model.number="formData.address1" style="width:80%" autocomplete="off" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <div class="sub-title">주소(지번)</div>
+                <el-form-item prop="oldAddress" label="주소" :label-width="formDialogData.formLabelWidth">
+                  <el-input v-model.number="formData.oldAddress" style="width:80%" autocomplete="off" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item prop="building" label="빌딩" :label-width="formDialogData.formLabelWidth">
+                  <el-input v-model.number="formData.building" style="width:80%" autocomplete="off" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item prop="address3" label="동" :label-width="formDialogData.formLabelWidth">
+                  <el-input v-model.number="formData.address3" style="width:80%" autocomplete="off" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="12">
+                <el-form-item prop="zipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
+                  <el-input v-model.number="formData.zipcode" style="width:80%" autocomplete="off" />
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <el-form-item prop="oldZipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
+                  <el-input v-model.number="formData.oldZipcode" style="width:80%" autocomplete="off" />
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="4">
+                <el-form-item prop="phonNum1" label="전화번호" :label-width="formDialogData.formLabelWidth">
+                  <el-input v-model.number="formData.phonNum1" autocomplete="off"  style="width:80%"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="2">
+                <el-form-item prop="phonNum2">
+                  <el-input v-model.number="formData.phonNum2" autocomplete="off"  style="width:80%"/>
+                </el-form-item>
+              </el-col>
+              <el-col :span="2">
+                <el-form-item prop="phonNum3">
+                  <el-input v-model.number="formData.phonNum3" autocomplete="off"  style="width:80%"/>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="24">
+                <div class="sub-title">지리정보</div>
+                  <el-container>
+                    <el-aside>
+                      <el-form-item prop="latitude" label="위도">
+                        <el-input v-model.number="formData.latitude" autocomplete="off" />
+                      </el-form-item>
+                      <el-form-item prop="longitude" label="경도">
+                        <el-input v-model.number="formData.longitude" autocomplete="off" />
+                      </el-form-item>
+                    </el-aside>
+                  <el-container>
+                    <el-main>
+                      <vue-daum-map
+                        :app-key="mapAPIKey"
+                        :center.sync="center"
+                        :level.sync="level"
+                        :map-type-id="mapTypeId"
+                        :libraries="libraries"
+                        style="width:800px;height:400px;"
+                        @load="onLoad"
+                        @click="handleClickMap"
+                      />
+                    </el-main>
+                  </el-container>
+                </el-container>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <el-col :span="5">
+                <div class="sub-title">확인여부</div>
+                <el-form-item prop="confirmYn">
+                  <el-switch
+                    v-model="formData.confirmYn"
+                    active-value="1"
+                    inactive-value="0"
+                    active-text="확인"
                   />
-                </el-main>
-              </el-container>
-            </el-container>
-          </el-col>
-        </el-row>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </div>
+        </el-card>
+        <el-card shadow="hover" class="box-card">
+          <div slot="header" class="clearfix">
+            <span class="card-name">운영</span>
+          </div>
+          <div>
 
-        <el-row>
-          <el-col :span="5">
-            <div style="margin: 20px 0;" class="sub-title">확인여부</div>
-            <el-form-item prop="confirmYn">
-              <el-switch
-                v-model="formData.confirmYn"
-                active-value="1"
-                inactive-value="0"
-                active-text="확인"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
+            <el-row>
+              <div class="sub-title"><span>운영 시간</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <el-col :span="24">
+                <el-table
+                  :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
+                  border
+                  :data="dispOT"
+                  style="width: 100%">
+                  <el-table-column                    
+                    v-for="dayObj in formData.OTData.daysOT"
+                    :key="dayObj.seq"
+                    :label="dayObj.itemValue"
+                    width="180">
+                    <template #default="{ row }">
+                      <div>{{ row[dayObj.seq] }}</div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <div class="sub-title"><span>대상 학년</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <el-col :span="24">
+                <el-table
+                  v-if="!formData.OTData"
+                  :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
+                  border
+                  :data="dispOT"
+                  style="width: 100%">
+                  <el-table-column                    
+                    v-for="dayObj in formData.OTData.daysOT"
+                    :key="dayObj.seq"
+                    :label="dayObj.itemValue"
+                    width="180">
+                    <template #default="{ row }">
+                      <div>{{ row[dayObj.seq] }}</div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>            
+
+          </div>
+        </el-card>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
       </span>
+      <OTForm :inner-visible.sync="innerVisible" @toggleInnerDialog="toggleInnerDialog()" :key="getKey()" @setOTData="setOTData" />
     </el-dialog>
   </div>
 </template>
 <script>
 import { getAAcademy, updateAcademy } from '@/api/insti/academy'
 import VueDaumMap from '@/components/DaumMap'
+import OTForm from './innerDIalog/OTForm'
+import { createUniqueString, parseTime } from '@/utils/index'
 
 export default {
-  components: { VueDaumMap },
+  components: { VueDaumMap, OTForm },
   props: {
     formDialogData: {
       type: Object,
@@ -157,7 +218,7 @@ export default {
           },
           width: '70%',
           formLabelWidth: '120px',
-          labelPosition: 'top',
+          labelPosition: 'left',
           idx: 0
         }
       }
@@ -165,7 +226,9 @@ export default {
   },
   data() {
     return {
+      innerVisible: false,
       formData: {
+        // 일반
         instiName: '',
         instiKname: '',
         address1: '',
@@ -182,7 +245,21 @@ export default {
         itemValue: '',
         phonNum1: 0,
         phonNum2: 0,
-        phonNum3: 0
+        phonNum3: 0,
+        // 운영
+        OTData: {
+          openFlexYn: false,
+          openFlexTime: { itemName: 'OT', seq: 1, itemValue: '월', itemProperty: "", prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
+          daysOT: [
+              { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: "", prefixdTime: "" },
+              { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: "", prefixdTime: "" },
+              { openStat: true, itemName: 'OT', seq: 3, itemValue: '수', itemProperty: "", prefixdTime: "" },
+              { openStat: true, itemName: 'OT', seq: 4, itemValue: '목', itemProperty: "", prefixdTime: "" },
+              { openStat: true, itemName: 'OT', seq: 5, itemValue: '금', itemProperty: "", prefixdTime: "" },
+              { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: "", prefixdTime: "" },
+              { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: "", prefixdTime: "" },
+          ]
+        },
       },
       rules: {
         // age: [
@@ -238,25 +315,14 @@ export default {
       // })
     },
     handleClickClose() {
+      this.resetForm()
       this.$emit('toggleDialog')
     },
+    toggleInnerDialog(){
+      this.innerVisible = !this.innerVisible
+    },
     resetForm() {
-      this.formData = {
-        instiName: '',
-        instiKname: '',
-        address1: '',
-        address3: '',
-        building: '',
-        zipcode: '',
-        oldAddress: '',
-        oldZipcode: '',
-        latitude: '',
-        longitude: '',
-        updId: '',
-        confirmYn: 0,
-        itemName: '',
-        itemValue: ''
-      }
+      this.$refs['academyForm'].resetFields();
     },
     onLoad(map, marker) {
       this.map = map
@@ -272,7 +338,7 @@ export default {
       const { data } = await getAAcademy(id)
 
       for (const key in this.formData) {
-        this.formData[key] = data[key]
+        if (data[key])this.formData[key] = data[key]
       }
       this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
       this.marker.setPosition(new kakao.maps.LatLng(this.formData.latitude, this.formData.longitude))
@@ -282,11 +348,28 @@ export default {
     },
     parsedPhoneNumber(idx) {
       return
+    },
+    getKey(){
+      return createUniqueString()
+    },
+    setOTData(data){
+      this.formData.OTData = data
+    }
+  },
+  computed: {
+    dispOT: function(){    
+      let rstObj = {}  
+      if(!this.formData.OTData) return []
+      this.formData.OTData.daysOT.forEach(obj => {
+        
+        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분')  + " ~ " + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : "데이터가 없습니다."
+      });
+      return [rstObj]
     }
   }
 }
 </script>
-<style>
+<style scoped>
 .line {
   text-align: center;
 }
@@ -299,7 +382,27 @@ export default {
 .sub-title {
   line-height: 24px;
   font-size: 18px;
-  color: #1890ff;
   font-weight: bold;
+  margin: 20px 0;  
+}
+.sub-title span {
+  color: #1890ff;
+}
+.box-card {
+  border-top: 2px solid red;
+  margin-bottom: 13px;
+}
+.card-name {
+  font-size: 2em
+}
+.edit-icon {
+  line-height: 24px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.ot-header {
+  background-color: rgb(233, 233, 233);
 }
 </style>

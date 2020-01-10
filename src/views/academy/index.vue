@@ -98,9 +98,9 @@ export default {
         idx: idx
       }
     },
-    getKey(){
+    getKey() {
       return createUniqueString()
-    }    
+    }
   }
 }
 </script>
