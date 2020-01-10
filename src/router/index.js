@@ -110,103 +110,70 @@ export const asyncRoutes = [
   // nestedRouter,
   tableRouter,
   {
-    path: '/todolist',
     component: Layout,
-    redirect: '/todolist/index',
     name: 'TodoList',
     children: [
       {
-        path: 'index',
         component: () => import('@/views/todolist/index'),
-        name: 'Todolist',
-        meta: { title: 'Todolist', icon: 'list', roles: ['viewer'] }
+        name: 'List',
       }
     ]
   },
   {
-    path: '/icon',
+    name: 'Icon',
     component: Layout,
     children: [
       {
-        path: 'index',
         component: () => import('@/views/icons/index'),
         name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
       }
     ]
   },
   {
-    path: '/code',
     component: Layout,
-    redirect: 'noRedirect',
-    name: 'CodeManagement',
-    meta: {
-      title: '코드 관리',
-      icon: 'example',
-      roles: ['admin']
-    },
+    name: 'AdminMenu',
     children: [
       {
-        path: 'master-code',
+        component: () => import('@/views/admin-menu/index'),
+        name: 'Menu',
+      }
+    ]
+  },
+  {
+    component: Layout,
+    name: 'CodeManagement',
+    children: [
+      {
         component: () => import('@/views/master-code/index'),
         name: 'MasterCode',
-        meta: { title: '마스터 코드 관리' }
       },
       {
-        path: 'age-code',
         component: () => import('@/views/age-code/index'),
         name: 'AgeCode',
-        meta: { title: '연령 코드 관리' }
       }
     ]
   },
   {
-    path: '/user',
     component: Layout,
-    redirect: 'noRedirect',
-    name: 'UserManagement',
-    meta: {
-      title: '사용자 관리',
-      icon: 'user',
-      roles: ['admin']
-    },
+    name: 'AdminUserMgmt',
     children: [
       {
-        path: 'user',
-        component: () => import('@/views/master-code/index'),
-        name: 'User',
-        meta: { title: '유저 관리' }
-      },
-      {
-        path: 'age-code',
-        component: () => import('@/views/age-code/index'),
-        name: 'AgeCode',
-        meta: { title: '연령 코드 관리' }
+        component: () => import('@/views/admin-user/index'),
+        name: 'adminUser',
       }
     ]
   },
   {
-    path: '/academy',
     component: Layout,
-    redirect: 'noRedirect',
-    name: 'academyManagement',
-    meta: {
-      title: '학원 관리',
-      icon: 'building',
-      roles: ['admin']
-    },
+    name: 'AcademyMgmt',
     children: [
       {
-        path: 'academy',
         component: () => import('@/views/academy/index'),
         name: 'Academy',
-        meta: { title: '학원 정보' }
       },
       {
-        path: 'facility',
         component: () => import('@/views/facility/index'),
         name: 'Facility',
-        meta: { title: '주변 시설' }
       }
     ]
   },

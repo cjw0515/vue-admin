@@ -1,4 +1,37 @@
 import { asyncRoutes, constantRoutes } from '@/router'
+<<<<<<< HEAD
+=======
+import { getAdminMenus } from '@/api/admin/admin-menu'
+
+/**
+ * 라우트 객체 생성
+ * @param routes
+ */
+function createRoutes(routes, accessedRoutes) {
+  const resRoutes = []
+  let tmpObj = {}
+  routes.forEach(route => {
+    accessedRoutes.forEach(accRoute => {
+      if (route.name === accRoute.name && route.status) {
+        tmpObj = {
+          component: accRoute.component,
+          path: route.path,
+          hidden: route.hidden,
+          name: route.name,
+          meta: route.meta
+        }
+
+        resRoutes.push(tmpObj)
+        if (route.children && accRoute.children) {
+          tmpObj['children'] = createRoutes(route.children, accRoute.children)
+        }
+      }
+    })
+  })
+
+  return resRoutes
+}
+>>>>>>> feature/메뉴관리
 
 /**
  * Use meta.role to determine if the current user has permission
@@ -56,9 +89,13 @@ const actions = {
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
-      commit('SET_ROUTES', accessedRoutes)
-      console.log(accessedRoutes)
-      resolve(accessedRoutes)
+      getAdminMenus().then(({ data }) => {
+        const routesObjs = createRoutes(data, accessedRoutes)
+        commit('SET_ROUTES', routesObjs)
+        resolve(routesObjs)
+      })
+      // commit('SET_ROUTES', accessedRoutes)
+      // resolve(accessedRoutes)
     })
   }
 }

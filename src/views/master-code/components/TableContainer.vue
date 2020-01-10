@@ -90,11 +90,9 @@ export default {
         : modPayload
       try {
         await updateMasterCode(row.codeNo, payload)
-        this.$notify({
-          title: 'Success!',
-          message: '업데이트 되었습니다!',
-          type: 'success',
-          duration: 2000
+        this.$message({
+          message: '수정되었습니다!',
+          type: 'success'
         })
         return true
       } catch (err) {

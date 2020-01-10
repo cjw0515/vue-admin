@@ -33,13 +33,6 @@
     "admin-template",
     "management-system"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PanJiaChen/vue-element-admin.git"
-  },
-  "bugs": {
-    "url": "https://github.com/PanJiaChen/vue-element-admin/issues"
-  },
   "dependencies": {
     "axios": "0.18.1",
     "clipboard": "2.0.4",
@@ -55,7 +48,7 @@
     "jszip": "3.2.1",
     "load-script-once": "^2.0.1",
     "normalize.css": "7.0.0",
-    "npm": "^6.11.3",
+    "npm": "^6.12.0",
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
     "screenfull": "4.2.0",

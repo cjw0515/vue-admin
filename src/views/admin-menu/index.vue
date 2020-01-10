@@ -1,30 +1,29 @@
 <template>
   <div class="app-container">
     <FilterContainer
-      :list-query="listQuery"
+      :list-query.sync="listQuery"
       :options="options"
-      @getList="getAcademies"
       @toggleDialog="toggleDialog"
+      @getAdminMenus="getAdminMenus"
     />
     <TableContainer
       v-if="tableData.length > 0"
       v-loading="listLoading"
+      :list-query.sync="listQuery"
       :table-data="tableData"
-      :total="total"
-      :list-query="listQuery"
-      @addValue="addAditionalValue"
-      @getList="getAcademies"
-      @toggleDialog="toggleDialog"
     />
-    <FormDialog :form-dialog-data="formDialogData" @toggleDialog="toggleDialog" />
+    <FormDialog
+      :form-dialog-data="formDialogData"
+      :table-data="tableData"
+      @getData="getAdminMenus"
+      @toggleDialog="toggleDialog" />
   </div>
 </template>
 <script>
 import FilterContainer from './components/FilterContainer'
 import TableContainer from './components/TableContainer'
+import { getAdminMenus } from '@/api/admin/admin-menu'
 import FormDialog from './components/FormDialog'
-import { getAcademies } from '@/api/insti/academy'
-import { createUniqueString, parseTime } from '@/utils/index'
 
 export default {
   components: { FilterContainer, TableContainer, FormDialog },
@@ -49,46 +48,31 @@ export default {
         ]
       },
       listLoading: false,
-      total: 0,
+      importanceOptions: [1, 2, 3],
       tableData: [],
       formDialogData: {
         formDialogVisible: false,
         dialogStatus: 'create',
         textMap: {
-          update: '학원 수정',
-          create: '학원 추가'
+          update: '메뉴 수정',
+          create: '메뉴 추가'
         },
-        width: '75%',
-        formLabelWidth: '120px',
-        labelPosition: 'left',
+        width: '50%',
+        formLabelWidth: '150px',
         idx: 0
       },
-      tmpRow: {}
     }
   },
   created: function() {
-    this.getAcademies(this.listQuery)
+    this.getAdminMenus()
   },
   methods: {
-    async getAcademies(query, page) {
-      if (page) {
-        this.listQuery.page = page
-      }
-      this.listLoading = true
-      const { data } = await getAcademies(query)
-      this.tableData = this.addAditionalValue(data.list)
-      this.listQuery.perPage = data.perPage
-      this.total = data.total
-      setTimeout(() => {
-        this.listLoading = false
-      }, 0.5 * 1000)
+    handleFilter() {
+      this.listQuery.page = 1
     },
-    addAditionalValue(arr) {
-      if (arr.length <= 0) return []
-      return arr.map(el => {
-        el.originalStatus = el.status
-        return el
-      })
+    async getAdminMenus() {
+      const { data } = await getAdminMenus()
+      this.tableData = data
     },
     toggleDialog(mode, idx) {
       this.formDialogData = {
@@ -97,9 +81,6 @@ export default {
         dialogStatus: mode || 'create',
         idx: idx
       }
-    },
-    getKey() {
-      return createUniqueString()
     }
   }
 }

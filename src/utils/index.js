@@ -1,8 +1,4 @@
 /**
- * Created by PanJiaChen on 16/11/18.
- */
-
-/**
  * Parse the time to string
  * @param {(Object|string|number)} time
  * @param {string} cFormat
@@ -347,4 +343,11 @@ export function removeClass(ele, cls) {
     const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)')
     ele.className = ele.className.replace(reg, ' ')
   }
+}
+/**
+ * switch 1 / 0 -> true / false
+ * @param {(string|number)} 1 / "1" / 0 / "0"
+ */
+export function switchBooleanVal(val) {
+  return parseInt(val) === 1
 }
