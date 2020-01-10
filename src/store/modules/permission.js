@@ -1,6 +1,4 @@
 import { asyncRoutes, constantRoutes } from '@/router'
-<<<<<<< HEAD
-=======
 import { getAdminMenus } from '@/api/admin/admin-menu'
 
 /**
@@ -31,7 +29,6 @@ function createRoutes(routes, accessedRoutes) {
 
   return resRoutes
 }
->>>>>>> feature/메뉴관리
 
 /**
  * Use meta.role to determine if the current user has permission
