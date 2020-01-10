@@ -16,7 +16,7 @@
       @getList="getAcademies"
       @toggleDialog="toggleDialog"
     />
-    <FormDialog :form-dialog-data="formDialogData" @toggleDialog="toggleDialog" />
+    <FormDialog :form-dialog-data="formDialogData" @toggleDialog="toggleDialog" :key="getKey()"/>
   </div>
 </template>
 <script>

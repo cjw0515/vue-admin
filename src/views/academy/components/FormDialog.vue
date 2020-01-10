@@ -306,12 +306,17 @@ export default {
   watch: {
     formDialogData: {
       handler() {
-        if (this.formDialogData.idx) {
-          this.getAAcademy(this.formDialogData.idx)
-        }
+        // if (this.formDialogData.idx) {
+        //   this.getAAcademy(this.formDialogData.idx)
+        // }
       },
       deep: true
     }
+  },
+  created: function(){
+    if (this.formDialogData.idx) {
+      this.getAAcademy(this.formDialogData.idx)
+    }    
   },
   methods: {
     handleClickConfirm() {
