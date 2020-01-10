@@ -7,21 +7,22 @@
       :before-close="handleClickClose"
       :width="formDialogData.width"
     >
-		<el-form
-		:model="formData"
-		:rules="rules"
-    :label-position="labelPosition"
-    :inline="true"
-		ref="menuForm">
+      <el-form
+        ref="menuForm"
+        :model="formData"
+        :rules="rules"
+        :label-position="labelPosition"
+        :inline="true"
+      >
 
         <el-row>
           <el-col :span="10">
             <el-form-item label="최상위 여부" :label-width="formDialogData.formLabelWidth">
               <el-switch
-              v-model="isTopLevelMenu"
-              active-text="하위메뉴"
-              inactive-text="최상위메뉴"
-            />
+                v-model="isTopLevelMenu"
+                active-text="하위메뉴"
+                inactive-text="최상위메뉴"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="10">
@@ -32,98 +33,99 @@
             </el-form-item>
           </el-col>
         </el-row>
-      <el-row v-if="isTopLevelMenu">
-        <el-form-item label="상위 메뉴 선택" :label-width="formDialogData.formLabelWidth">
-          <el-tree
-          :data="tableData"
-          node-key="id"
-          highlight-current
-          :expand-on-click-node="false">
-            <span slot-scope="{ node, data }">
-              <span
-              @click="handleClickMenuNode(node, data)"
-              >{{ data.meta.title }}</span>
-            </span>
-          </el-tree>
-        </el-form-item>
-      </el-row>
+        <el-row v-if="isTopLevelMenu">
+          <el-form-item label="상위 메뉴 선택" :label-width="formDialogData.formLabelWidth">
+            <el-tree
+              :data="tableData"
+              node-key="id"
+              highlight-current
+              :expand-on-click-node="false"
+            >
+              <span slot-scope="{ node, data }">
+                <span
+                  @click="handleClickMenuNode(node, data)"
+                >{{ data.meta.title }}</span>
+              </span>
+            </el-tree>
+          </el-form-item>
+        </el-row>
 
-      <el-row>
-        <el-col :span="10">
-          <el-form-item prop="title" label="메뉴 명" :label-width="formDialogData.formLabelWidth">
-            <el-tooltip content="프론트에 노출되는 메뉴 이름입니다." placement="top">
-              <el-input v-model="formData.title" autocomplete="off" />
-            </el-tooltip>
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
-          <el-form-item prop="path" label="경로" :label-width="formDialogData.formLabelWidth">
-            <el-tooltip content="메뉴의 경로입니다." placement="top">
-              <el-input v-model="formData.path" autocomplete="off" />
-            </el-tooltip>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <el-form-item prop="redirect" label="리다이렉트 경로" :label-width="formDialogData.formLabelWidth">
-            <el-tooltip content="히스토리 태그에서 클릭 시 리다이렉트 되는 경로입니다." placement="top">
-              <el-input v-model="formData.redirect" autocomplete="off" />
-            </el-tooltip>
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
-          <el-form-item label="캐시 여부" prop="noCache" :label-width="formDialogData.formLabelWidth">
-            <el-tooltip content="사용 시, 페이지가 캐싱되지 않습니다." placement="right">
-              <el-switch
-              v-model="formData.noCache"
-              active-text="사용"
-              inactive-text="사용안함"
-              />
-            </el-tooltip>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <el-form-item prop="roles" label="권한" :label-width="formDialogData.formLabelWidth">
-            <el-input v-model="formData.roles" autocomplete="off" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
-           <el-form-item label="히스토리fix 여부" prop="affix" :label-width="formDialogData.formLabelWidth">
-             <el-tooltip content="사용 시 히스토리 태그에 고정됩니다." placement="right">
-              <el-switch
-              v-model="formData.affix"
-              active-text="사용"
-              inactive-text="사용안함"
-              />
-             </el-tooltip>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row>
-        <el-col :span="10">
-          <el-form-item prop="icon" label="아이콘" :label-width="formDialogData.formLabelWidth">
-            <el-input v-model="formData.icon" autocomplete="off" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="10">
-          <el-tooltip content="사용 안함으로 설정 시 히스토리 태그에서 보이지 않습니다." placement="right">
-            <el-form-item label="히스토리 사용 여부" prop="breadcrumb" :label-width="formDialogData.formLabelWidth">
-              <el-switch
-              v-model="formData.breadcrumb"
-              active-text="사용"
-              inactive-text="사용안함"
-              />
+        <el-row>
+          <el-col :span="10">
+            <el-form-item prop="title" label="메뉴 명" :label-width="formDialogData.formLabelWidth">
+              <el-tooltip content="프론트에 노출되는 메뉴 이름입니다." placement="top">
+                <el-input v-model="formData.title" autocomplete="off" />
+              </el-tooltip>
             </el-form-item>
-          </el-tooltip>
-        </el-col>
-      </el-row>
-		</el-form>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item prop="path" label="경로" :label-width="formDialogData.formLabelWidth">
+              <el-tooltip content="메뉴의 경로입니다." placement="top">
+                <el-input v-model="formData.path" autocomplete="off" />
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="10">
+            <el-form-item prop="redirect" label="리다이렉트 경로" :label-width="formDialogData.formLabelWidth">
+              <el-tooltip content="히스토리 태그에서 클릭 시 리다이렉트 되는 경로입니다." placement="top">
+                <el-input v-model="formData.redirect" autocomplete="off" />
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="캐시 여부" prop="noCache" :label-width="formDialogData.formLabelWidth">
+              <el-tooltip content="사용 시, 페이지가 캐싱되지 않습니다." placement="right">
+                <el-switch
+                  v-model="formData.noCache"
+                  active-text="사용"
+                  inactive-text="사용안함"
+                />
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="10">
+            <el-form-item prop="roles" label="권한" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model="formData.roles" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="히스토리fix 여부" prop="affix" :label-width="formDialogData.formLabelWidth">
+              <el-tooltip content="사용 시 히스토리 태그에 고정됩니다." placement="right">
+                <el-switch
+                  v-model="formData.affix"
+                  active-text="사용"
+                  inactive-text="사용안함"
+                />
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row>
+          <el-col :span="10">
+            <el-form-item prop="icon" label="아이콘" :label-width="formDialogData.formLabelWidth">
+              <el-input v-model="formData.icon" autocomplete="off" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-tooltip content="사용 안함으로 설정 시 히스토리 태그에서 보이지 않습니다." placement="right">
+              <el-form-item label="히스토리 사용 여부" prop="breadcrumb" :label-width="formDialogData.formLabelWidth">
+                <el-switch
+                  v-model="formData.breadcrumb"
+                  active-text="사용"
+                  inactive-text="사용안함"
+                />
+              </el-form-item>
+            </el-tooltip>
+          </el-col>
+        </el-row>
+      </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
@@ -161,19 +163,19 @@ export default {
   },
   data() {
     return {
-      labelPosition: "left",
+      labelPosition: 'left',
       isTopLevelMenu: false,
-		  top: "top",
+		  top: 'top',
       formData: {
         parentId: 0,
-        name: "",
-        path: "",
-        redirect: "",
+        name: '',
+        path: '',
+        redirect: '',
         regUser: store.getters.name,
         status: true,
-        roles: "",
-        title: "",
-        icon: "",
+        roles: '',
+        title: '',
+        icon: '',
         noCache: false,
         affix: false,
         breadcrumb: false
@@ -182,9 +184,12 @@ export default {
         name: [{ required: true, message: '필수 항목입니다.' }],
         path: [{ required: true, message: '필수 항목입니다.' }],
         roles: [{ required: true, message: '필수 항목입니다.' }],
-        title: [{ required: true, message: '필수 항목입니다.' }],
-      },
+        title: [{ required: true, message: '필수 항목입니다.' }]
+      }
     }
+  },
+  mounted: function() {
+    console.log(store.getters.name)
   },
   methods: {
     handleClickConfirm() {
@@ -204,15 +209,12 @@ export default {
     },
     handleClickClose() {
       this.$emit('toggleDialog')
-	},
-    handleClickMenuNode(node, data){
+    },
+    handleClickMenuNode(node, data) {
       console.log(data.id)
       this.formData.parentId = data.id
       console.log(data.parentId)
     }
-  },
-  mounted: function(){
-    console.log(store.getters.name)
   }
 }
 </script>

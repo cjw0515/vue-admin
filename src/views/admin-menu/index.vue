@@ -16,7 +16,8 @@
       :form-dialog-data="formDialogData"
       :table-data="tableData"
       @getData="getAdminMenus"
-      @toggleDialog="toggleDialog" />
+      @toggleDialog="toggleDialog"
+    />
   </div>
 </template>
 <script>
@@ -60,7 +61,7 @@ export default {
         width: '50%',
         formLabelWidth: '150px',
         idx: 0
-      },
+      }
     }
   },
   created: function() {

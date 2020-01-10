@@ -27,16 +27,11 @@
       type="primary"
       icon="el-icon-edit"
       @click="handleClickAdd"
-    >Add</el-button>    
+    >Add</el-button>
   </div>
 </template>
 <script>
 export default {
-  data() {
-    return {
-      query: this.listQuery.query
-    }
-  },
   props: {
     listQuery: {
       type: Object,
@@ -62,17 +57,22 @@ export default {
         }
       }
     }
-  },  
+  },
+  data() {
+    return {
+      query: this.listQuery.query
+    }
+  },
   methods: {
     handleSearch() {
       // this.$emit('getList', { ...this.listQuery, query: this.query }, 1)
-    },    
+    },
     handleFilter() {
       this.listQuery.page = 1
     },
     handleClickAdd() {
       this.$emit('toggleDialog', 'create')
-    }    
+    }
   }
 }
 </script>

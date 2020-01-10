@@ -115,7 +115,7 @@ export const asyncRoutes = [
     children: [
       {
         component: () => import('@/views/todolist/index'),
-        name: 'List',
+        name: 'List'
       }
     ]
   },
@@ -125,7 +125,7 @@ export const asyncRoutes = [
     children: [
       {
         component: () => import('@/views/icons/index'),
-        name: 'Icons',
+        name: 'Icons'
       }
     ]
   },
@@ -135,7 +135,7 @@ export const asyncRoutes = [
     children: [
       {
         component: () => import('@/views/admin-menu/index'),
-        name: 'Menu',
+        name: 'Menu'
       }
     ]
   },
@@ -145,11 +145,11 @@ export const asyncRoutes = [
     children: [
       {
         component: () => import('@/views/master-code/index'),
-        name: 'MasterCode',
+        name: 'MasterCode'
       },
       {
         component: () => import('@/views/age-code/index'),
-        name: 'AgeCode',
+        name: 'AgeCode'
       }
     ]
   },
@@ -159,7 +159,7 @@ export const asyncRoutes = [
     children: [
       {
         component: () => import('@/views/admin-user/index'),
-        name: 'adminUser',
+        name: 'adminUser'
       }
     ]
   },
@@ -169,11 +169,11 @@ export const asyncRoutes = [
     children: [
       {
         component: () => import('@/views/academy/index'),
-        name: 'Academy',
+        name: 'Academy'
       },
       {
         component: () => import('@/views/facility/index'),
-        name: 'Facility',
+        name: 'Facility'
       }
     ]
   },

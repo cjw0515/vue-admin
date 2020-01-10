@@ -77,17 +77,17 @@
             <el-row>
               <el-col :span="4">
                 <el-form-item prop="phonNum1" label="전화번호" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.phonNum1" autocomplete="off"  style="width:80%"/>
+                  <el-input v-model.number="formData.phonNum1" autocomplete="off" style="width:80%" />
                 </el-form-item>
               </el-col>
               <el-col :span="2">
                 <el-form-item prop="phonNum2">
-                  <el-input v-model.number="formData.phonNum2" autocomplete="off"  style="width:80%"/>
+                  <el-input v-model.number="formData.phonNum2" autocomplete="off" style="width:80%" />
                 </el-form-item>
               </el-col>
               <el-col :span="2">
                 <el-form-item prop="phonNum3">
-                  <el-input v-model.number="formData.phonNum3" autocomplete="off"  style="width:80%"/>
+                  <el-input v-model.number="formData.phonNum3" autocomplete="off" style="width:80%" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -95,15 +95,15 @@
             <el-row>
               <el-col :span="24">
                 <div class="sub-title">지리정보</div>
-                  <el-container>
-                    <el-aside>
-                      <el-form-item prop="latitude" label="위도">
-                        <el-input v-model.number="formData.latitude" autocomplete="off" />
-                      </el-form-item>
-                      <el-form-item prop="longitude" label="경도">
-                        <el-input v-model.number="formData.longitude" autocomplete="off" />
-                      </el-form-item>
-                    </el-aside>
+                <el-container>
+                  <el-aside>
+                    <el-form-item prop="latitude" label="위도">
+                      <el-input v-model.number="formData.latitude" autocomplete="off" />
+                    </el-form-item>
+                    <el-form-item prop="longitude" label="경도">
+                      <el-input v-model.number="formData.longitude" autocomplete="off" />
+                    </el-form-item>
+                  </el-aside>
                   <el-container>
                     <el-main>
                       <vue-daum-map
@@ -150,12 +150,14 @@
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
                   :data="dispOT"
-                  style="width: 100%">
-                  <el-table-column                    
+                  style="width: 100%"
+                >
+                  <el-table-column
                     v-for="dayObj in formData.OTData.daysOT"
                     :key="dayObj.seq"
                     :label="dayObj.itemValue"
-                    width="180">
+                    width="180"
+                  >
                     <template #default="{ row }">
                       <div>{{ row[dayObj.seq] }}</div>
                     </template>
@@ -172,19 +174,21 @@
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
                   :data="dispOT"
-                  style="width: 100%">
-                  <el-table-column                    
+                  style="width: 100%"
+                >
+                  <el-table-column
                     v-for="dayObj in formData.OTData.daysOT"
                     :key="dayObj.seq"
                     :label="dayObj.itemValue"
-                    width="180">
+                    width="180"
+                  >
                     <template #default="{ row }">
                       <div>{{ row[dayObj.seq] }}</div>
                     </template>
                   </el-table-column>
                 </el-table>
               </el-col>
-            </el-row>            
+            </el-row>
 
           </div>
         </el-card>
@@ -193,7 +197,7 @@
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
       </span>
-      <OTForm :inner-visible.sync="innerVisible" @toggleInnerDialog="toggleInnerDialog()" :key="getKey()" @setOTData="setOTData" />
+      <OTForm :key="getKey()" :inner-visible.sync="innerVisible" @toggleInnerDialog="toggleInnerDialog()" @setOTData="setOTData" />
     </el-dialog>
   </div>
 </template>
@@ -249,17 +253,17 @@ export default {
         // 운영
         OTData: {
           openFlexYn: false,
-          openFlexTime: { itemName: 'OT', seq: 1, itemValue: '월', itemProperty: "", prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
+          openFlexTime: { itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
           daysOT: [
-              { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: "", prefixdTime: "" },
-              { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: "", prefixdTime: "" },
-              { openStat: true, itemName: 'OT', seq: 3, itemValue: '수', itemProperty: "", prefixdTime: "" },
-              { openStat: true, itemName: 'OT', seq: 4, itemValue: '목', itemProperty: "", prefixdTime: "" },
-              { openStat: true, itemName: 'OT', seq: 5, itemValue: '금', itemProperty: "", prefixdTime: "" },
-              { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: "", prefixdTime: "" },
-              { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: "", prefixdTime: "" },
+            { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: '' },
+            { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: '', prefixdTime: '' },
+            { openStat: true, itemName: 'OT', seq: 3, itemValue: '수', itemProperty: '', prefixdTime: '' },
+            { openStat: true, itemName: 'OT', seq: 4, itemValue: '목', itemProperty: '', prefixdTime: '' },
+            { openStat: true, itemName: 'OT', seq: 5, itemValue: '금', itemProperty: '', prefixdTime: '' },
+            { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: '', prefixdTime: '' },
+            { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: '', prefixdTime: '' }
           ]
-        },
+        }
       },
       rules: {
         // age: [
@@ -287,6 +291,16 @@ export default {
       libraries: [], // 추가로 불러올 라이브러리
       map: null, // 지도 객체. 지도가 로드되면 할당됨.
       marker: null
+    }
+  },
+  computed: {
+    dispOT: function() {
+      const rstObj = {}
+      if (!this.formData.OTData) return []
+      this.formData.OTData.daysOT.forEach(obj => {
+        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '데이터가 없습니다.'
+      })
+      return [rstObj]
     }
   },
   watch: {
@@ -318,11 +332,11 @@ export default {
       this.resetForm()
       this.$emit('toggleDialog')
     },
-    toggleInnerDialog(){
+    toggleInnerDialog() {
       this.innerVisible = !this.innerVisible
     },
     resetForm() {
-      this.$refs['academyForm'].resetFields();
+      this.$refs['academyForm'].resetFields()
     },
     onLoad(map, marker) {
       this.map = map
@@ -338,7 +352,7 @@ export default {
       const { data } = await getAAcademy(id)
 
       for (const key in this.formData) {
-        if (data[key])this.formData[key] = data[key]
+        if (data[key]) this.formData[key] = data[key]
       }
       this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
       this.marker.setPosition(new kakao.maps.LatLng(this.formData.latitude, this.formData.longitude))
@@ -349,22 +363,11 @@ export default {
     parsedPhoneNumber(idx) {
       return
     },
-    getKey(){
+    getKey() {
       return createUniqueString()
     },
-    setOTData(data){
+    setOTData(data) {
       this.formData.OTData = data
-    }
-  },
-  computed: {
-    dispOT: function(){    
-      let rstObj = {}  
-      if(!this.formData.OTData) return []
-      this.formData.OTData.daysOT.forEach(obj => {
-        
-        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분')  + " ~ " + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : "데이터가 없습니다."
-      });
-      return [rstObj]
     }
   }
 }
@@ -383,7 +386,7 @@ export default {
   line-height: 24px;
   font-size: 18px;
   font-weight: bold;
-  margin: 20px 0;  
+  margin: 20px 0;
 }
 .sub-title span {
   color: #1890ff;

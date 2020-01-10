@@ -12,14 +12,14 @@
           <i class="el-icon-time" />
           <span style="margin-left: 10px">{{ dispTime(scope.row.regDate) }}</span>
         </template>
-      </el-table-column>  
+      </el-table-column>
       <el-table-column label="등록자" width="250" prop="regUser" />
       <el-table-column label="수정일" width="220">
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span style="margin-left: 10px">{{ dispTime(scope.row.updateDate) }}</span>
         </template>
-      </el-table-column>  
+      </el-table-column>
       <el-table-column label="최종 수정자" width="250" prop="lastModUser" />
       <el-table-column label="노출여부" width="220" fixed="right">
         <template slot-scope="scope">
@@ -70,11 +70,11 @@ export default {
   methods: {
     async handleEdit(row, modPayload) {
       const payload = !modPayload
-      ? {
-        id: row.id,
-        status: row.hidden
-      }
-      : modPayload
+        ? {
+          id: row.id,
+          status: row.hidden
+        }
+        : modPayload
       try {
         await updateMenu(payload)
         this.$message({
@@ -84,7 +84,7 @@ export default {
         this.resetRouter()
         return true
       } catch (err) {
-        row.hidden = row.hidden === true ? false : true
+        row.hidden = row.hidden !== true
       }
     },
     tableRowClassName({ row, rowIndex }) {
@@ -93,7 +93,7 @@ export default {
     dispTime(time) {
       return time ? parseTime(time, '{y}-{m}-{d}') : '-'
     },
-    async resetRouter(){
+    async resetRouter() {
       // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
       const { roles } = await store.dispatch('user/getInfo')
       // generate accessible routes map based on roles
@@ -101,7 +101,7 @@ export default {
       // dynamically add accessible routes
       router.addRoutes(accessRoutes)
     },
-    filterMenu(tableData){
+    filterMenu(tableData) {
       return tableData.filter(data => !this.listQuery.query || data.meta.title.toLowerCase().includes(this.listQuery.query.toLowerCase()))
     }
   }
