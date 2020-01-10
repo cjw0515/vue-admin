@@ -24,6 +24,7 @@ import FilterContainer from './components/FilterContainer'
 import TableContainer from './components/TableContainer'
 import FormDialog from './components/FormDialog'
 import { getAcademies } from '@/api/insti/academy'
+import { createUniqueString, parseTime } from '@/utils/index'
 
 export default {
   components: { FilterContainer, TableContainer, FormDialog },
@@ -57,8 +58,9 @@ export default {
           update: '학원 수정',
           create: '학원 추가'
         },
-        width: '50%',
+        width: '75%',
         formLabelWidth: '120px',
+        labelPosition: 'left',
         idx: 0
       },
       tmpRow: {}
@@ -95,7 +97,10 @@ export default {
         dialogStatus: mode || 'create',
         idx: idx
       }
-    }
+    },
+    getKey(){
+      return createUniqueString()
+    }    
   }
 }
 </script>
