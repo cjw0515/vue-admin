@@ -58,6 +58,10 @@ export default {
     innerVisible: {
       type: Boolean,
       default: false
+    },
+    instiId: {
+        type: Number,
+        default: 0
     }
   },
   data: () => ({

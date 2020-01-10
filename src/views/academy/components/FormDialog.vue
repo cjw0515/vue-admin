@@ -197,7 +197,7 @@
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
       </span>
-      <OTForm :key="getKey()" :inner-visible.sync="innerVisible" @toggleInnerDialog="toggleInnerDialog()" @setOTData="setOTData" />
+      <OTForm :key="getKey()" :inner-visible.sync="innerVisible" @toggleInnerDialog="toggleInnerDialog()" @setOTData="setOTData" :insti-id="formDialogData.idx" />
     </el-dialog>
   </div>
 </template>
