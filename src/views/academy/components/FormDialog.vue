@@ -156,7 +156,6 @@
                     v-for="dayObj in formData.OTData.daysOT"
                     :key="dayObj.seq"
                     :label="dayObj.itemValue"
-                    width="180"
                   >
                     <template #default="{ row }">
                       <div>{{ row[dayObj.seq] }}</div>
@@ -263,6 +262,36 @@ export default {
             { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: '', prefixdTime: '' },
             { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: '', prefixdTime: '' }
           ]
+        },
+        TGData: {
+          targetGrades: [
+            { temName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0'},
+            { temName: 'TG', seq: 1, itemValue: '초등', itemProperty: '0',
+              targetLevels: [
+                { gdn:'AG', codeNo: 8, useYn: 0 },
+                { gdn:'AG', codeNo: 9, useYn: 0 },
+                { gdn:'AG', codeNo: 10, useYn: 0 },
+                { gdn:'AG', codeNo: 11, useYn: 0 },
+                { gdn:'AG', codeNo: 12, useYn: 0 },
+                { gdn:'AG', codeNo: 13, useYn: 0 },
+              ]
+            },
+            { temName: 'TG', seq: 1, itemValue: '중등', itemProperty: '0',
+              targetLevels: [
+                { gdn:'AG', codeNo: 14, useYn: 0 },
+                { gdn:'AG', codeNo: 15, useYn: 0 },
+                { gdn:'AG', codeNo: 16, useYn: 0 },
+              ]            
+            },
+            { temName: 'TG', seq: 1, itemValue: '고등', itemProperty: '0',
+              targetLevels: [
+                { gdn:'AG', codeNo: 17, useYn: 0 },
+                { gdn:'AG', codeNo: 18, useYn: 0 },
+                { gdn:'AG', codeNo: 19, useYn: 0 },
+              ]            
+            },
+            { temName: 'TG', seq: 1, itemValue: 'N수', itemProperty: '0' },
+          ]
         }
       },
       rules: {
@@ -316,7 +345,7 @@ export default {
   created: function(){
     if (this.formDialogData.idx) {
       this.getAAcademy(this.formDialogData.idx)
-    }    
+    }
   },
   methods: {
     handleClickConfirm() {
