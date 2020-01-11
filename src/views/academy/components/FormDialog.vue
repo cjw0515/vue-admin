@@ -196,7 +196,7 @@
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
       </span>
-      <OTForm :key="getKey()" :inner-visible.sync="innerVisible" @toggleInnerDialog="toggleInnerDialog()" @setOTData="setOTData" :insti-id="formDialogData.idx" />
+      <OTForm :key="getKey()" :inner-visible.sync="innerVisible" :insti-id="formDialogData.idx" @toggleInnerDialog="toggleInnerDialog()" @setOTData="setOTData" />
     </el-dialog>
   </div>
 </template>
@@ -265,32 +265,32 @@ export default {
         },
         TGData: {
           targetGrades: [
-            { temName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0'},
+            { temName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0' },
             { temName: 'TG', seq: 1, itemValue: '초등', itemProperty: '0',
               targetLevels: [
-                { gdn:'AG', codeNo: 8, useYn: 0 },
-                { gdn:'AG', codeNo: 9, useYn: 0 },
-                { gdn:'AG', codeNo: 10, useYn: 0 },
-                { gdn:'AG', codeNo: 11, useYn: 0 },
-                { gdn:'AG', codeNo: 12, useYn: 0 },
-                { gdn:'AG', codeNo: 13, useYn: 0 },
+                { gdn: 'AG', codeNo: 8, useYn: 0 },
+                { gdn: 'AG', codeNo: 9, useYn: 0 },
+                { gdn: 'AG', codeNo: 10, useYn: 0 },
+                { gdn: 'AG', codeNo: 11, useYn: 0 },
+                { gdn: 'AG', codeNo: 12, useYn: 0 },
+                { gdn: 'AG', codeNo: 13, useYn: 0 }
               ]
             },
             { temName: 'TG', seq: 1, itemValue: '중등', itemProperty: '0',
               targetLevels: [
-                { gdn:'AG', codeNo: 14, useYn: 0 },
-                { gdn:'AG', codeNo: 15, useYn: 0 },
-                { gdn:'AG', codeNo: 16, useYn: 0 },
-              ]            
+                { gdn: 'AG', codeNo: 14, useYn: 0 },
+                { gdn: 'AG', codeNo: 15, useYn: 0 },
+                { gdn: 'AG', codeNo: 16, useYn: 0 }
+              ]
             },
             { temName: 'TG', seq: 1, itemValue: '고등', itemProperty: '0',
               targetLevels: [
-                { gdn:'AG', codeNo: 17, useYn: 0 },
-                { gdn:'AG', codeNo: 18, useYn: 0 },
-                { gdn:'AG', codeNo: 19, useYn: 0 },
-              ]            
+                { gdn: 'AG', codeNo: 17, useYn: 0 },
+                { gdn: 'AG', codeNo: 18, useYn: 0 },
+                { gdn: 'AG', codeNo: 19, useYn: 0 }
+              ]
             },
-            { temName: 'TG', seq: 1, itemValue: 'N수', itemProperty: '0' },
+            { temName: 'TG', seq: 1, itemValue: 'N수', itemProperty: '0' }
           ]
         }
       },
@@ -342,7 +342,7 @@ export default {
       deep: true
     }
   },
-  created: function(){
+  created: function() {
     if (this.formDialogData.idx) {
       this.getAAcademy(this.formDialogData.idx)
     }
