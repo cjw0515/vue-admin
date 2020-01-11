@@ -169,20 +169,18 @@
               <div class="sub-title"><span>대상 학년</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
               <el-col :span="24">
                 <el-table
-                  v-if="!formData.OTData"
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
-                  :data="dispOT"
+                  :data="dispTG.data"
                   style="width: 100%"
                 >
                   <el-table-column
-                    v-for="dayObj in formData.OTData.daysOT"
-                    :key="dayObj.seq"
-                    :label="dayObj.itemValue"
-                    width="180"
+                    v-for="obj in dispTG.col"
+                    :key="obj.codeNo"
+                    :label="obj.disp"
                   >
                     <template #default="{ row }">
-                      <div>{{ row[dayObj.seq] }}</div>
+                      <div>{{ row[obj.codeNo] }}</div>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -265,32 +263,32 @@ export default {
         },
         TGData: {
           targetGrades: [
-            { temName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0' },
+            { temName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: 0, disp:'유치원' }] },
             { temName: 'TG', seq: 1, itemValue: '초등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 8, useYn: 0 },
-                { gdn: 'AG', codeNo: 9, useYn: 0 },
-                { gdn: 'AG', codeNo: 10, useYn: 0 },
-                { gdn: 'AG', codeNo: 11, useYn: 0 },
-                { gdn: 'AG', codeNo: 12, useYn: 0 },
-                { gdn: 'AG', codeNo: 13, useYn: 0 }
+                { gdn: 'AG', codeNo: 8, useYn: 0, disp:'초1' },
+                { gdn: 'AG', codeNo: 9, useYn: 0, disp:'초2' },
+                { gdn: 'AG', codeNo: 10, useYn: 0, disp:'초3' },
+                { gdn: 'AG', codeNo: 11, useYn: 0, disp:'초4' },
+                { gdn: 'AG', codeNo: 12, useYn: 0, disp:'초5' },
+                { gdn: 'AG', codeNo: 13, useYn: 0, disp:'초6' }
               ]
             },
             { temName: 'TG', seq: 1, itemValue: '중등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 14, useYn: 0 },
-                { gdn: 'AG', codeNo: 15, useYn: 0 },
-                { gdn: 'AG', codeNo: 16, useYn: 0 }
+                { gdn: 'AG', codeNo: 14, useYn: 0, disp:'중1'},
+                { gdn: 'AG', codeNo: 15, useYn: 0, disp:'중2'},
+                { gdn: 'AG', codeNo: 16, useYn: 0, disp:'중3'}
               ]
             },
             { temName: 'TG', seq: 1, itemValue: '고등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 17, useYn: 0 },
-                { gdn: 'AG', codeNo: 18, useYn: 0 },
-                { gdn: 'AG', codeNo: 19, useYn: 0 }
+                { gdn: 'AG', codeNo: 17, useYn: 0, disp:'고1'},
+                { gdn: 'AG', codeNo: 18, useYn: 0, disp:'고2'},
+                { gdn: 'AG', codeNo: 19, useYn: 0, disp:'고3'}
               ]
             },
-            { temName: 'TG', seq: 1, itemValue: 'N수', itemProperty: '0' }
+            { temName: 'TG', seq: 1, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: 0, disp:'N수' }] }
           ]
         }
       },
@@ -320,31 +318,6 @@ export default {
       libraries: [], // 추가로 불러올 라이브러리
       map: null, // 지도 객체. 지도가 로드되면 할당됨.
       marker: null
-    }
-  },
-  computed: {
-    dispOT: function() {
-      const rstObj = {}
-      if (!this.formData.OTData) return []
-      this.formData.OTData.daysOT.forEach(obj => {
-        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '데이터가 없습니다.'
-      })
-      return [rstObj]
-    }
-  },
-  watch: {
-    formDialogData: {
-      handler() {
-        // if (this.formDialogData.idx) {
-        //   this.getAAcademy(this.formDialogData.idx)
-        // }
-      },
-      deep: true
-    }
-  },
-  created: function() {
-    if (this.formDialogData.idx) {
-      this.getAAcademy(this.formDialogData.idx)
     }
   },
   methods: {
@@ -403,7 +376,47 @@ export default {
     setOTData(data) {
       this.formData.OTData = data
     }
-  }
+  },
+  created: function() {
+    if (this.formDialogData.idx) {
+      this.getAAcademy(this.formDialogData.idx)
+    }
+  },
+  mounted: function(){
+  },
+  computed: {
+    dispOT: function() {
+      const rstObj = {}
+      if (!this.formData.OTData) return []
+      this.formData.OTData.daysOT.forEach(obj => {
+        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '데이터가 없습니다.'
+      })
+      return [rstObj]
+    },
+    dispTG: function() {
+      let tmpArr = []
+
+      this.formData.TGData.targetGrades.forEach(o => {
+        o.targetLevels.forEach(l => {
+          tmpArr.push(l) 
+        });        
+      });
+
+      let dataArr = []
+
+      return { col: tmpArr, data: dataArr }
+    }
+  },
+  watch: {
+    formDialogData: {
+      handler() {
+        // if (this.formDialogData.idx) {
+        //   this.getAAcademy(this.formDialogData.idx)
+        // }
+      },
+      deep: true
+    }
+  },
 }
 </script>
 <style scoped>
