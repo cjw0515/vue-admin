@@ -211,7 +211,7 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span></span></div>
+              <div class="sub-title"><span /></div>
               <el-row>
                 <el-col :span="6">
                   <el-form-item prop="entranExamYn" label="입학테스트 여부">
@@ -220,8 +220,8 @@
                         v-for="item in entrExmOptions"
                         :key="item.value"
                         :label="item.disp"
-                        :value="item.value">
-                      </el-option>
+                        :value="item.value"
+                      />
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -237,8 +237,8 @@
                         v-for="item in homworkOptions"
                         :key="item.value"
                         :label="item.disp"
-                        :value="item.value">
-                      </el-option>
+                        :value="item.value"
+                      />
                     </el-select>
                   </el-form-item>
                 </el-col>
@@ -270,7 +270,7 @@
 
             <el-row>
               <div class="sub-title"><span>대표과목</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
-              <el-col :span="4" v-for="(o, idx) in formData.SJData.ESData" :key="idx">
+              <el-col v-for="(o, idx) in formData.SJData.ESData" :key="idx" :span="4">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
@@ -361,36 +361,36 @@ export default {
         },
         TGData: {
           targetGrades: [
-            { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp:'유치원' }] },
+            { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }] },
             { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 8, useYn: false, disp:'초1' },
-                { gdn: 'AG', codeNo: 9, useYn: false, disp:'초2' },
-                { gdn: 'AG', codeNo: 10, useYn: false, disp:'초3' },
-                { gdn: 'AG', codeNo: 11, useYn: false, disp:'초4' },
-                { gdn: 'AG', codeNo: 12, useYn: false, disp:'초5' },
-                { gdn: 'AG', codeNo: 13, useYn: false, disp:'초6' }
+                { gdn: 'AG', codeNo: 8, useYn: false, disp: '초1' },
+                { gdn: 'AG', codeNo: 9, useYn: false, disp: '초2' },
+                { gdn: 'AG', codeNo: 10, useYn: false, disp: '초3' },
+                { gdn: 'AG', codeNo: 11, useYn: false, disp: '초4' },
+                { gdn: 'AG', codeNo: 12, useYn: false, disp: '초5' },
+                { gdn: 'AG', codeNo: 13, useYn: false, disp: '초6' }
               ]
             },
             { itemName: 'TG', seq: 3, itemValue: '중등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 14, useYn: false, disp:'중1'},
-                { gdn: 'AG', codeNo: 15, useYn: false, disp:'중2'},
-                { gdn: 'AG', codeNo: 16, useYn: false, disp:'중3'}
+                { gdn: 'AG', codeNo: 14, useYn: false, disp: '중1' },
+                { gdn: 'AG', codeNo: 15, useYn: false, disp: '중2' },
+                { gdn: 'AG', codeNo: 16, useYn: false, disp: '중3' }
               ]
             },
             { itemName: 'TG', seq: 4, itemValue: '고등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 17, useYn: false, disp:'고1'},
-                { gdn: 'AG', codeNo: 18, useYn: false, disp:'고2'},
-                { gdn: 'AG', codeNo: 19, useYn: false, disp:'고3'}
+                { gdn: 'AG', codeNo: 17, useYn: false, disp: '고1' },
+                { gdn: 'AG', codeNo: 18, useYn: false, disp: '고2' },
+                { gdn: 'AG', codeNo: 19, useYn: false, disp: '고3' }
               ]
             },
-            { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp:'N수' }] }
+            { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp: 'N수' }] }
           ]
         },
         SJData: {
-          OSData: [ { itemName: 'OS', seq: 1, itemValue: '영어', itemProperty: '0' } ],
+          OSData: [{ itemName: 'OS', seq: 1, itemValue: '영어', itemProperty: '0' }],
           ESData: [
             {
               R1Data: [
@@ -399,7 +399,7 @@ export default {
                 { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
                 { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
                 { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
-                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
+                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' }
               ],
               disp: 'R1Data', label: '공통'
             },
@@ -426,12 +426,12 @@ export default {
                 { itemName: 'R5', seq: 1, itemValue: '영어', itemProperty: '0' }
               ],
               disp: 'R5Data', label: 'N수'
-            },
+            }
           ]
         }
       },
-      entrExmOptions: [ { value: false, disp: '아니오' }, { value: true, disp: '예' } ],
-      homworkOptions: [ { value: 1, disp: '적음' }, { value: 2, disp: '보통' }, { value: 3, disp: '많음' } ],
+      entrExmOptions: [{ value: false, disp: '아니오' }, { value: true, disp: '예' }],
+      homworkOptions: [{ value: 1, disp: '적음' }, { value: 2, disp: '보통' }, { value: 3, disp: '많음' }],
       rules: {
         // age: [
         //   { required: true, message: '나이를 기입해주세요.',trigger: 'blur' },
@@ -459,6 +459,60 @@ export default {
       map: null, // 지도 객체. 지도가 로드되면 할당됨.
       marker: null
     }
+  },
+  computed: {
+    dispOT: function() {
+      const rstObj = {}
+      if (!this.formData.OTData) return []
+      this.formData.OTData.daysOT.forEach(obj => {
+        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '-'
+      })
+      return [rstObj]
+    },
+    dispTG: function() {
+      const tmpArr = []
+
+      this.formData.TGData.targetGrades.forEach(o => {
+        o.targetLevels.forEach(l => {
+          tmpArr.push(l)
+        })
+      })
+
+      const tmpDataObj = {}
+      tmpArr.forEach(o => {
+        tmpDataObj[o.codeNo] = o.useYn
+      })
+
+      return { col: tmpArr, data: [tmpDataObj] }
+    },
+    dispMainTG: function() {
+      let tmpArr = []
+
+      tmpArr = this.formData.TGData.targetGrades.map(o => o)
+      const tmpDataObj = {}
+      tmpArr.forEach(o => {
+        tmpDataObj[o.seq] = o.itemProperty
+      })
+
+      return { col: tmpArr, data: [tmpDataObj] }
+    }
+  },
+  watch: {
+    formDialogData: {
+      handler() {
+        // if (this.formDialogData.idx) {
+        //   this.getAAcademy(this.formDialogData.idx)
+        // }
+      },
+      deep: true
+    }
+  },
+  created: function() {
+    if (this.formDialogData.idx) {
+      this.getAAcademy(this.formDialogData.idx)
+    }
+  },
+  mounted: function() {
   },
   methods: {
     handleClickConfirm() {
@@ -516,62 +570,7 @@ export default {
     setOTData(data) {
       this.formData.OTData = data
     }
-  },
-  created: function() {
-    if (this.formDialogData.idx) {
-      this.getAAcademy(this.formDialogData.idx)
-    }
-  },
-  mounted: function(){
-  },
-  computed: {
-    dispOT: function() {
-      const rstObj = {}
-      if (!this.formData.OTData) return []
-      this.formData.OTData.daysOT.forEach(obj => {
-        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '-'
-      })
-      return [rstObj]
-    },
-    dispTG: function() {
-      let tmpArr = []
-
-      this.formData.TGData.targetGrades.forEach(o => {
-        o.targetLevels.forEach(l => {
-          tmpArr.push(l)
-        });
-      });
-
-      let tmpDataObj = {}
-      tmpArr.forEach(o => {
-        tmpDataObj[o.codeNo] = o.useYn
-      });
-
-      return { col: tmpArr, data: [tmpDataObj] }
-    },
-    dispMainTG: function() {
-
-      let tmpArr = []
-
-      tmpArr = this.formData.TGData.targetGrades.map(o=>o)
-      let tmpDataObj = {}
-      tmpArr.forEach(o => {
-        tmpDataObj[o.seq] = o.itemProperty
-      });
-
-      return { col: tmpArr, data: [tmpDataObj] }
-    }
-  },
-  watch: {
-    formDialogData: {
-      handler() {
-        // if (this.formDialogData.idx) {
-        //   this.getAAcademy(this.formDialogData.idx)
-        // }
-      },
-      deep: true
-    }
-  },
+  }
 }
 </script>
 <style scoped>
