@@ -6,22 +6,22 @@
       row-key="id"
       style="width: 100%"
     >
-      <el-table-column label="메뉴명" width="250" prop="meta.title" />
-      <el-table-column label="등록일" width="220">
+      <el-table-column label="메뉴명" prop="meta.title" />
+      <el-table-column label="등록일">
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span style="margin-left: 10px">{{ dispTime(scope.row.regDate) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="등록자" width="250" prop="regUser" />
-      <el-table-column label="수정일" width="220">
+      <el-table-column label="등록자" prop="regUser" />
+      <el-table-column label="수정일">
         <template slot-scope="scope">
           <i class="el-icon-time" />
           <span style="margin-left: 10px">{{ dispTime(scope.row.updateDate) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="최종 수정자" width="250" prop="lastModUser" />
-      <el-table-column label="노출여부" width="220" fixed="right">
+      <el-table-column label="최종 수정자" prop="lastModUser" />
+      <el-table-column label="노출여부" fixed="right">
         <template slot-scope="scope">
           <el-switch
             v-model.lazy="scope.row.hidden"

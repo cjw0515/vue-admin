@@ -20,7 +20,7 @@
           </div>
           <div>
             <el-row>
-              <div class="sub-title">이름</div>
+              <div class="sub-title"><span>이름</span></div>
               <el-col :span="12">
                 <el-form-item label="공식이름" prop="instiName">
                   <el-input v-model.number="formData.instiName" style="padding: 5px;width: 70%" autocomplete="off" />
@@ -35,13 +35,13 @@
 
             <el-row>
               <el-col :span="12">
-                <div class="sub-title">주소(도로명)</div>
+                <div class="sub-title"><span>주소(도로명)</span></div>
                 <el-form-item prop="address1" label="주소" :label-width="formDialogData.formLabelWidth">
                   <el-input v-model.number="formData.address1" style="width:80%" autocomplete="off" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <div class="sub-title">주소(지번)</div>
+                <div class="sub-title"><span>주소(지번)</span></div>
                 <el-form-item prop="oldAddress" label="주소" :label-width="formDialogData.formLabelWidth">
                   <el-input v-model.number="formData.oldAddress" style="width:80%" autocomplete="off" />
                 </el-form-item>
@@ -94,7 +94,7 @@
 
             <el-row>
               <el-col :span="24">
-                <div class="sub-title">지리정보</div>
+                <div class="sub-title"><span>지리정보</span></div>
                 <el-container>
                   <el-aside>
                     <el-form-item prop="latitude" label="위도">
@@ -124,7 +124,7 @@
 
             <el-row>
               <el-col :span="5">
-                <div class="sub-title">확인여부</div>
+                <div class="sub-title"><span>확인여부</span></div>
                 <el-form-item prop="confirmYn">
                   <el-switch
                     v-model="formData.confirmYn"
@@ -137,6 +137,7 @@
             </el-row>
           </div>
         </el-card>
+
         <el-card shadow="hover" class="box-card">
           <div slot="header" class="clearfix">
             <span class="card-name">운영</span>
@@ -180,9 +181,103 @@
                     :label="obj.disp"
                   >
                     <template #default="{ row }">
-                      <div>{{ row[obj.codeNo] }}</div>
+                      <div>{{ row[obj.codeNo] ? 'O' : 'X' }}</div>
                     </template>
                   </el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <div class="sub-title"><span>주 대상</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <el-col :span="24">
+                <el-table
+                  :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
+                  border
+                  :data="dispTG.data"
+                  style="width: 100%"
+                >
+                  <el-table-column
+                    v-for="obj in dispMainTG.col"
+                    :key="obj.seq"
+                    :label="obj.itemValue"
+                  >
+                    <template #default="{ row }">
+                      <div>{{ row[obj.seq] == 1 ? 'O' : 'X' }}</div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <div class="sub-title"><span></span></div>
+              <el-row>
+                <el-col :span="6">
+                  <el-form-item prop="entranExamYn" label="입학테스트 여부">
+                    <el-select v-model="formData.entranExamYn" placeholder="Select">
+                      <el-option
+                        v-for="item in entrExmOptions"
+                        :key="item.value"
+                        :label="item.disp"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item prop="numLimit" label="정원" :label-width="formDialogData.formLabelWidth">
+                    <el-input v-model.number="formData.numLimit" style="width:80%" autocomplete="off" />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                  <el-form-item prop="homeworkAmount" label="숙제량">
+                    <el-select v-model="formData.homeworkAmount" placeholder="Select">
+                      <el-option
+                        v-for="item in homworkOptions"
+                        :key="item.value"
+                        :label="item.disp"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-row>
+
+          </div>
+        </el-card>
+
+        <el-card shadow="hover" class="box-card">
+          <div slot="header" class="clearfix">
+            <span class="card-name">과목</span>
+          </div>
+          <div>
+
+            <el-row>
+              <div class="sub-title"><span>개설과목</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <el-col :span="24">
+                <el-table
+                  :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
+                  border
+                  :data="formData.SJData.OSData"
+                  style="width: 100%"
+                >
+                  <el-table-column label="개설과목" prop="itemValue" />
+                </el-table>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <div class="sub-title"><span>대표과목</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <el-col :span="4" v-for="(o, idx) in formData.SJData.ESData" :key="idx">
+                <el-table
+                  :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
+                  border
+                  :data="o[o.disp]"
+                  style="width: 100%"
+                >
+                  <el-table-column :label="o.label" prop="itemValue" />
                 </el-table>
               </el-col>
             </el-row>
@@ -247,6 +342,9 @@ export default {
         phonNum1: 0,
         phonNum2: 0,
         phonNum3: 0,
+        entranExamYn: false,
+        homeworkAmount: 1,
+        numLimit: 0,
         // 운영
         OTData: {
           openFlexYn: false,
@@ -263,35 +361,77 @@ export default {
         },
         TGData: {
           targetGrades: [
-            { temName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: 0, disp:'유치원' }] },
-            { temName: 'TG', seq: 1, itemValue: '초등', itemProperty: '0',
+            { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp:'유치원' }] },
+            { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 8, useYn: 0, disp:'초1' },
-                { gdn: 'AG', codeNo: 9, useYn: 0, disp:'초2' },
-                { gdn: 'AG', codeNo: 10, useYn: 0, disp:'초3' },
-                { gdn: 'AG', codeNo: 11, useYn: 0, disp:'초4' },
-                { gdn: 'AG', codeNo: 12, useYn: 0, disp:'초5' },
-                { gdn: 'AG', codeNo: 13, useYn: 0, disp:'초6' }
+                { gdn: 'AG', codeNo: 8, useYn: false, disp:'초1' },
+                { gdn: 'AG', codeNo: 9, useYn: false, disp:'초2' },
+                { gdn: 'AG', codeNo: 10, useYn: false, disp:'초3' },
+                { gdn: 'AG', codeNo: 11, useYn: false, disp:'초4' },
+                { gdn: 'AG', codeNo: 12, useYn: false, disp:'초5' },
+                { gdn: 'AG', codeNo: 13, useYn: false, disp:'초6' }
               ]
             },
-            { temName: 'TG', seq: 1, itemValue: '중등', itemProperty: '0',
+            { itemName: 'TG', seq: 3, itemValue: '중등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 14, useYn: 0, disp:'중1'},
-                { gdn: 'AG', codeNo: 15, useYn: 0, disp:'중2'},
-                { gdn: 'AG', codeNo: 16, useYn: 0, disp:'중3'}
+                { gdn: 'AG', codeNo: 14, useYn: false, disp:'중1'},
+                { gdn: 'AG', codeNo: 15, useYn: false, disp:'중2'},
+                { gdn: 'AG', codeNo: 16, useYn: false, disp:'중3'}
               ]
             },
-            { temName: 'TG', seq: 1, itemValue: '고등', itemProperty: '0',
+            { itemName: 'TG', seq: 4, itemValue: '고등', itemProperty: '0',
               targetLevels: [
-                { gdn: 'AG', codeNo: 17, useYn: 0, disp:'고1'},
-                { gdn: 'AG', codeNo: 18, useYn: 0, disp:'고2'},
-                { gdn: 'AG', codeNo: 19, useYn: 0, disp:'고3'}
+                { gdn: 'AG', codeNo: 17, useYn: false, disp:'고1'},
+                { gdn: 'AG', codeNo: 18, useYn: false, disp:'고2'},
+                { gdn: 'AG', codeNo: 19, useYn: false, disp:'고3'}
               ]
             },
-            { temName: 'TG', seq: 1, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: 0, disp:'N수' }] }
+            { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp:'N수' }] }
+          ]
+        },
+        SJData: {
+          OSData: [ { itemName: 'OS', seq: 1, itemValue: '영어', itemProperty: '0' } ],
+          ESData: [
+            {
+              R1Data: [
+                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
+                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
+                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
+                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
+                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
+                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
+              ],
+              disp: 'R1Data', label: '공통'
+            },
+            {
+              R2Data: [
+                { itemName: 'R2', seq: 1, itemValue: '영어', itemProperty: '0' }
+              ],
+              disp: 'R2Data', label: '초등'
+            },
+            {
+              R3Data: [
+                { itemName: 'R3', seq: 1, itemValue: '영어', itemProperty: '0' }
+              ],
+              disp: 'R3Data', label: '중등'
+            },
+            {
+              R4Data: [
+                { itemName: 'R4', seq: 1, itemValue: '영어', itemProperty: '0' }
+              ],
+              disp: 'R4Data', label: '고등'
+            },
+            {
+              R5Data: [
+                { itemName: 'R5', seq: 1, itemValue: '영어', itemProperty: '0' }
+              ],
+              disp: 'R5Data', label: 'N수'
+            },
           ]
         }
       },
+      entrExmOptions: [ { value: false, disp: '아니오' }, { value: true, disp: '예' } ],
+      homworkOptions: [ { value: 1, disp: '적음' }, { value: 2, disp: '보통' }, { value: 3, disp: '많음' } ],
       rules: {
         // age: [
         //   { required: true, message: '나이를 기입해주세요.',trigger: 'blur' },
@@ -389,7 +529,7 @@ export default {
       const rstObj = {}
       if (!this.formData.OTData) return []
       this.formData.OTData.daysOT.forEach(obj => {
-        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '데이터가 없습니다.'
+        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '-'
       })
       return [rstObj]
     },
@@ -398,13 +538,28 @@ export default {
 
       this.formData.TGData.targetGrades.forEach(o => {
         o.targetLevels.forEach(l => {
-          tmpArr.push(l) 
-        });        
+          tmpArr.push(l)
+        });
       });
 
-      let dataArr = []
+      let tmpDataObj = {}
+      tmpArr.forEach(o => {
+        tmpDataObj[o.codeNo] = o.useYn
+      });
 
-      return { col: tmpArr, data: dataArr }
+      return { col: tmpArr, data: [tmpDataObj] }
+    },
+    dispMainTG: function() {
+
+      let tmpArr = []
+
+      tmpArr = this.formData.TGData.targetGrades.map(o=>o)
+      let tmpDataObj = {}
+      tmpArr.forEach(o => {
+        tmpDataObj[o.seq] = o.itemProperty
+      });
+
+      return { col: tmpArr, data: [tmpDataObj] }
     }
   },
   watch: {
