@@ -289,13 +289,13 @@
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
       </span>
-      <InnerDialog 
+      <InnerDialog
         :key="getKey()"
-        :inner-visible.sync="innerVisible" 
-        :insti-id="formDialogData.idx" 
+        :inner-visible.sync="innerVisible"
+        :insti-id="formDialogData.idx"
         :inner-form-name="innerFormName"
-        @toggleInnerDialog="toggleInnerDialog()" 
-        @setOTData="setOTData"         
+        @toggleInnerDialog="toggleInnerDialog()"
+        @setOTData="setOTData"
       />
     </el-dialog>
   </div>
@@ -537,10 +537,10 @@ export default {
       //   }
       // })
     },
-    openInnerDialog(formName){
+    openInnerDialog(formName) {
       console.log(formName)
       this.innerFormName = formName
-      this.innerVisible = true 
+      this.innerVisible = true
     },
     handleClickClose() {
       this.resetForm()

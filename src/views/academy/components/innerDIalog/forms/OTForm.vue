@@ -1,12 +1,5 @@
 <template>
-  <el-dialog
-    width="40%"
-    title="운영 시간"
-    :visible.sync="innerVisible"
-    :destroy-on-close="true"
-    :before-close="handleClickClose"
-    append-to-body
-  >
+  <div>
     <div class="day-row">
       <span class="flex-stat-text"><b>동일 시간</b></span>
       <el-switch
@@ -44,21 +37,13 @@
         @change="handlePickerChange"
       />
     </div>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="handleClickClose">Cancel</el-button>
-      <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
-    </span>
-  </el-dialog>
+  </div>
 </template>
 <script>
 import { parseTime } from '@/utils/index'
 
 export default {
   props: {
-    innerVisible: {
-      type: Boolean,
-      default: false
-    },
     instiId: {
         type: Number,
         default: 0
@@ -90,9 +75,6 @@ export default {
     this.convertDateValue()
   },
   methods: {
-    handleClickClose() {
-      this.$emit('toggleInnerDialog')
-    },
     handlePickerChange(val) {
       this.convertDateValue()
     },
@@ -121,10 +103,10 @@ export default {
         }
       })
     },
-    handleClickConfirm() {
-      this.$emit('setOTData', this.formData)
-      this.$emit('toggleInnerDialog')
-    },
+    // handleClickConfirm() {
+    //   this.$emit('setOTData', this.formData)
+    //   this.$emit('toggleInnerDialog')
+    // },
     setOperationStat(item) {
       this.convertDateValue()
     }
