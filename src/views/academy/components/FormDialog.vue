@@ -145,7 +145,7 @@
           <div>
 
             <el-row>
-              <div class="sub-title"><span>운영 시간</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <div class="sub-title"><span>운영 시간</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('OTForm')" /></div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -167,7 +167,7 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span>대상 학년</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <div class="sub-title"><span>대상 학년</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('TGForm')" /></div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -189,7 +189,7 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span>주 대상</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <div class="sub-title"><span>주 대상</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('')" /></div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -255,7 +255,7 @@
           <div>
 
             <el-row>
-              <div class="sub-title"><span>개설과목</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <div class="sub-title"><span>개설과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('')" /></div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -269,7 +269,7 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span>대표과목</span><svg-icon icon-class="edit" class="edit-icon" @click="innerVisible = true" /></div>
+              <div class="sub-title"><span>대표과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('')" /></div>
               <el-col v-for="(o, idx) in formData.SJData.ESData" :key="idx" :span="4">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -289,18 +289,25 @@
         <el-button @click="handleClickClose">Cancel</el-button>
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
       </span>
-      <OTForm :key="getKey()" :inner-visible.sync="innerVisible" :insti-id="formDialogData.idx" @toggleInnerDialog="toggleInnerDialog()" @setOTData="setOTData" />
+      <InnerDialog 
+        :key="getKey()"
+        :inner-visible.sync="innerVisible" 
+        :insti-id="formDialogData.idx" 
+        :inner-form-name="innerFormName"
+        @toggleInnerDialog="toggleInnerDialog()" 
+        @setOTData="setOTData"         
+      />
     </el-dialog>
   </div>
 </template>
 <script>
 import { getAAcademy, updateAcademy } from '@/api/insti/academy'
 import VueDaumMap from '@/components/DaumMap'
-import OTForm from './innerDIalog/OTForm'
+import InnerDialog from './innerDIalog/InnerDialog'
 import { createUniqueString, parseTime } from '@/utils/index'
 
 export default {
-  components: { VueDaumMap, OTForm },
+  components: { VueDaumMap, InnerDialog },
   props: {
     formDialogData: {
       type: Object,
@@ -323,6 +330,7 @@ export default {
   data() {
     return {
       innerVisible: false,
+      innerFormName: '',
       formData: {
         // 일반
         instiName: '',
@@ -528,6 +536,11 @@ export default {
       //     })
       //   }
       // })
+    },
+    openInnerDialog(formName){
+      console.log(formName)
+      this.innerFormName = formName
+      this.innerVisible = true 
     },
     handleClickClose() {
       this.resetForm()
