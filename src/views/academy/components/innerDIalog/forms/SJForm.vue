@@ -1,25 +1,5 @@
 <template>
-  <div>
-    <el-row>
-      <div><span class="tg-t-text">주 대상 / 대상학년</span></div><div class="tg-row-10" />
-      <el-col v-for="(tg, idx) in formData.targetGrades" :key="idx" :span="4">
-        <el-checkbox-button
-          v-model="tg.itemProperty"
-          true-label="1"
-          false-label="0"
-        >{{ tg.itemValue }}</el-checkbox-button>
-        <div class="tg-row" />
-        <el-checkbox ref="allButtons" true-label="1" false-label="0" @change="handleCheckAllChange(idx)">all</el-checkbox>
-        <div class="tg-row-10" />
-        <el-checkbox
-          v-for="tgLevel in tg.targetLevels"
-          :key="tgLevel.codeNo"
-          v-model="tgLevel.useYn"
-          @change="handleCheckBox(idx)"
-        >{{ tgLevel.disp }}</el-checkbox>
-      </el-col>
-    </el-row>
-  </div>
+  <div />
 </template>
 <script>
 import { parseTime } from '@/utils/index'
@@ -64,35 +44,12 @@ export default {
     }
   }),
   watch: {
-    'formData.openFlexYn': {
-      handler: function(v) {
-        this.convertDateValue()
-      }
-    }
+
   },
   mounted: function() {
   },
   methods: {
-    handleCheckAllChange(idx) {
-      if (this.$refs['allButtons'][idx].model === '1') {
-        this.formData.targetGrades[idx].targetLevels.forEach(levs => {
-          levs.useYn = true
-        })
-      } else {
-        this.formData.targetGrades[idx].targetLevels.forEach(levs => {
-          levs.useYn = false
-        })
-      }
-    },
-    handleCheckBox(idx) {
-      const maxChk = this.formData.targetGrades[idx].targetLevels.length
-      const chked = this.formData.targetGrades[idx].targetLevels.filter(el => el.useYn)
-      if (maxChk != chked.length) {
-        this.$refs['allButtons'][idx].model = '0'
-      } else {
-        this.$refs['allButtons'][idx].model = '1'
-      }
-    }
+
   }
 }
 </script>

@@ -189,7 +189,7 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span>주 대상</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('')" /></div>
+              <div class="sub-title"><span>주 대상</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('TGForm')" /></div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -255,7 +255,7 @@
           <div>
 
             <el-row>
-              <div class="sub-title"><span>개설과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('')" /></div>
+              <div class="sub-title"><span>개설과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('SJForm')" /></div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
