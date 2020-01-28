@@ -314,6 +314,10 @@ export function createUniqueString() {
   return (+(randomNum + timestamp)).toString(32)
 }
 
+export function getRandomNumber(st, ed) {
+  return parseInt((st + Math.random()) * ed + 1)
+}
+
 /**
  * Check if an element has a class
  * @param {HTMLElement} elm
