@@ -1,8 +1,49 @@
 <template>
-  <div />
+  <el-container>
+    <el-aside>
+      <el-input
+        class="search-input"
+        prefix-icon="el-icon-search"
+        placeholder="search"
+        v-model="filterText">
+      </el-input>
+      <el-tree
+        :data="subjects"
+        show-checkbox
+        node-key="codeNo"
+        ref="tree"
+        highlight-current
+        :props="defaultProps"
+        :filter-node-method="filterNode"
+        />
+    </el-aside>
+    <el-main>
+      <div>
+        <el-card shadow="hover" class="box-card"
+          v-for="(data, idx) in formData.SJData"
+          :key="idx"
+        >
+            <div slot="header" class="clearfix">
+              <span class="card-name">{{data.label}}</span>
+            </div>
+            <el-button :type="getType(4)" icon="el-icon-arrow-right" circle class="add-btn" @click="addSubject(data.disp)"/>
+            <el-tag
+              v-for="sub in data[data.disp]"
+              :key="sub.idx"
+              closable
+              :type="sub.type"
+              :disable-transitions="false"
+              @close="handleClickDeleteBtn(data.disp, sub.idx)">
+              {{sub.disp}}
+            </el-tag>
+        </el-card>
+      </div>
+    </el-main>
+  </el-container>
 </template>
 <script>
-import { parseTime } from '@/utils/index'
+import { parseTime, getRandomNumber } from '@/utils/index'
+import { getAMasterCodeTree } from '@/api/insti/master-code'
 
 export default {
   props: {
@@ -12,44 +53,133 @@ export default {
     }
   },
   data: () => ({
+    filterText: '',
+    subjects: [],
+    defaultProps: {
+      children: 'children',
+      label: 'codeName'
+    },
     formData: {
-      targetGrades: [
-        { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }] },
-        { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
-          targetLevels: [
-            { gdn: 'AG', codeNo: 8, useYn: false, disp: '초1' },
-            { gdn: 'AG', codeNo: 9, useYn: false, disp: '초2' },
-            { gdn: 'AG', codeNo: 10, useYn: false, disp: '초3' },
-            { gdn: 'AG', codeNo: 11, useYn: false, disp: '초4' },
-            { gdn: 'AG', codeNo: 12, useYn: false, disp: '초5' },
-            { gdn: 'AG', codeNo: 13, useYn: false, disp: '초6' }
-          ]
+      SJData: [
+        {
+          disp: 'OSData', label: '개설 과목',
+          OSData: []
         },
-        { itemName: 'TG', seq: 3, itemValue: '중등', itemProperty: '0',
-          targetLevels: [
-            { gdn: 'AG', codeNo: 14, useYn: false, disp: '중1' },
-            { gdn: 'AG', codeNo: 15, useYn: false, disp: '중2' },
-            { gdn: 'AG', codeNo: 16, useYn: false, disp: '중3' }
-          ]
+        {
+          disp: 'R1Data', label: '공통',
+          R1Data: [],
         },
-        { itemName: 'TG', seq: 4, itemValue: '고등', itemProperty: '0',
-          targetLevels: [
-            { gdn: 'AG', codeNo: 17, useYn: false, disp: '고1' },
-            { gdn: 'AG', codeNo: 18, useYn: false, disp: '고2' },
-            { gdn: 'AG', codeNo: 19, useYn: false, disp: '고3' }
-          ]
+        {
+          disp: 'R2Data', label: '초등',
+          R2Data: [],
         },
-        { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp: 'N수' }] }
+        {
+          R3Data: [],
+          disp: 'R3Data', label: '중등'
+        },
+        {
+          disp: 'R4Data', label: '고등',
+          R4Data: [],
+        },
+        {
+          disp: 'R5Data', label: 'N수',
+          R5Data: [],
+        }
       ]
     }
   }),
   watch: {
-
+    filterText(val) {
+      this.$refs.tree.filter(val);
+    }
   },
   mounted: function() {
+    this.initialDataSetup()
   },
   methods: {
+    initialDataSetup(){
+      this.getAMasterCodeTree()
+    },    
+    async getAMasterCodeTree(){
+      const { data } = await getAMasterCodeTree(1)
+      this.subjects = data
+      this.addToInitialData()
+    },
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.codeName.indexOf(value) !== -1;
+    },
+    getType(idx){
+      const types = ['success', 'info', 'warning', 'danger', '']
+      return types[(idx + 1) % types.length]
+    },
+    handleClickDeleteBtn(arrName, key){
+      this.formData.SJData.forEach(o => {
+        if(o[arrName]){
+          o[arrName] = o[arrName].reduce((pre, value) => {
+            if(value.idx != key){
+              pre.push(value)
+            }
+            return pre
+          }, [])
+        }
+      })
+    },
+    addToInitialData(){
+      this.formData.SJData.forEach(o => {
+        o[o.disp] = o[o.disp].map((sub, idx) => {
+          return {
+            ...sub,
+            idx: idx,
+            type: this.getType(idx)
+          }
+        })
+      })
+    },
+    addSubject(arrName){
+      if(!arrName) return false;
+      let gdn = ''
+      const checkArr = this.$refs.tree.getCheckedNodes()
+      if(checkArr.length <= 0) return false;
 
+      switch (arrName) {
+        case 'OSData':
+          gdn = 'OS'
+          break;
+        case 'R1Data':
+          gdn = 'R1'
+          break;
+        case 'R2Data':
+          gdn = 'R2'
+          break;
+        case 'R3Data':
+          gdn = 'R3'
+          break;
+        case 'R4Data':
+          gdn = 'R4'
+          break;
+        case 'R5Data':
+          gdn = 'R5'
+          break;
+        default:
+          gdn = ''
+          break;
+      }
+      this.formData.SJData.forEach(o => {
+        if(o[arrName]){
+          checkArr.forEach(c => {
+            o[arrName].push({
+              gdn: gdn,
+              codeNo: c.codeNo,
+              useYn: true,
+              disp: c.codeName
+            })
+          })
+          this.addToInitialData()
+        }
+      })
+
+    }
   }
 }
 </script>
@@ -63,5 +193,25 @@ export default {
 .tg-t-text {
     font-size: 110%;
     color: indigo;
+}
+.el-aside {
+  background-color: #D3DCE6;
+  color: #333;
+  text-align: center;
+  height: 500px;
+}
+.search-input {
+  margin-bottom: 10px
+}
+.add-btn {
+  /* border-right: 1px black */
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.el-card {
+  margin-bottom: 10px;
 }
 </style>
