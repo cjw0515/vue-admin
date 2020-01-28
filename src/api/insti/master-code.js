@@ -7,6 +7,13 @@ export function getAMasterCode(code) {
   })
 }
 
+export function getAMasterCodeTree(code) {
+  return request({
+    url: `/masterCode/tree/${code}`,
+    method: 'GET'
+  })
+}
+
 export function getMasterCodes(parentCode, depth) {
   return request({
     url: `/masterCode/childCodes/${parentCode}/depth/${depth}`,
