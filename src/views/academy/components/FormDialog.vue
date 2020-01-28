@@ -254,30 +254,30 @@
           </div>
           <div>
 
-            <el-row>
+            <!-- <el-row>
               <div class="sub-title"><span>개설과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('SJForm')" /></div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
                   :data="formData.SJData.OSData"
-                  style="width: 100%"
+                  style="width: 20%"
                 >
-                  <el-table-column label="개설과목" prop="itemValue" />
+                  <el-table-column label="개설과목" prop="disp" />
                 </el-table>
               </el-col>
-            </el-row>
+            </el-row> -->
 
             <el-row>
-              <div class="sub-title"><span>대표과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('')" /></div>
-              <el-col v-for="(o, idx) in formData.SJData.ESData" :key="idx" :span="4">
+              <div class="sub-title"><span>대표과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('SJForm')" /></div>
+              <el-col v-for="(o, idx) in formData.SJData" :key="idx" :span="4">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
                   :data="o[o.disp]"
                   style="width: 100%"
                 >
-                  <el-table-column :label="o.label" prop="itemValue" />
+                  <el-table-column :label="o.label" prop="disp" />
                 </el-table>
               </el-col>
             </el-row>
@@ -397,46 +397,51 @@ export default {
             { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp: 'N수' }] }
           ]
         },
-        SJData: {
-          OSData: [{ itemName: 'OS', seq: 1, itemValue: '영어', itemProperty: '0' }],
-          ESData: [
-            {
-              R1Data: [
-                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
-                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
-                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
-                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
-                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' },
-                { itemName: 'R1', seq: 1, itemValue: '영어', itemProperty: '0' }
-              ],
-              disp: 'R1Data', label: '공통'
-            },
-            {
-              R2Data: [
-                { itemName: 'R2', seq: 1, itemValue: '영어', itemProperty: '0' }
-              ],
-              disp: 'R2Data', label: '초등'
-            },
-            {
-              R3Data: [
-                { itemName: 'R3', seq: 1, itemValue: '영어', itemProperty: '0' }
-              ],
-              disp: 'R3Data', label: '중등'
-            },
-            {
-              R4Data: [
-                { itemName: 'R4', seq: 1, itemValue: '영어', itemProperty: '0' }
-              ],
-              disp: 'R4Data', label: '고등'
-            },
-            {
-              R5Data: [
-                { itemName: 'R5', seq: 1, itemValue: '영어', itemProperty: '0' }
-              ],
-              disp: 'R5Data', label: 'N수'
-            }
-          ]
-        }
+        SJData: [
+          {
+            disp: 'OSData', label: '개설 과목',
+            OSData: [
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '국어' },
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '수학' },
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '사회' },
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '도덕' },
+            ]
+          },
+          {
+            disp: 'R1Data', label: '공통',
+            R1Data: [
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+            ],
+          },
+          {
+            disp: 'R2Data', label: '초등',
+            R2Data: [
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+            ],
+          },
+          {
+            R3Data: [
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+            ],
+            disp: 'R3Data', label: '중등'
+          },
+          {
+            disp: 'R4Data', label: '고등',
+            R4Data: [
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+            ],
+          },
+          {
+            disp: 'R5Data', label: 'N수',
+            R5Data: [
+              { gdn: 'R1', codeNo: 100, useYn: true, disp: '영어' },
+            ],
+          }
+        ]
       },
       entrExmOptions: [{ value: false, disp: '아니오' }, { value: true, disp: '예' }],
       homworkOptions: [{ value: 1, disp: '적음' }, { value: 2, disp: '보통' }, { value: 3, disp: '많음' }],

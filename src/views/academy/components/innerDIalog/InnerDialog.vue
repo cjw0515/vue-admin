@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-if="innerFormName != ''"
-    width="40%"
+    :width="formWidth"
     :title="formTitle"
     :visible.sync="innerVisible"
     :destroy-on-close="true"
@@ -39,9 +39,9 @@ export default {
   },
   data: () => ({
     formComponents: {
-      'OTForm': { component: OTForm, name: '운영 시간' },
-      'TGForm': { component: TGForm, name: '대상 학년' },
-      'SJForm': { component: SJForm, name: '개설 과목' }
+      'OTForm': { component: OTForm, name: '운영 시간', width: '40%' },
+      'TGForm': { component: TGForm, name: '대상 학년', width: '40%' },
+      'SJForm': { component: SJForm, name: '개설 과목', width: '60%' }
     }
   }),
   computed: {
@@ -50,7 +50,10 @@ export default {
     },
     formTitle: function() {
       return this.formComponents[this.innerFormName].name
-    }
+    },
+    formWidth: function() {
+      return this.formComponents[this.innerFormName].width
+    }    
   },
   methods: {
     handleClickClose() {
