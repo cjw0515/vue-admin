@@ -8,7 +8,7 @@
     :before-close="handleClickClose"
     append-to-body
   >
-    <div :is="component" />
+    <div :is="component" ref="form" :master-data="formMasterData" />
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleClickClose">Cancel</el-button>
       <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
@@ -35,13 +35,16 @@ export default {
     innerFormName: {
       type: String,
       default: ''
+    },
+    formData: {
+      type: [Array, Object]
     }
   },
   data: () => ({
     formComponents: {
-      'OTForm': { component: OTForm, name: '운영 시간', width: '40%' },
-      'TGForm': { component: TGForm, name: '대상 학년', width: '40%' },
-      'SJForm': { component: SJForm, name: '개설 과목', width: '60%' }
+      'OTForm': { component: OTForm, name: '운영 시간', width: '40%', dataKey: 'OTData' },
+      'TGForm': { component: TGForm, name: '대상 학년', width: '40%', dataKey: 'TGData' },
+      'SJForm': { component: SJForm, name: '개설 과목', width: '60%', dataKey: 'SJData' }
     }
   }),
   computed: {
@@ -53,15 +56,22 @@ export default {
     },
     formWidth: function() {
       return this.formComponents[this.innerFormName].width
-    }    
+    },
+    formDataKey: function(){
+      return this.formComponents[this.innerFormName].dataKey
+    },
+    formMasterData: function(){
+      const tmpData = JSON.parse(JSON.stringify(this.formData[this.formComponents[this.innerFormName].dataKey])) 
+      return {[this.formComponents[this.innerFormName].dataKey]: tmpData }
+    }
   },
   methods: {
     handleClickClose() {
       this.$emit('toggleInnerDialog')
     },
     handleClickConfirm() {
-      // this.$emit('setOTData', this.formData)
-      // this.$emit('toggleInnerDialog')
+      this.$emit('setFormData', this.formDataKey,  this.$refs['form'].formData[this.formDataKey])
+      this.$emit('toggleInnerDialog')
     }
   }
 }
