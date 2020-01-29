@@ -2,7 +2,7 @@
   <div>
     <el-row>
       <div><span class="tg-t-text">주 대상 / 대상학년</span></div><div class="tg-row-10" />
-      <el-col v-for="(tg, idx) in formData.targetGrades" :key="idx" :span="4">
+      <el-col v-for="(tg, idx) in formData.TGData" :key="idx" :span="4">
         <el-checkbox-button
           v-model="tg.itemProperty"
           true-label="1"
@@ -29,11 +29,14 @@ export default {
     instiId: {
       type: Number,
       default: 0
+    },
+    masterData: {
+      type: [Array, Object]
     }
   },
   data: () => ({
     formData: {
-      targetGrades: [
+      TGData: [
         { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }] },
         { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
           targetLevels: [
@@ -75,18 +78,18 @@ export default {
   methods: {
     handleCheckAllChange(idx) {
       if (this.$refs['allButtons'][idx].model === '1') {
-        this.formData.targetGrades[idx].targetLevels.forEach(levs => {
+        this.formData.TGData[idx].targetLevels.forEach(levs => {
           levs.useYn = true
         })
       } else {
-        this.formData.targetGrades[idx].targetLevels.forEach(levs => {
+        this.formData.TGData[idx].targetLevels.forEach(levs => {
           levs.useYn = false
         })
       }
     },
     handleCheckBox(idx) {
-      const maxChk = this.formData.targetGrades[idx].targetLevels.length
-      const chked = this.formData.targetGrades[idx].targetLevels.filter(el => el.useYn)
+      const maxChk = this.formData.TGData[idx].targetLevels.length
+      const chked = this.formData.TGData[idx].targetLevels.filter(el => el.useYn)
       if (maxChk != chked.length) {
         this.$refs['allButtons'][idx].model = '0'
       } else {

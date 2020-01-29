@@ -354,7 +354,7 @@ export default {
           ]
         },
         TGData: {
-          targetGrades: [
+          TGData: [
             { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }] },
             { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
               targetLevels: [
@@ -452,7 +452,7 @@ export default {
     dispTG: function() {
       const tmpArr = []
 
-      this.formData.TGData.targetGrades.forEach(o => {
+      this.formData.TGData.TGData.forEach(o => {
         o.targetLevels.forEach(l => {
           tmpArr.push(l)
         })
@@ -468,7 +468,7 @@ export default {
     dispMainTG: function() {
       let tmpArr = []
 
-      tmpArr = this.formData.TGData.targetGrades.map(o => o)
+      tmpArr = this.formData.TGData.TGData.map(o => o)
       const tmpDataObj = {}
       tmpArr.forEach(o => {
         tmpDataObj[o.seq] = o.itemProperty
