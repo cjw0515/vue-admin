@@ -8,7 +8,7 @@
     :before-close="handleClickClose"
     append-to-body
   >
-    <div :is="component" ref="form" :master-data="formMasterData" />
+    <div :is="component" ref="form" :master-data="formMasterData" :dialog-status="dialogStatus" />
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleClickClose">Cancel</el-button>
       <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
@@ -38,13 +38,16 @@ export default {
     },
     formData: {
       type: [Array, Object]
+    },
+    dialogStatus: {
+      type: String
     }
   },
   data: () => ({
     formComponents: {
       'OTForm': { component: OTForm, name: '운영 시간', width: '40%', dataKey: 'OTData' },
       'TGForm': { component: TGForm, name: '대상 학년', width: '40%', dataKey: 'TGData' },
-      'SJForm': { component: SJForm, name: '개설 과목', width: '60%', dataKey: 'SJData' }
+      'SJForm': { component: SJForm, name: '개설 과목 / 대표과목', width: '60%', dataKey: 'SJData' }
     }
   }),
   computed: {

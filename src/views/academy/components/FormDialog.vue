@@ -157,6 +157,7 @@
                     v-for="dayObj in formData.OTData.daysOT"
                     :key="dayObj.seq"
                     :label="dayObj.itemValue"
+                    align='center'
                   >
                     <template #default="{ row }">
                       <div>{{ row[dayObj.seq] }}</div>
@@ -179,9 +180,10 @@
                     v-for="obj in dispTG.col"
                     :key="obj.codeNo"
                     :label="obj.disp"
+                    align='center'
                   >
                     <template #default="{ row }">
-                      <div>{{ row[obj.codeNo] ? 'O' : 'X' }}</div>
+                      <div :style="{color: row[obj.codeNo] ? 'blue' : 'red'}">{{ row[obj.codeNo] ? 'O' : 'X' }}</div>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -194,16 +196,17 @@
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
-                  :data="dispTG.data"
+                  :data="dispMainTG.data"
                   style="width: 100%"
                 >
                   <el-table-column
                     v-for="obj in dispMainTG.col"
                     :key="obj.seq"
                     :label="obj.itemValue"
+                    align='center'
                   >
                     <template #default="{ row }">
-                      <div>{{ row[obj.seq] == 1 ? 'O' : 'X' }}</div>
+                      <div :style="{color: row[obj.seq] == 1 ? 'blue' : 'red'}">{{ row[obj.seq] == 1 ? 'O' : 'X' }}</div>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -261,6 +264,7 @@
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
                   :data="value.list"
+                  empty-text='-'
                   style="width: 100%"
                 >
                   <el-table-column :label="value.label" prop="disp" />
@@ -280,6 +284,7 @@
         :insti-id="formDialogData.idx"
         :inner-form-name="innerFormName"
         :form-data="formData"
+        :dialog-status="formDialogData.dialogStatus"
         @toggleInnerDialog="toggleInnerDialog()"
         @setFormData="setFormData"
       />
@@ -344,45 +349,43 @@ export default {
           openFlexYn: false,
           openFlexTime: { itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
           daysOT: [
-            { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: '' },
-            { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: '', prefixdTime: '' },
-            { openStat: true, itemName: 'OT', seq: 3, itemValue: '수', itemProperty: '', prefixdTime: '' },
-            { openStat: true, itemName: 'OT', seq: 4, itemValue: '목', itemProperty: '', prefixdTime: '' },
-            { openStat: true, itemName: 'OT', seq: 5, itemValue: '금', itemProperty: '', prefixdTime: '' },
-            { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: '', prefixdTime: '' },
-            { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: '', prefixdTime: '' }
+            { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [] },
+            { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: '', prefixdTime: [] },
+            { openStat: true, itemName: 'OT', seq: 3, itemValue: '수', itemProperty: '', prefixdTime: [] },
+            { openStat: true, itemName: 'OT', seq: 4, itemValue: '목', itemProperty: '', prefixdTime: [] },
+            { openStat: true, itemName: 'OT', seq: 5, itemValue: '금', itemProperty: '', prefixdTime: [] },
+            { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: '', prefixdTime: [] },
+            { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: '', prefixdTime: [] }
           ]
         },
-        TGData: {
-          TGData: [
-            { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }] },
-            { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
-              targetLevels: [
-                { gdn: 'AG', codeNo: 8, useYn: false, disp: '초1' },
-                { gdn: 'AG', codeNo: 9, useYn: false, disp: '초2' },
-                { gdn: 'AG', codeNo: 10, useYn: false, disp: '초3' },
-                { gdn: 'AG', codeNo: 11, useYn: false, disp: '초4' },
-                { gdn: 'AG', codeNo: 12, useYn: false, disp: '초5' },
-                { gdn: 'AG', codeNo: 13, useYn: false, disp: '초6' }
-              ]
-            },
-            { itemName: 'TG', seq: 3, itemValue: '중등', itemProperty: '0',
-              targetLevels: [
-                { gdn: 'AG', codeNo: 14, useYn: false, disp: '중1' },
-                { gdn: 'AG', codeNo: 15, useYn: false, disp: '중2' },
-                { gdn: 'AG', codeNo: 16, useYn: false, disp: '중3' }
-              ]
-            },
-            { itemName: 'TG', seq: 4, itemValue: '고등', itemProperty: '0',
-              targetLevels: [
-                { gdn: 'AG', codeNo: 17, useYn: false, disp: '고1' },
-                { gdn: 'AG', codeNo: 18, useYn: false, disp: '고2' },
-                { gdn: 'AG', codeNo: 19, useYn: false, disp: '고3' }
-              ]
-            },
-            { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp: 'N수' }] }
-          ]
-        },
+        TGData: [
+          { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }] },
+          { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
+            targetLevels: [
+              { gdn: 'AG', codeNo: 8, useYn: false, disp: '초1' },
+              { gdn: 'AG', codeNo: 9, useYn: false, disp: '초2' },
+              { gdn: 'AG', codeNo: 10, useYn: false, disp: '초3' },
+              { gdn: 'AG', codeNo: 11, useYn: false, disp: '초4' },
+              { gdn: 'AG', codeNo: 12, useYn: false, disp: '초5' },
+              { gdn: 'AG', codeNo: 13, useYn: false, disp: '초6' }
+            ]
+          },
+          { itemName: 'TG', seq: 3, itemValue: '중등', itemProperty: '0',
+            targetLevels: [
+              { gdn: 'AG', codeNo: 14, useYn: false, disp: '중1' },
+              { gdn: 'AG', codeNo: 15, useYn: false, disp: '중2' },
+              { gdn: 'AG', codeNo: 16, useYn: false, disp: '중3' }
+            ]
+          },
+          { itemName: 'TG', seq: 4, itemValue: '고등', itemProperty: '0',
+            targetLevels: [
+              { gdn: 'AG', codeNo: 17, useYn: false, disp: '고1' },
+              { gdn: 'AG', codeNo: 18, useYn: false, disp: '고2' },
+              { gdn: 'AG', codeNo: 19, useYn: false, disp: '고3' }
+            ]
+          },
+          { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp: 'N수' }] }
+        ],
         SJData: {
           OSData: {
             disp: 'OSData', label: '개설 과목',
@@ -445,14 +448,14 @@ export default {
       const rstObj = {}
       if (!this.formData.OTData) return []
       this.formData.OTData.daysOT.forEach(obj => {
-        rstObj[obj.seq] = obj.itemProperty ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '-'
+        rstObj[obj.seq] = obj.itemProperty != 0 && obj.itemProperty != '' && !this.formData.OTData.openFlexYn ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '-'
       })
       return [rstObj]
     },
     dispTG: function() {
       const tmpArr = []
 
-      this.formData.TGData.TGData.forEach(o => {
+      this.formData.TGData.forEach(o => {
         o.targetLevels.forEach(l => {
           tmpArr.push(l)
         })
@@ -468,7 +471,7 @@ export default {
     dispMainTG: function() {
       let tmpArr = []
 
-      tmpArr = this.formData.TGData.TGData.map(o => o)
+      tmpArr = this.formData.TGData.map(o => o)
       const tmpDataObj = {}
       tmpArr.forEach(o => {
         tmpDataObj[o.seq] = o.itemProperty
@@ -509,9 +512,9 @@ export default {
       //   }
       // })
     },
-    selectedFormData(){      
+    selectedFormData(){
       return this.formData[this.innerFormName]
-    },    
+    },
     openInnerDialog(formName) {
       this.innerFormName = formName
       this.innerVisible = true
