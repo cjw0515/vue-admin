@@ -1,12 +1,13 @@
 <template>
   <el-container>
-    <el-aside width="400px">
+    <el-aside width="350px" style="background-color: rgb(238, 241, 246)">
       <el-input
         class="search-input"
         prefix-icon="el-icon-search"
         placeholder="search"
         v-model="filterText">
       </el-input>
+      <el-button type="danger" icon="el-icon-remove-outline" size="mini" circle @click="resetChecked"/>
       <el-tree
         :data="subjects"
         show-checkbox
@@ -17,6 +18,7 @@
         :filter-node-method="filterNode"
         default-expand-all
         @check="handleClickChk"
+        empty-text="로딩중..."
         />
     </el-aside>
     <el-main>
@@ -27,9 +29,10 @@
         >
           <div slot="header" class="clearfix">
             <span class="card-name">{{data.label}}</span>
-            <el-button type="primary" icon="el-icon-refresh" size="mini" circle @click="refreshSubjects(data.disp)"/>
+            <el-button type="primary" icon="el-icon-download" size="mini"  v-if="dialogStatus == 'update'" circle @click="refreshSubjects(data.disp)"/>
+            <el-button type="danger" icon="el-icon-remove-outline" size="mini" circle @click="resetSubject(data.disp)"/>
           </div>
-          <el-button :type="isChecked ? getType(4) : getType(0)" icon="el-icon-arrow-right" circle class="add-btn" @click="addSubject(data.disp)"/>
+          <el-button :type="isEmpty ? getType(4) : getType(0)" icon="el-icon-arrow-right" circle class="add-btn" @click="addSubject(data.disp)"/>
           <el-tag
             v-for="sub in data.list"
             :key="sub.idx"
@@ -56,6 +59,10 @@ export default {
     },
     masterData: {
       type: [Array, Object]
+    },
+    dialogStatus: {
+      type: String,
+      default: ''
     }
   },
   data: function(){
@@ -73,6 +80,7 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val)
+      this.resetChecked()      
     }
   },
   created: function(){    
@@ -92,6 +100,9 @@ export default {
     refreshSubjects(dataKey){
       this.formData.SJData[dataKey].list = this.getSubjects()
     },
+    resetSubject(dataKey){
+      this.formData.SJData[dataKey].list = []
+    },    
     getSubjects(dataKey){
       return []
     },
@@ -189,10 +200,14 @@ export default {
         })
       }
       return uniq
+    },
+    resetChecked(){
+      this.$refs.tree.setCheckedKeys([])
+      this.chkedNodes = this.$refs.tree.getCheckedNodes()
     }
   },
   computed: {
-    isChecked: function(){
+    isEmpty: function(){
       return this.chkedNodes.length > 0
     }
   }
@@ -232,5 +247,8 @@ export default {
 }
 .card-name{
   margin-right: 10px;
+}
+.el-input {
+  width: 250px;
 }
 </style>
