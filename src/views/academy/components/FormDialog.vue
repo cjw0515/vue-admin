@@ -22,13 +22,13 @@
             <el-row>
               <div class="sub-title"><span>이름</span></div>
               <el-col :span="12">
-                <el-form-item label="공식이름" prop="instiName">
-                  <el-input v-model.number="formData.instiName" style="padding: 5px;width: 70%" autocomplete="off" />
+                <el-form-item label="공식이름" prop="insti.instiName">
+                  <el-input v-model.number="formData.insti.instiName" style="padding: 5px;width: 70%" autocomplete="off" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="한글 이름" prop="instiKname">
-                  <el-input v-model.number="formData.instiKname" style="padding: 5px;width: 70%" autocomplete="off" />
+                  <el-input v-model.number="formData.insti.instiKname" style="padding: 5px;width: 70%" autocomplete="off" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -37,13 +37,13 @@
               <el-col :span="12">
                 <div class="sub-title"><span>주소(도로명)</span></div>
                 <el-form-item prop="address1" label="주소" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.address1" style="width:80%" autocomplete="off" />
+                  <el-input v-model.number="formData.insti.address1" style="width:80%" autocomplete="off" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <div class="sub-title"><span>주소(지번)</span></div>
                 <el-form-item prop="oldAddress" label="주소" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.oldAddress" style="width:80%" autocomplete="off" />
+                  <el-input v-model.number="formData.insti.oldAddress" style="width:80%" autocomplete="off" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -51,12 +51,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item prop="building" label="빌딩" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.building" style="width:80%" autocomplete="off" />
+                  <el-input v-model.number="formData.insti.building" style="width:80%" autocomplete="off" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item prop="address3" label="동" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.address3" style="width:80%" autocomplete="off" />
+                  <el-input v-model.number="formData.insti.address3" style="width:80%" autocomplete="off" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -64,12 +64,12 @@
             <el-row>
               <el-col :span="12">
                 <el-form-item prop="zipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.zipcode" style="width:80%" autocomplete="off" />
+                  <el-input v-model.number="formData.insti.zipcode" style="width:80%" autocomplete="off" />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item prop="oldZipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.oldZipcode" style="width:80%" autocomplete="off" />
+                  <el-input v-model.number="formData.insti.oldZipcode" style="width:80%" autocomplete="off" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -77,17 +77,17 @@
             <el-row>
               <el-col :span="4">
                 <el-form-item prop="phonNum1" label="전화번호" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.phonNum1" autocomplete="off" style="width:80%" />
+                  <el-input v-model.number="formData.insti.phonNum1" autocomplete="off" style="width:80%" />
                 </el-form-item>
               </el-col>
               <el-col :span="2">
                 <el-form-item prop="phonNum2">
-                  <el-input v-model.number="formData.phonNum2" autocomplete="off" style="width:80%" />
+                  <el-input v-model.number="formData.insti.phonNum2" autocomplete="off" style="width:80%" />
                 </el-form-item>
               </el-col>
               <el-col :span="2">
                 <el-form-item prop="phonNum3">
-                  <el-input v-model.number="formData.phonNum3" autocomplete="off" style="width:80%" />
+                  <el-input v-model.number="formData.insti.phonNum3" autocomplete="off" style="width:80%" />
                 </el-form-item>
               </el-col>
             </el-row>
@@ -97,11 +97,11 @@
                 <div class="sub-title"><span>지리정보</span></div>
                 <el-container>
                   <el-aside>
-                    <el-form-item prop="latitude" label="위도">
-                      <el-input v-model.number="formData.latitude" autocomplete="off" />
+                    <el-form-item prop="insti.latitude" label="위도">
+                      <el-input v-model.number="formData.insti.latitude" autocomplete="off" />
                     </el-form-item>
-                    <el-form-item prop="longitude" label="경도">
-                      <el-input v-model.number="formData.longitude" autocomplete="off" />
+                    <el-form-item prop="insti.longitude" label="경도">
+                      <el-input v-model.number="formData.insti.longitude" autocomplete="off" />
                     </el-form-item>
                   </el-aside>
                   <el-container>
@@ -127,7 +127,7 @@
                 <div class="sub-title"><span>확인여부</span></div>
                 <el-form-item prop="confirmYn">
                   <el-switch
-                    v-model="formData.confirmYn"
+                    v-model="formData.insti.confirmYn"
                     active-value="1"
                     inactive-value="0"
                     active-text="확인"
@@ -292,10 +292,11 @@
   </div>
 </template>
 <script>
-import { getAAcademy, updateAcademy } from '@/api/insti/academy'
+import { getAAcademy, updateAcademy, addAcademy } from '@/api/insti/academy'
 import VueDaumMap from '@/components/DaumMap'
 import InnerDialog from './innerDIalog/InnerDialog'
 import { createUniqueString, parseTime } from '@/utils/index'
+import { generateInstiDetailData, generateInstiAddition } from '@/utils/insti/'
 
 export default {
   components: { VueDaumMap, InnerDialog },
@@ -322,28 +323,37 @@ export default {
     return {
       innerVisible: false,
       innerFormName: '',
+      // 초기화 데이터 사용 여부. 
+      initialDataStatus: {
+        insti: true,
+        OTData: true,
+        TGData: true,
+        SJData: true
+      },
       formData: {
-        // 일반
-        instiName: '',
-        instiKname: '',
-        address1: '',
-        address3: '',
-        building: '',
-        zipcode: '',
-        oldAddress: '',
-        oldZipcode: '',
-        latitude: '',
-        longitude: '',
-        updId: '',
-        confirmYn: '',
-        itemName: '',
-        itemValue: '',
-        phonNum1: 0,
-        phonNum2: 0,
-        phonNum3: 0,
-        entranExamYn: false,
-        homeworkAmount: 1,
-        numLimit: 0,
+        insti: {
+          // 일반
+          instiName: '',
+          instiKname: '',
+          address1: '',
+          address3: '',
+          building: '',
+          zipcode: '',
+          oldAddress: '',
+          oldZipcode: '',
+          latitude: '',
+          longitude: '',
+          updId: '',
+          confirmYn: '',
+          itemName: '',
+          itemValue: '',
+          phonNum1: 0,
+          phonNum2: 0,
+          phonNum3: 0,
+          entranExamYn: false,
+          homeworkAmount: 1,
+          numLimit: 0,
+        },
         // 운영
         OTData: {
           openFlexYn: false,
@@ -496,21 +506,40 @@ export default {
     }
   },
   mounted: function() {
+    
   },
   methods: {
     handleClickConfirm() {
-      // this.$refs['academyForm'].validate(valid => {
-      //   if (valid) {
-      //     updateAcademy(this.formData).then(() => {
-      //       this.$message({
-      //         message: '수정되었습니다!',
-      //         type: 'success'
-      //       })
-      //       this.$emit('toggleDialog')
-      //       this.resetForm()
-      //     })
-      //   }
-      // })
+      this.$refs['academyForm'].validate(valid => {
+        if (valid) {
+          if(this.formDialogData.dialogStatus == 'update'){
+            updateAcademy(this.formDialogData.idx, this.getPayload()).then(() => {
+              this.$message({
+                message: '수정되었습니다!',
+                type: 'success'
+              })
+              this.$emit('toggleDialog')
+              this.resetForm()
+            })
+          }else{
+            addAcademy(this.getPayload()).then(() => {
+              this.$message({
+                message: '추가되었습니다!',
+                type: 'success'
+              })
+              this.$emit('toggleDialog')
+              this.resetForm()
+            })            
+          }
+        }
+      })
+    },
+    getPayload(){
+      const payload = {}
+      for( const key in this.initialDataStatus ){
+        if(!this.initialDataStatus[key]) payload[key] = this.formData[key]
+      } 
+      return payload
     },
     selectedFormData(){
       return this.formData[this.innerFormName]
@@ -543,7 +572,10 @@ export default {
       const { data } = await getAAcademy(id)
 
       for (const key in this.formData) {
-        if (data[key]) this.formData[key] = data[key]
+        if (data[key]){
+          this.formData[key] = data[key]
+          this.initialDataStatus[key] = false // 수정 시 받아온 데이터는 초기화 데이터를 사용하지 않음.
+        } 
       }
       this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
       this.marker.setPosition(new kakao.maps.LatLng(this.formData.latitude, this.formData.longitude))
@@ -559,6 +591,7 @@ export default {
     },
     setFormData(dataKey, data) {
       this.formData[dataKey] = data
+      this.initialDataStatus[dataKey] = false
     }
   }
 }

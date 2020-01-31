@@ -23,9 +23,9 @@ export function updateAcademy(id, data) {
   })
 }
 
-export function addCodeAge(data) {
+export function addAcademy(data) {
   return request({
-    url: `/codeAge/`,
+    url: `/academy/`,
     method: 'POST',
     data
   })
