@@ -6,6 +6,7 @@
         v-model="formData.OTData.openFlexYn"
         active-text="예"
         inactive-text="아니오"
+        @change="setOperationStat()"
       />
       <el-time-picker
         v-model="formData.OTData.openFlexTime.prefixdTime"
@@ -15,6 +16,7 @@
         range-separator="~"
         start-placeholder="시작시간"
         end-placeholder="종료시간"
+        @change="handlePickerChange"
       />
     </div>
     <div v-for="(item, idx) in formData.OTData.daysOT" :key="idx" class="day-row">
@@ -23,7 +25,7 @@
         v-model="item.openStat"
         active-text="운영"
         inactive-text="미운영"
-        @change="setOperationStat(item)"
+        @change="setOperationStat()"
       />
       <el-time-picker
         v-if="!formData.OTData.openFlexYn"
@@ -61,7 +63,7 @@ export default {
       formData: {
         OTData: {
           openFlexYn: false,
-          openFlexTime: { itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
+          openFlexTime: { itemName: 'OT', seq: 8, itemValue: '동일시간', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
           daysOT: [
             { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
             { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
@@ -99,23 +101,9 @@ export default {
         : 
         o.prefixdTime
       })
-
-      const data = {
-        openFlexYn: false,
-        openFlexTime: { itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
-        daysOT: [
-          { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
-          { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
-          { openStat: true, itemName: 'OT', seq: 3, itemValue: '수', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
-          { openStat: true, itemName: 'OT', seq: 4, itemValue: '목', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
-          { openStat: true, itemName: 'OT', seq: 5, itemValue: '금', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
-          { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 10, 30), new Date(2020, 1, 1, 23, 30)] },
-          { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] }
-        ]
-      }
     },
     convertDateValue() {
-      var tmpTimeValue
+      let tmpTimeValue
       this.formData.OTData.daysOT.forEach(obj => {
         tmpTimeValue = ''
         if (obj.openStat) {
@@ -138,12 +126,14 @@ export default {
           }
         }
       })
+      // flex time
+      tmpTimeValue = ''
+      this.formData.OTData.openFlexTime.prefixdTime.forEach(time => {
+        tmpTimeValue += parseTime(time, '{h}.{i}') + ','
+      })
+      this.formData.OTData.openFlexTime.itemProperty = tmpTimeValue.substr(0, tmpTimeValue.length - 1)
     },
-    // handleClickConfirm() {
-    //   this.$emit('setOTData', this.formData)
-    //   this.$emit('toggleInnerDialog')
-    // },
-    setOperationStat(item) {
+    setOperationStat() {
       this.convertDateValue()
     }
   }

@@ -20,81 +20,145 @@
           </div>
           <div>
             <el-row>
-              <div class="sub-title"><span>이름</span></div>
+              <div class="sub-title">
+                <span>이름</span>
+              </div>
               <el-col :span="12">
                 <el-form-item label="공식이름" prop="insti.instiName">
-                  <el-input v-model.number="formData.insti.instiName" style="padding: 5px;width: 70%" autocomplete="off" />
+                  <el-input
+                    v-model.number="formData.insti.instiName"
+                    style="padding: 5px;width: 70%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="한글 이름" prop="instiKname">
-                  <el-input v-model.number="formData.insti.instiKname" style="padding: 5px;width: 70%" autocomplete="off" />
+                  <el-input
+                    v-model.number="formData.insti.instiKname"
+                    style="padding: 5px;width: 70%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
 
             <el-row>
               <el-col :span="12">
-                <div class="sub-title"><span>주소(도로명)</span></div>
-                <el-form-item prop="address1" label="주소" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.insti.address1" style="width:80%" autocomplete="off" />
+                <div class="sub-title">
+                  <span>주소(도로명)</span>
+                </div>
+                <el-form-item
+                  prop="address1"
+                  label="주소"
+                  :label-width="formDialogData.formLabelWidth"
+                >
+                  <el-input
+                    v-model.number="formData.insti.address1"
+                    style="width:80%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <div class="sub-title"><span>주소(지번)</span></div>
-                <el-form-item prop="oldAddress" label="주소" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.insti.oldAddress" style="width:80%" autocomplete="off" />
+                <div class="sub-title">
+                  <span>주소(지번)</span>
+                </div>
+                <el-form-item
+                  prop="oldAddress"
+                  label="주소"
+                  :label-width="formDialogData.formLabelWidth"
+                >
+                  <el-input
+                    v-model.number="formData.insti.oldAddress"
+                    style="width:80%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
 
             <el-row>
               <el-col :span="12">
-                <el-form-item prop="building" label="빌딩" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.insti.building" style="width:80%" autocomplete="off" />
+                <el-form-item
+                  prop="building"
+                  label="빌딩"
+                  :label-width="formDialogData.formLabelWidth"
+                >
+                  <el-input
+                    v-model.number="formData.insti.building"
+                    style="width:80%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item prop="address3" label="동" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.insti.address3" style="width:80%" autocomplete="off" />
+                <el-form-item
+                  prop="address3"
+                  label="동"
+                  :label-width="formDialogData.formLabelWidth"
+                >
+                  <el-input
+                    v-model.number="formData.insti.address3"
+                    style="width:80%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
 
             <el-row>
               <el-col :span="12">
-                <el-form-item prop="zipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.insti.zipcode" style="width:80%" autocomplete="off" />
+                <el-form-item
+                  prop="zipcode"
+                  label="우편번호"
+                  :label-width="formDialogData.formLabelWidth"
+                >
+                  <el-input
+                    v-model.number="formData.insti.zipcode"
+                    style="width:80%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item prop="oldZipcode" label="우편번호" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.insti.oldZipcode" style="width:80%" autocomplete="off" />
+                <el-form-item
+                  prop="oldZipcode"
+                  label="우편번호"
+                  :label-width="formDialogData.formLabelWidth"
+                >
+                  <el-input
+                    v-model.number="formData.insti.oldZipcode"
+                    style="width:80%"
+                    autocomplete="off"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
 
             <el-row>
-              <el-col :span="4">
-                <el-form-item prop="phonNum1" label="전화번호" :label-width="formDialogData.formLabelWidth">
-                  <el-input v-model.number="formData.insti.phonNum1" autocomplete="off" style="width:80%" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="2">
-                <el-form-item prop="phonNum2">
-                  <el-input v-model.number="formData.insti.phonNum2" autocomplete="off" style="width:80%" />
-                </el-form-item>
-              </el-col>
-              <el-col :span="2">
-                <el-form-item prop="phonNum3">
-                  <el-input v-model.number="formData.insti.phonNum3" autocomplete="off" style="width:80%" />
+              <el-col :span="8">
+                <el-form-item
+                  prop="TPData.itemValue"
+                  label="전화번호"
+                  type="text"                  
+                  :label-width="formDialogData.formLabelWidth"
+                >
+                  <el-input
+                    v-model="formData.TPData.itemValue"
+                    @input="dispPhoneNumber"
+                    autocomplete="off"
+                    style="width:80%"
+                  />
                 </el-form-item>
               </el-col>
             </el-row>
 
             <el-row>
               <el-col :span="24">
-                <div class="sub-title"><span>지리정보</span></div>
+                <div class="sub-title">
+                  <span>지리정보</span>
+                </div>
                 <el-container>
                   <el-aside>
                     <el-form-item prop="insti.latitude" label="위도">
@@ -124,7 +188,9 @@
 
             <el-row>
               <el-col :span="5">
-                <div class="sub-title"><span>확인여부</span></div>
+                <div class="sub-title">
+                  <span>확인여부</span>
+                </div>
                 <el-form-item prop="confirmYn">
                   <el-switch
                     v-model="formData.insti.confirmYn"
@@ -143,9 +209,11 @@
             <span class="card-name">운영</span>
           </div>
           <div>
-
             <el-row>
-              <div class="sub-title"><span>운영 시간</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('OTForm')" /></div>
+              <div class="sub-title">
+                <span>운영 시간</span>
+                <svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('OTForm')" />
+              </div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -157,7 +225,7 @@
                     v-for="dayObj in formData.OTData.daysOT"
                     :key="dayObj.seq"
                     :label="dayObj.itemValue"
-                    align='center'
+                    align="center"
                   >
                     <template #default="{ row }">
                       <div>{{ row[dayObj.seq] }}</div>
@@ -168,7 +236,10 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span>대상 학년</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('TGForm')" /></div>
+              <div class="sub-title">
+                <span>대상 학년</span>
+                <svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('TGForm')" />
+              </div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -180,10 +251,12 @@
                     v-for="obj in dispTG.col"
                     :key="obj.codeNo"
                     :label="obj.disp"
-                    align='center'
+                    align="center"
                   >
                     <template #default="{ row }">
-                      <div :style="{color: row[obj.codeNo] ? 'blue' : 'red'}">{{ row[obj.codeNo] ? 'O' : 'X' }}</div>
+                      <div
+                        :style="{color: row[obj.codeNo] ? 'blue' : 'red'}"
+                      >{{ row[obj.codeNo] ? 'O' : 'X' }}</div>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -191,7 +264,10 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span>주 대상</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('TGForm')" /></div>
+              <div class="sub-title">
+                <span>주 대상</span>
+                <svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('TGForm')" />
+              </div>
               <el-col :span="24">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
@@ -203,10 +279,12 @@
                     v-for="obj in dispMainTG.col"
                     :key="obj.seq"
                     :label="obj.itemValue"
-                    align='center'
+                    align="center"
                   >
                     <template #default="{ row }">
-                      <div :style="{color: row[obj.seq] == 1 ? 'blue' : 'red'}">{{ row[obj.seq] == 1 ? 'O' : 'X' }}</div>
+                      <div
+                        :style="{color: row[obj.seq] == 1 ? 'blue' : 'red'}"
+                      >{{ row[obj.seq] == 1 ? 'O' : 'X' }}</div>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -214,7 +292,9 @@
             </el-row>
 
             <el-row>
-              <div class="sub-title"><span /></div>
+              <div class="sub-title">
+                <span />
+              </div>
               <el-row>
                 <el-col :span="6">
                   <el-form-item prop="entranExamYn" label="입학테스트 여부">
@@ -229,8 +309,16 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
-                  <el-form-item prop="numLimit" label="정원" :label-width="formDialogData.formLabelWidth">
-                    <el-input v-model.number="formData.numLimit" style="width:80%" autocomplete="off" />
+                  <el-form-item
+                    prop="numLimit"
+                    label="정원"
+                    :label-width="formDialogData.formLabelWidth"
+                  >
+                    <el-input
+                      v-model.number="formData.numLimit"
+                      style="width:80%"
+                      autocomplete="off"
+                    />
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
@@ -247,7 +335,6 @@
                 </el-col>
               </el-row>
             </el-row>
-
           </div>
         </el-card>
 
@@ -256,22 +343,23 @@
             <span class="card-name">과목</span>
           </div>
           <div>
-
             <el-row>
-              <div class="sub-title"><span>대표과목</span><svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('SJForm')" /></div>
+              <div class="sub-title">
+                <span>대표과목</span>
+                <svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('SJForm')" />
+              </div>
               <el-col v-for="(value, key, idx) in formData.SJData" :key="idx" :span="4">
                 <el-table
                   :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
                   border
                   :data="value.list"
-                  empty-text='-'
+                  empty-text="-"
                   style="width: 100%"
                 >
                   <el-table-column :label="value.label" prop="disp" />
                 </el-table>
               </el-col>
             </el-row>
-
           </div>
         </el-card>
       </el-form>
@@ -292,11 +380,11 @@
   </div>
 </template>
 <script>
-import { getAAcademy, updateAcademy, addAcademy } from '@/api/insti/academy'
-import VueDaumMap from '@/components/DaumMap'
-import InnerDialog from './innerDIalog/InnerDialog'
-import { createUniqueString, parseTime } from '@/utils/index'
-import { generateInstiDetailData, generateInstiAddition } from '@/utils/insti/'
+import { getAAcademy, updateAcademy, addAcademy } from "@/api/insti/academy";
+import VueDaumMap from "@/components/DaumMap";
+import InnerDialog from "./innerDIalog/InnerDialog";
+import { createUniqueString, parseTime } from "@/utils/index";
+import { generateInstiData, generateInstiAddition } from "@/utils/insti/";
 
 export default {
   components: { VueDaumMap, InnerDialog },
@@ -305,25 +393,25 @@ export default {
       type: Object,
       default: function() {
         return {
-          dialogStatus: 'update',
+          dialogStatus: "update",
           formDialogVisible: false,
           textMap: {
-            update: '수정',
-            create: '추가'
+            update: "수정",
+            create: "추가"
           },
-          width: '70%',
-          formLabelWidth: '120px',
-          labelPosition: 'left',
+          width: "70%",
+          formLabelWidth: "120px",
+          labelPosition: "left",
           idx: 0
-        }
+        };
       }
     }
   },
   data() {
     return {
       innerVisible: false,
-      innerFormName: '',
-      // 초기화 데이터 사용 여부. 
+      innerFormName: "",
+      // 초기화 데이터 사용 여부.
       initialDataStatus: {
         insti: true,
         OTData: true,
@@ -333,104 +421,204 @@ export default {
       formData: {
         insti: {
           // 일반
-          instiName: '',
-          instiKname: '',
-          address1: '',
-          address3: '',
-          building: '',
-          zipcode: '',
-          oldAddress: '',
-          oldZipcode: '',
-          latitude: '',
-          longitude: '',
-          updId: '',
-          confirmYn: '',
-          itemName: '',
-          itemValue: '',
-          phonNum1: 0,
-          phonNum2: 0,
-          phonNum3: 0,
+          instiName: "",
+          instiKname: "",
+          address1: "",
+          address3: "",
+          building: "",
+          zipcode: "",
+          oldAddress: "",
+          oldZipcode: "",
+          latitude: "",
+          longitude: "",
+          updId: "",
+          confirmYn: "",
           entranExamYn: false,
           homeworkAmount: 1,
-          numLimit: 0,
+          numLimit: 0
         },
         // 운영
         OTData: {
           openFlexYn: false,
-          openFlexTime: { itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
+          openFlexTime: {
+            itemName: "OT",
+            seq: 8,
+            itemValue: "동일 시간",
+            itemProperty: "",
+            prefixdTime: [
+              new Date(2020, 1, 1, 9, 0),
+              new Date(2020, 1, 1, 23, 0)
+            ]
+          },
           daysOT: [
-            { openStat: true, itemName: 'OT', seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [] },
-            { openStat: true, itemName: 'OT', seq: 2, itemValue: '화', itemProperty: '', prefixdTime: [] },
-            { openStat: true, itemName: 'OT', seq: 3, itemValue: '수', itemProperty: '', prefixdTime: [] },
-            { openStat: true, itemName: 'OT', seq: 4, itemValue: '목', itemProperty: '', prefixdTime: [] },
-            { openStat: true, itemName: 'OT', seq: 5, itemValue: '금', itemProperty: '', prefixdTime: [] },
-            { openStat: true, itemName: 'OT', seq: 6, itemValue: '토', itemProperty: '', prefixdTime: [] },
-            { openStat: false, itemName: 'OT', seq: 7, itemValue: '일', itemProperty: '', prefixdTime: [] }
+            {
+              openStat: true,
+              itemName: "OT",
+              seq: 1,
+              itemValue: "월",
+              itemProperty: "",
+              prefixdTime: []
+            },
+            {
+              openStat: true,
+              itemName: "OT",
+              seq: 2,
+              itemValue: "화",
+              itemProperty: "",
+              prefixdTime: []
+            },
+            {
+              openStat: true,
+              itemName: "OT",
+              seq: 3,
+              itemValue: "수",
+              itemProperty: "",
+              prefixdTime: []
+            },
+            {
+              openStat: true,
+              itemName: "OT",
+              seq: 4,
+              itemValue: "목",
+              itemProperty: "",
+              prefixdTime: []
+            },
+            {
+              openStat: true,
+              itemName: "OT",
+              seq: 5,
+              itemValue: "금",
+              itemProperty: "",
+              prefixdTime: []
+            },
+            {
+              openStat: true,
+              itemName: "OT",
+              seq: 6,
+              itemValue: "토",
+              itemProperty: "",
+              prefixdTime: []
+            },
+            {
+              openStat: false,
+              itemName: "OT",
+              seq: 7,
+              itemValue: "일",
+              itemProperty: "",
+              prefixdTime: []
+            }
           ]
         },
         TGData: [
-          { itemName: 'TG', seq: 1, itemValue: '유치원', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }] },
-          { itemName: 'TG', seq: 2, itemValue: '초등', itemProperty: '0',
+          {
+            itemName: "TG",
+            seq: 1,
+            itemValue: "유치원",
+            itemProperty: "0",
             targetLevels: [
-              { gdn: 'AG', codeNo: 8, useYn: false, disp: '초1' },
-              { gdn: 'AG', codeNo: 9, useYn: false, disp: '초2' },
-              { gdn: 'AG', codeNo: 10, useYn: false, disp: '초3' },
-              { gdn: 'AG', codeNo: 11, useYn: false, disp: '초4' },
-              { gdn: 'AG', codeNo: 12, useYn: false, disp: '초5' },
-              { gdn: 'AG', codeNo: 13, useYn: false, disp: '초6' }
+              { gdn: "AG", codeNo: 7, useYn: false, disp: "유치원" }
             ]
           },
-          { itemName: 'TG', seq: 3, itemValue: '중등', itemProperty: '0',
+          {
+            itemName: "TG",
+            seq: 2,
+            itemValue: "초등",
+            itemProperty: "0",
             targetLevels: [
-              { gdn: 'AG', codeNo: 14, useYn: false, disp: '중1' },
-              { gdn: 'AG', codeNo: 15, useYn: false, disp: '중2' },
-              { gdn: 'AG', codeNo: 16, useYn: false, disp: '중3' }
+              { gdn: "AG", codeNo: 8, useYn: false, disp: "초1" },
+              { gdn: "AG", codeNo: 9, useYn: false, disp: "초2" },
+              { gdn: "AG", codeNo: 10, useYn: false, disp: "초3" },
+              { gdn: "AG", codeNo: 11, useYn: false, disp: "초4" },
+              { gdn: "AG", codeNo: 12, useYn: false, disp: "초5" },
+              { gdn: "AG", codeNo: 13, useYn: false, disp: "초6" }
             ]
           },
-          { itemName: 'TG', seq: 4, itemValue: '고등', itemProperty: '0',
+          {
+            itemName: "TG",
+            seq: 3,
+            itemValue: "중등",
+            itemProperty: "0",
             targetLevels: [
-              { gdn: 'AG', codeNo: 17, useYn: false, disp: '고1' },
-              { gdn: 'AG', codeNo: 18, useYn: false, disp: '고2' },
-              { gdn: 'AG', codeNo: 19, useYn: false, disp: '고3' }
+              { gdn: "AG", codeNo: 14, useYn: false, disp: "중1" },
+              { gdn: "AG", codeNo: 15, useYn: false, disp: "중2" },
+              { gdn: "AG", codeNo: 16, useYn: false, disp: "중3" }
             ]
           },
-          { itemName: 'TG', seq: 5, itemValue: 'N수', itemProperty: '0', targetLevels: [{ gdn: 'AG', codeNo: 20, useYn: false, disp: 'N수' }] }
+          {
+            itemName: "TG",
+            seq: 4,
+            itemValue: "고등",
+            itemProperty: "0",
+            targetLevels: [
+              { gdn: "AG", codeNo: 17, useYn: false, disp: "고1" },
+              { gdn: "AG", codeNo: 18, useYn: false, disp: "고2" },
+              { gdn: "AG", codeNo: 19, useYn: false, disp: "고3" }
+            ]
+          },
+          {
+            itemName: "TG",
+            seq: 5,
+            itemValue: "N수",
+            itemProperty: "0",
+            targetLevels: [{ gdn: "AG", codeNo: 20, useYn: false, disp: "N수" }]
+          }
         ],
         SJData: {
           OSData: {
-            disp: 'OSData', label: '개설 과목',
+            disp: "OSData",
+            label: "개설 과목",
             list: []
           },
           R1Data: {
-            disp: 'R1Data', label: '공통',
+            disp: "R1Data",
+            label: "공통",
             list: []
           },
           R2Data: {
-            disp: 'R2Data', label: '초등',
+            disp: "R2Data",
+            label: "초등",
             list: []
           },
           R3Data: {
-            disp: 'R3Data', label: '중등',
+            disp: "R3Data",
+            label: "중등",
             list: []
           },
           R4Data: {
-            disp: 'R4Data', label: '고등',
+            disp: "R4Data",
+            label: "고등",
             list: []
           },
           R5Data: {
-            disp: 'R5Data', label: 'N수',
+            disp: "R5Data",
+            label: "N수",
             list: []
           }
-        }
+        },
+        TPData: {
+          itemName: 'TP',
+          seq: 1,
+          itemValue: '',
+          itemProperty: ''
+        },
+        details: [],
+        additions: []
       },
-      entrExmOptions: [{ value: false, disp: '아니오' }, { value: true, disp: '예' }],
-      homworkOptions: [{ value: 1, disp: '적음' }, { value: 2, disp: '보통' }, { value: 3, disp: '많음' }],
+      entrExmOptions: [
+        { value: false, disp: "아니오" },
+        { value: true, disp: "예" }
+      ],
+      homworkOptions: [
+        { value: 1, disp: "적음" },
+        { value: 2, disp: "보통" },
+        { value: 3, disp: "많음" }
+      ],
       rules: {
         // age: [
         //   { required: true, message: '나이를 기입해주세요.',trigger: 'blur' },
         //   { type: 'number', message: '나이는 숫자여야만 합니다.' }
         // ],
-        instiName: [{ required: true, message: '기입해 주세요.' }],
+        instiName: [{ required: true, message: "기입해 주세요." }],
         // instiKname: [{ required: true, message: '기입해 주세요.' }],
         // address1: [{ required: true, message: '기입해 주세요.' }],
         // address3: [{ required: true, message: '기입해 주세요.' }],
@@ -438,57 +626,62 @@ export default {
         // zipcode: [{ required: true, message: '기입해 주세요.' }],
         // oldAddress: [{ required: true, message: '기입해 주세요.' }],
         // oldZipcode: [{ required: true, message: '기입해 주세요.' }],
-        latitude: [{ required: true, message: '기입해 주세요.' }],
-        longitude: [{ required: true, message: '기입해 주세요.' }],
+        latitude: [{ required: true, message: "기입해 주세요." }],
+        longitude: [{ required: true, message: "기입해 주세요." }],
         // confirmYn: [{ required: true, message: '기입해 주세요.' }],
-        itemName: [{ required: true, message: '기입해 주세요.' }],
-        itemValue: [{ required: true, message: '기입해 주세요.' }]
       },
-      mapAPIKey: 'fa5bbaa22e298e97f79812b9ff7994d0', // 테스트용 appkey
+      mapAPIKey: "fa5bbaa22e298e97f79812b9ff7994d0", // 테스트용 appkey
       center: { lat: 33.450701, lng: 126.570667 }, // 지도의 중심 좌표
       level: 3, // 지도의 레벨(확대, 축소 정도),
       mapTypeId: VueDaumMap.MapTypeId.NORMAL, // 맵 타입
       libraries: [], // 추가로 불러올 라이브러리
       map: null, // 지도 객체. 지도가 로드되면 할당됨.
       marker: null
-    }
+    };
   },
   computed: {
     dispOT: function() {
-      const rstObj = {}
-      if (!this.formData.OTData) return []
+      const rstObj = {};
+      if (!this.formData.OTData) return [];
       this.formData.OTData.daysOT.forEach(obj => {
-        rstObj[obj.seq] = obj.itemProperty != 0 && obj.itemProperty != '' && !this.formData.OTData.openFlexYn ? parseTime(obj['prefixdTime'][0], '{h}시 {i}분') + ' ~ ' + parseTime(obj['prefixdTime'][1], '{h}시 {i}분') : '-'
-      })
-      return [rstObj]
+        rstObj[obj.seq] =
+          obj.itemProperty != 0 &&
+          obj.itemProperty != "" &&
+          !this.formData.OTData.openFlexYn
+            ? parseTime(obj["prefixdTime"][0], "{h}시 {i}분") +
+              " ~ " +
+              parseTime(obj["prefixdTime"][1], "{h}시 {i}분")
+            : "-";
+      });
+      return [rstObj];
     },
     dispTG: function() {
-      const tmpArr = []
+      const tmpArr = [];
 
       this.formData.TGData.forEach(o => {
         o.targetLevels.forEach(l => {
-          tmpArr.push(l)
-        })
-      })
+          tmpArr.push(l);
+        });
+      });
 
-      const tmpDataObj = {}
+      const tmpDataObj = {};
       tmpArr.forEach(o => {
-        tmpDataObj[o.codeNo] = o.useYn
-      })
+        tmpDataObj[o.codeNo] = o.useYn;
+      });
 
-      return { col: tmpArr, data: [tmpDataObj] }
+      return { col: tmpArr, data: [tmpDataObj] };
     },
     dispMainTG: function() {
-      let tmpArr = []
+      let tmpArr = [];
 
-      tmpArr = this.formData.TGData.map(o => o)
-      const tmpDataObj = {}
+      tmpArr = this.formData.TGData.map(o => o);
+      const tmpDataObj = {};
       tmpArr.forEach(o => {
-        tmpDataObj[o.seq] = o.itemProperty
-      })
+        tmpDataObj[o.seq] = o.itemProperty;
+      });
 
-      return { col: tmpArr, data: [tmpDataObj] }
-    }
+      return { col: tmpArr, data: [tmpDataObj] };
+    },
   },
   watch: {
     formDialogData: {
@@ -502,99 +695,124 @@ export default {
   },
   created: function() {
     if (this.formDialogData.idx) {
-      this.getAAcademy(this.formDialogData.idx)
+      this.getAAcademy(this.formDialogData.idx);
     }
   },
-  mounted: function() {
-    
-  },
+  mounted: function() {},
   methods: {
+    dispPhoneNumber(v){
+      v = v.replace(/[^0-9]/g,"");
+      this.formData.TPData.itemValue = v.replace(/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/,"$1-$2-$3");
+    },
     handleClickConfirm() {
-      this.$refs['academyForm'].validate(valid => {
+      this.$refs["academyForm"].validate(valid => {
         if (valid) {
-          if(this.formDialogData.dialogStatus == 'update'){
-            updateAcademy(this.formDialogData.idx, this.getPayload()).then(() => {
-              this.$message({
-                message: '수정되었습니다!',
-                type: 'success'
-              })
-              this.$emit('toggleDialog')
-              this.resetForm()
-            })
-          }else{
+          if (this.formDialogData.dialogStatus == "update") {
+            updateAcademy(this.formDialogData.idx, this.getPayload()).then(
+              () => {
+                this.$message({
+                  message: "수정되었습니다!",
+                  type: "success"
+                });
+                // this.$emit('toggleDialog')
+                // this.resetForm()
+              }
+            );
+          } else {
             addAcademy(this.getPayload()).then(() => {
               this.$message({
-                message: '추가되었습니다!',
-                type: 'success'
-              })
-              this.$emit('toggleDialog')
-              this.resetForm()
-            })            
+                message: "추가되었습니다!",
+                type: "success"
+              });
+              this.$emit("toggleDialog");
+              this.resetForm();
+            });
           }
         }
-      })
+      });
     },
-    getPayload(){
-      const payload = {}
-      for( const key in this.initialDataStatus ){
-        if(!this.initialDataStatus[key]) payload[key] = this.formData[key]
-      } 
-      return payload
+    getPayload() {
+      let payload = {};
+      let detailData = [];
+      let additionData = [];
+      for (const key in this.initialDataStatus) {
+        if (!this.initialDataStatus[key]) payload[key] = this.formData[key];
+      }
+      detailData = generateInstiData(payload, ["gdn", "codeNo", "useYn"]);
+      additionData = generateInstiData(payload, [
+        "itemName",
+        "seq",
+        "itemValue",
+        "itemProperty"
+      ]);
+      payload["detailData"] = detailData;
+      payload["additionData"] = additionData;
+
+      console.log(payload);
+      return payload;
     },
-    selectedFormData(){
-      return this.formData[this.innerFormName]
+    selectedFormData() {
+      return this.formData[this.innerFormName];
     },
     openInnerDialog(formName) {
-      this.innerFormName = formName
-      this.innerVisible = true
+      this.innerFormName = formName;
+      this.innerVisible = true;
     },
     handleClickClose() {
-      this.resetForm()
-      this.$emit('toggleDialog')
+      this.resetForm();
+      this.$emit("toggleDialog");
     },
     toggleInnerDialog() {
-      this.innerVisible = !this.innerVisible
+      this.innerVisible = !this.innerVisible;
     },
     resetForm() {
-      this.$refs['academyForm'].resetFields()
+      this.$refs["academyForm"].resetFields();
     },
     onLoad(map, marker) {
-      this.map = map
-      this.marker = marker
+      this.map = map;
+      this.marker = marker;
     },
     handleClickMap(e) {
-      const latlng = e[0].latLng
-      this.marker.setPosition(latlng)
-      this.formData.latitude = latlng.getLat()
-      this.formData.longitude = latlng.getLng()
+      const latlng = e[0].latLng;
+      this.marker.setPosition(latlng);
+      this.formData.insti.latitude = latlng.getLat();
+      this.formData.insti.longitude = latlng.getLng();
     },
     async getAAcademy(id) {
-      const { data } = await getAAcademy(id)
+      const { data } = await getAAcademy(id);
 
       for (const key in this.formData) {
-        if (data[key]){
-          this.formData[key] = data[key]
-          this.initialDataStatus[key] = false // 수정 시 받아온 데이터는 초기화 데이터를 사용하지 않음.
-        } 
+        if (data[key]) {
+          this.formData[key] = data[key];
+          this.initialDataStatus[key] = false; // 수정 시 받아온 데이터는 초기화 데이터를 사용하지 않음.
+        }
       }
-      this.setCenter({ lat: this.formData.latitude || 33.450701, lng: this.formData.longitude || 126.570667 })
-      this.marker.setPosition(new kakao.maps.LatLng(this.formData.latitude, this.formData.longitude))
+      this.setCenter({
+        lat: this.formData.insti.latitude || 33.450701,
+        lng: this.formData.insti.longitude || 126.570667
+      });
+      this.marker.setPosition(
+        new kakao.maps.LatLng(
+          this.formData.insti.latitude || 33.450701,
+          this.formData.insti.longitude || 126.570667
+        )
+      );
     },
     setCenter(centerObj) {
-      this.center = centerObj
-    },
-    parsedPhoneNumber(idx) {
-      return
+      this.center = centerObj;
     },
     getKey() {
-      return createUniqueString()
+      return createUniqueString();
     },
-    setFormData(dataKey, data) {
-      this.formData[dataKey] = data
-      this.initialDataStatus[dataKey] = false
+    setFormData(dataKey, data, cb) {
+      this.formData[dataKey] = data;
+      this.initialDataStatus[dataKey] = false;
+      if (cb && typeof (cb) === 'function') {
+        cb(this.formData)
+      }      
     }
   }
-}
+};
 </script>
 <style scoped>
 .line {
@@ -620,7 +838,7 @@ export default {
   margin-bottom: 13px;
 }
 .card-name {
-  font-size: 2em
+  font-size: 2em;
 }
 .edit-icon {
   line-height: 24px;
