@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'admin',
+  title: '배움의 민족 admin',
 
   /**
    * @type {boolean} true | false
