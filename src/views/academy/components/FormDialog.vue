@@ -425,7 +425,6 @@ export default {
       falseVal: 0,
       innerFormName: "",
       // 초기화 데이터 사용 여부.      
-      dataKeys: ["insti", "OTData", "TGData", "SJData", "TPData"],
       formData: {
         insti: {
           // 일반
@@ -729,12 +728,11 @@ export default {
     },
     handleClickConfirm() {
       this.$refs["academyForm"].validate(valid => {
-        if (valid) {
-          const payLoad = this.getPayload()
+        if (valid) {          
           if (this.formDialogData.dialogStatus == "update") {
             // console.log({insti: payLoad.insti, TPData: payLoad.TPData})
             // return             
-            updateAcademy(this.formDialogData.idx, {insti: payLoad.insti, TPData: payLoad.TPData}).then(
+            updateAcademy(this.formDialogData.idx, this.getPayload(["insti", "OTData", "TGData", "SJData", "TPData"])).then(
               () => {
                 this.$message({
                   message: "수정되었습니다!",
@@ -747,7 +745,7 @@ export default {
           } else {
             // console.log({insti: payLoad.insti, TPData: payLoad.TPData})
             // return 
-            addAcademy({insti: payLoad.insti, TPData: payLoad.TPData}).then(() => {
+            addAcademy(this.getPayload(['insti', 'TPData'])).then(() => {
               this.$message({
                 message: "추가되었습니다!",
                 type: "success"
@@ -760,12 +758,12 @@ export default {
         }
       });
     },
-    getPayload() {
+    getPayload(dataKeys) {
       let payload = {};
       let detailData = [];
       let additionData = [];
 
-      this.dataKeys.forEach(key=>{
+      dataKeys.forEach(key=>{
         if(this.formData[key]) payload[key] = this.formData[key];
       })      
       detailData = generateInstiData(payload, ["gbn", "codeNo", "useYn"]);
