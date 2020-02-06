@@ -93,7 +93,7 @@ export default {
       this.getAMasterCodeTree()
     },
     async getAMasterCodeTree(){
-      const { data } = await getAMasterCodeTree(1)
+      const { data } = await getAMasterCodeTree(11000)
       this.subjects = data
       this.addToInitialData()
     },
@@ -135,36 +135,36 @@ export default {
         }))
       }
     },
-    getGdn(dataKey){
-      let gdn = ''
+    getgbn(dataKey){
+      let gbn = ''
       switch (dataKey) {
         case 'OSData':
-          gdn = 'OS'
+          gbn = 'OS'
           break;
         case 'R1Data':
-          gdn = 'R1'
+          gbn = 'R1'
           break;
         case 'R2Data':
-          gdn = 'R2'
+          gbn = 'R2'
           break;
         case 'R3Data':
-          gdn = 'R3'
+          gbn = 'R3'
           break;
         case 'R4Data':
-          gdn = 'R4'
+          gbn = 'R4'
           break;
         case 'R5Data':
-          gdn = 'R5'
+          gbn = 'R5'
           break;
         default:
-          gdn = ''
+          gbn = ''
           break;
       }
-      return gdn
+      return gbn
     },
     addSubject(dataKey){
       if(!dataKey) return false;
-      let gdn = ''
+      let gbn = ''
       const checkArr = this.$refs.tree.getCheckedNodes()
       if(checkArr.length <= 0) {
         this.$message({
@@ -173,10 +173,10 @@ export default {
         })
         return false;
       }
-      gdn = this.getGdn(dataKey)
+      gbn = this.getgbn(dataKey)
       let addArr = checkArr.map(c=>{
         return {
-          gdn: gdn,
+          gbn: gbn,
           codeNo: c.codeNo,
           useYn: true,
           disp: c.codeName

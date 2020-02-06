@@ -13,6 +13,8 @@
         <div class="tg-row-10" />
         <el-checkbox
           v-for="tgLevel in tg.targetLevels"
+          :true-label="trueVal"
+          :false-label="falseVal"
           :key="tgLevel.codeNo"
           v-model="tgLevel.useYn"
           @change="handleCheckBox(idx)"
@@ -40,7 +42,9 @@ export default {
   },
   data: function(){
     return {
-      formData: this.masterData
+      formData: this.masterData,
+      trueVal: 1,
+      falseVal: 0
     }
   } 
     

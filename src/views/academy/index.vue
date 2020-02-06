@@ -16,7 +16,11 @@
       @getList="getAcademies"
       @toggleDialog="toggleDialog"
     />
-    <FormDialog :form-dialog-data="formDialogData" @toggleDialog="toggleDialog" :key="getKey()"/>
+    <FormDialog 
+      :form-dialog-data="formDialogData" 
+      @toggleDialog="toggleDialog" 
+      @refreshList="refreshList"
+      :key="getKey()"/>
   </div>
 </template>
 <script>
@@ -82,6 +86,9 @@ export default {
       setTimeout(() => {
         this.listLoading = false
       }, 0.5 * 1000)
+    },
+    refreshList(){
+      this.getAcademies(this.listQuery)
     },
     addAditionalValue(arr) {
       if (arr.length <= 0) return []
