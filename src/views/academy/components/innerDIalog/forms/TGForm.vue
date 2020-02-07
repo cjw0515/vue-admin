@@ -13,10 +13,10 @@
         <div class="tg-row-10" />
         <el-checkbox
           v-for="tgLevel in tg.targetLevels"
-          :true-label="trueVal"
-          :false-label="falseVal"
           :key="tgLevel.codeNo"
           v-model="tgLevel.useYn"
+          :true-label="trueVal"
+          :false-label="falseVal"
           @change="handleCheckBox(idx)"
         >{{ tgLevel.disp }}</el-checkbox>
       </el-col>
@@ -38,17 +38,16 @@ export default {
     dialogStatus: {
       type: String,
       default: ''
-    }    
+    }
   },
-  data: function(){
+  data: function() {
     return {
       formData: this.masterData,
       trueVal: 1,
       falseVal: 0
     }
-  } 
-    
-  ,
+  },
+
   mounted: function() {
   },
   methods: {
@@ -62,6 +61,9 @@ export default {
           levs.useYn = false
         })
       }
+    },
+    sendAdditionalInstiData() {
+      return {}
     },
     handleCheckBox(idx) {
       const maxChk = this.formData.TGData[idx].targetLevels.length

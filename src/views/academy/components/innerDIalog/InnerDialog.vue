@@ -20,6 +20,8 @@ import { parseTime } from '@/utils/index'
 import OTForm from './forms/OTForm'
 import TGForm from './forms/TGForm'
 import SJForm from './forms/SJForm'
+import { updateAcademy } from '@/api/insti/academy'
+import { generateInstiData, dataDivider } from '@/utils/insti/'
 
 export default {
   components: { OTForm, TGForm, SJForm },
@@ -60,12 +62,12 @@ export default {
     formWidth: function() {
       return this.formComponents[this.innerFormName].width
     },
-    formDataKey: function(){
+    formDataKey: function() {
       return this.formComponents[this.innerFormName].dataKey
     },
-    formMasterData: function(){
-      const tmpData = JSON.parse(JSON.stringify(this.formData[this.formComponents[this.innerFormName].dataKey])) 
-      return {[this.formComponents[this.innerFormName].dataKey]: tmpData }
+    formMasterData: function() {
+      const tmpData = JSON.parse(JSON.stringify(this.formData[this.formComponents[this.innerFormName].dataKey]))
+      return { [this.formComponents[this.innerFormName].dataKey]: tmpData }
     }
   },
   methods: {
@@ -73,8 +75,23 @@ export default {
       this.$emit('toggleInnerDialog')
     },
     handleClickConfirm() {
-      this.$emit('setFormData', this.formDataKey,  this.$refs['form'].formData[this.formDataKey])
-      this.$emit('toggleInnerDialog')
+      const data = this.$refs['form'].formData[this.formDataKey]
+
+      this.updateInnerDialogData(this.instiId, data)
+      // this.$emit('setFormData', this.formDataKey,  data)
+      // this.$emit('toggleInnerDialog')
+    },
+    async updateInnerDialogData(instiId, data, additionInstiData) {
+      const detailData = generateInstiData(data, ['gbn', 'codeNo', 'useYn'])
+      const additionData = generateInstiData(data, ['itemName', 'seq', 'itemValue', 'itemProperty', 'useYn'])
+      const payload = {
+        detailData: detailData,
+        additionData: additionData,
+        ...this.$refs['form'].sendAdditionalInstiData()
+      }
+      const add = this.$refs['form'].sendAdditionalInstiData()
+      const rest = await updateAcademy(instiId, payload)
+      console.log(rest)
     }
   }
 }

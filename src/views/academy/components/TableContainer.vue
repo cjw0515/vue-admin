@@ -32,7 +32,8 @@
 
       <el-table-column label="확인일" width="220" align="center">
         <template slot-scope="{row}">
-          <span>{{ dispNull(row.confirmDate) }}</span>
+          <i class="el-icon-time" />
+          <span style="margin-left: 10px">{{ dispTime(row.confirmDate) }}</span>
         </template>
       </el-table-column>
 
@@ -55,7 +56,7 @@
 </template>
 <script>
 import { updateCodeAge } from '@/api/insti/age-code'
-// import { parseTime } from '@/utils/index'
+import { parseTime } from '@/utils/index'
 import Pagination from '@/components/Pagination'
 
 export default {
@@ -134,6 +135,9 @@ export default {
     },
     getList() {
       this.$emit('getList', this.listQuery)
+    },
+    dispTime(time) {
+      return time ? parseTime(time, '{y}-{m}-{d}') : '- - -'
     },
     cancelEdit(row) {
       row.age = row.originalAge

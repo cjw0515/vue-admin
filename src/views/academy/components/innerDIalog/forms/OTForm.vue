@@ -6,6 +6,8 @@
         v-model="formData.OTData.openFlexYn"
         active-text="예"
         inactive-text="아니오"
+        :active-value="trueVal"
+        :inactive-value="falseVal"
         @change="setOperationStat()"
       />
       <el-time-picker
@@ -19,6 +21,7 @@
         @change="handlePickerChange"
       />
     </div>
+    <!-- 요일별 시간 -->
     <div v-for="(item, idx) in formData.OTData.daysOT" :key="idx" class="day-row">
       <span class="day-text"><b>{{ item.itemValue }}</b></span>
       <el-switch
@@ -28,7 +31,7 @@
         @change="setOperationStat()"
       />
       <el-time-picker
-        v-if="!formData.OTData.openFlexYn"
+        v-if="!formData.OTData.openFlexYn || !(item.seq != 6 && item.seq != 7)"
         v-model="item.prefixdTime"
         is-range
         :disabled="!item.openStat"
@@ -58,11 +61,11 @@ export default {
       default: ''
     }
   },
-  data: function(){
+  data: function() {
     return {
       formData: {
         OTData: {
-          openFlexYn: false,
+          openFlexYn: 0,
           openFlexTime: { itemName: 'OT', useYn: true, seq: 8, itemValue: '동일시간', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] },
           daysOT: [
             { openStat: true, itemName: 'OT', useYn: true, seq: 1, itemValue: '월', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] },
@@ -73,7 +76,9 @@ export default {
             { openStat: true, itemName: 'OT', useYn: true, seq: 6, itemValue: '토', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 10, 30), new Date(2020, 1, 1, 23, 30)] },
             { openStat: false, itemName: 'OT', useYn: true, seq: 7, itemValue: '일', itemProperty: '', prefixdTime: [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] }
           ]
-      }}
+        }},
+      trueVal: 1,
+      falseVal: 0
     }
   },
   watch: {
@@ -91,22 +96,37 @@ export default {
     handlePickerChange(val) {
       this.convertDateValue()
     },
-    initializeData(){
+    sendAdditionalInstiData() {
+      // return {}
+      return {
+        insti: {
+          openFlexYn: this.formData.OTData.openFlexYn
+        }}
+    },
+    initializeData() {
       this.formData = this.masterData
 
       this.formData.OTData.openFlexTime.prefixdTime = !this.formData.OTData.openFlexTime.prefixdTime ? [new Date(2020, 1, 1, 9, 0), new Date(2020, 1, 1, 23, 0)] : this.formData.OTData.openFlexTime.prefixdTime
       this.formData.OTData.daysOT.forEach((o, idx, self) => {
-        o.prefixdTime = o.prefixdTime.length <= 0 ? 
-        o.seq == 6 ? [new Date(2020, 1, 1, 10, 30), new Date(2020, 1, 1, 23, 30)] : [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)] 
-        : 
-        o.prefixdTime
+        o.prefixdTime = o.prefixdTime.length <= 0
+          ? o.seq == 6 ? [new Date(2020, 1, 1, 10, 30), new Date(2020, 1, 1, 23, 30)] : [new Date(2020, 1, 1, 14, 0), new Date(2020, 1, 1, 23, 0)]
+          : o.prefixdTime
       })
     },
     convertDateValue() {
       let tmpTimeValue
+      // flex time
+      tmpTimeValue = ''
+      this.formData.OTData.openFlexTime.prefixdTime.forEach(time => {
+        tmpTimeValue += parseTime(time, '{h}.{i}') + ','
+      })
+      this.formData.OTData.openFlexTime.itemProperty = tmpTimeValue.substr(0, tmpTimeValue.length - 1)
+
       this.formData.OTData.daysOT.forEach(obj => {
         tmpTimeValue = ''
+        // itemProperty 셋팅
         if (obj.openStat) {
+          if (this.formData.OTData.openFlexYn && !(obj.seq == 6 || obj.seq == 7)) obj.prefixdTime = this.formData.OTData.openFlexTime.prefixdTime
           obj.prefixdTime.forEach(time => {
             tmpTimeValue += parseTime(time, '{h}.{i}') + ','
           })
@@ -114,24 +134,7 @@ export default {
           tmpTimeValue = '0,'
         }
         obj.itemProperty = tmpTimeValue.substr(0, tmpTimeValue.length - 1)
-
-        if (this.formData.OTData.openFlexYn) {
-          if (obj.seq == 6 || obj.seq == 7) {
-            obj.itemProperty = "0"
-            obj.openStat = false
-          }
-        } else {
-          if (obj.seq == 6) {
-            obj.openStat = true
-          }
-        }
       })
-      // flex time
-      tmpTimeValue = ''
-      this.formData.OTData.openFlexTime.prefixdTime.forEach(time => {
-        tmpTimeValue += parseTime(time, '{h}.{i}') + ','
-      })
-      this.formData.OTData.openFlexTime.itemProperty = tmpTimeValue.substr(0, tmpTimeValue.length - 1)
     },
     setOperationStat() {
       this.convertDateValue()
