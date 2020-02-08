@@ -8,7 +8,7 @@
     :before-close="handleClickClose"
     append-to-body
   >
-    <div :is="component" ref="form" :master-data="formMasterData" :dialog-status="dialogStatus" />
+    <div :is="component" ref="form" :master-data="formMasterData" :dialog-status="dialogStatus" :key="getKey()"/>
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleClickClose">Cancel</el-button>
       <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
@@ -16,7 +16,7 @@
   </el-dialog>
 </template>
 <script>
-import { parseTime } from '@/utils/index'
+import { parseTime,createUniqueString } from '@/utils/index'
 import OTForm from './forms/OTForm'
 import TGForm from './forms/TGForm'
 import SJForm from './forms/SJForm'
@@ -74,17 +74,26 @@ export default {
     handleClickClose() {
       this.$emit('toggleInnerDialog')
     },
+    getKey() {
+      return createUniqueString()
+    },    
     handleClickConfirm() {
       const data = this.$refs['form'].formData[this.formDataKey]
 
       this.updateInnerDialogData(this.instiId, data).then(({ status }) => {
-        if(status === "success")
+        if(status === "success"){
         this.$message({
           message: '수정되었습니다!',
           type: 'success'
         })
         this.$emit('setFormData', this.formDataKey, JSON.parse(JSON.stringify(data)))
         this.$emit('toggleInnerDialog')
+        }else{
+          this.$message({
+            message: '시스템 에러입니다!',
+            type: 'error'
+          })          
+        }
       })
     },
     async updateInnerDialogData(instiId, data, additionInstiData) {
@@ -95,8 +104,9 @@ export default {
         additionData: additionData,
         ...this.$refs['form'].sendAdditionalInstiData()
       }
+      // console.log(payload)
+      // return 
       const rest = await updateAcademy(instiId, payload)
-      console.log(rest)
       return rest
     }
   }

@@ -386,6 +386,7 @@
         :dialog-status="formDialogData.dialogStatus"
         @toggleInnerDialog="toggleInnerDialog()"
         @setFormData="setFormData"
+        :key="getKey()"
       />
     </el-dialog>
   </div>
@@ -751,7 +752,6 @@ export default {
             )
           } else {
             payload = this.getPayload(['insti', 'TPData'])
-            console.log(payload)
             // return
             addAcademy(payload).then(() => {
               this.$message({

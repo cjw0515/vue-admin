@@ -184,7 +184,8 @@ export default {
         })
         return false
       }
-      gbn = this.getgbn(dataKey)
+      gbn = dataKey.substr(0, 2)
+      if(!gbn) return false
       let addArr = checkArr.map(c => {
         return {
           gbn: gbn,
