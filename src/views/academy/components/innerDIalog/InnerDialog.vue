@@ -77,9 +77,15 @@ export default {
     handleClickConfirm() {
       const data = this.$refs['form'].formData[this.formDataKey]
 
-      this.updateInnerDialogData(this.instiId, data)
-      // this.$emit('setFormData', this.formDataKey,  data)
-      // this.$emit('toggleInnerDialog')
+      this.updateInnerDialogData(this.instiId, data).then(({ status }) => {
+        if(status === "success")
+        this.$message({
+          message: '수정되었습니다!',
+          type: 'success'
+        })
+        this.$emit('setFormData', this.formDataKey, JSON.parse(JSON.stringify(data)))
+        this.$emit('toggleInnerDialog')
+      })
     },
     async updateInnerDialogData(instiId, data, additionInstiData) {
       const detailData = generateInstiData(data, ['gbn', 'codeNo', 'useYn'])
@@ -89,9 +95,9 @@ export default {
         additionData: additionData,
         ...this.$refs['form'].sendAdditionalInstiData()
       }
-      const add = this.$refs['form'].sendAdditionalInstiData()
       const rest = await updateAcademy(instiId, payload)
       console.log(rest)
+      return rest
     }
   }
 }
