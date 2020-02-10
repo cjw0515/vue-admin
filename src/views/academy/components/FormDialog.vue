@@ -746,8 +746,8 @@ export default {
                 message: '수정되었습니다!',
                 type: 'success'
               })
-              // this.$emit('toggleDialog')
-              // this.resetForm()
+              this.$emit('toggleDialog')
+              this.resetForm()
             }
             )
           } else {
