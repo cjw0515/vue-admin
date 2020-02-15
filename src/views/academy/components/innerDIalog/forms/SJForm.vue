@@ -185,7 +185,7 @@ export default {
         return false
       }
       gbn = dataKey.substr(0, 2)
-      if(!gbn) return false
+      if (!gbn) return false
       let addArr = checkArr.map(c => {
         return {
           gbn: gbn,
@@ -203,7 +203,7 @@ export default {
       targetArr = this.formData.SJData[dataKey].list
       const mergedArr = [...chkedArr, ...targetArr]
       const uniq = mergedArr.filter(
-        (obj, idx, self) => idx === self.findIndex(t => t.codeNo == obj.codeNo)
+        (obj, idx, self) => idx === self.findIndex(t => t.disp == obj.disp)
       )
       if (mergedArr.length != uniq.length) {
         this.$message({

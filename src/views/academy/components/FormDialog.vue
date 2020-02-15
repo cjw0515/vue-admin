@@ -348,8 +348,26 @@
             <el-row>
               <div class="sub-title">
                 <span>특화</span>
-                <svg-icon icon-class="edit" class="edit-icon" />
+                <svg-icon icon-class="edit" class="edit-icon" @click="openInnerDialog('SCForm')" />
               </div>
+              <el-table
+                :data="dispSC"
+                :header-cell-style="{ backgroundColor: 'rgb(233, 233, 233)' }"
+                border
+                empty-text="-"
+                style="width: 60%"
+              >
+                <el-table-column label="항목" width="100">
+                  <template slot-scope="{row}">
+                    <span>{{ row.itemValue }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="값">
+                  <template slot-scope="{row}">
+                    <span>{{ row.valuesText }}</span>
+                  </template>
+                </el-table-column>
+              </el-table>
             </el-row>
 
           </div>
@@ -379,6 +397,7 @@
         <el-button type="primary" @click="handleClickConfirm()">Confirm</el-button>
       </span>
       <InnerDialog
+        :key="getKey()"
         :inner-visible.sync="innerVisible"
         :insti-id="formDialogData.idx"
         :inner-form-name="innerFormName"
@@ -386,7 +405,6 @@
         :dialog-status="formDialogData.dialogStatus"
         @toggleInnerDialog="toggleInnerDialog()"
         @setFormData="setFormData"
-        :key="getKey()"
       />
     </el-dialog>
   </div>
@@ -626,7 +644,34 @@ export default {
           useYn: true,
           itemValue: '',
           itemProperty: ''
-        }
+        },
+        SCData: [
+          {
+            itemName: 'SC',
+            seq: 1,
+            useYn: true,
+            itemValue: '내신',
+            itemProperty: '0',
+            values: [
+              { gbn: 'AG', codeNo: 7, useYn: false, disp: '유치원' }
+            ]
+          },
+          {
+            itemName: 'SC',
+            seq: 2,
+            useYn: true,
+            itemValue: '올림피아드',
+            itemProperty: '0',
+            values: [
+              { gbn: 'AG', codeNo: 8, useYn: false, disp: '초1' },
+              { gbn: 'AG', codeNo: 9, useYn: false, disp: '초2' },
+              { gbn: 'AG', codeNo: 10, useYn: false, disp: '초3' },
+              { gbn: 'AG', codeNo: 11, useYn: false, disp: '초4' },
+              { gbn: 'AG', codeNo: 12, useYn: false, disp: '초5' },
+              { gbn: 'AG', codeNo: 13, useYn: false, disp: '초6' }
+            ]
+          }
+        ]
       },
       entrExmOptions: [
         { value: 0, disp: '아니오' },
@@ -708,6 +753,19 @@ export default {
     },
     currentFlexData: function() {
       return this.formData.insti.openFlexYn
+    },
+    dispSC: function() {
+      const data = this.formData.SCData.map(o => {
+        let tmpValues = ''
+        o.values.forEach(value => {
+          tmpValues += value.disp + ','
+        })
+        return {
+          ...o,
+          valuesText: tmpValues
+        }
+      })
+      return data
     }
   },
   watch: {
