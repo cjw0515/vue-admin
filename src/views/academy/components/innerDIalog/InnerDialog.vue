@@ -20,11 +20,12 @@ import { parseTime,createUniqueString } from '@/utils/index'
 import OTForm from './forms/OTForm'
 import TGForm from './forms/TGForm'
 import SJForm from './forms/SJForm'
+import SCForm from './forms/SCForm'
 import { updateAcademy } from '@/api/insti/academy'
 import { generateInstiData, dataDivider } from '@/utils/insti/'
 
 export default {
-  components: { OTForm, TGForm, SJForm },
+  components: { OTForm, TGForm, SJForm, SCForm },
   props: {
     innerVisible: {
       type: Boolean,
@@ -49,7 +50,8 @@ export default {
     formComponents: {
       'OTForm': { component: OTForm, name: '운영 시간', width: '40%', dataKey: 'OTData' },
       'TGForm': { component: TGForm, name: '대상 학년', width: '40%', dataKey: 'TGData' },
-      'SJForm': { component: SJForm, name: '개설 과목 / 대표과목', width: '60%', dataKey: 'SJData' }
+      'SJForm': { component: SJForm, name: '개설 과목 / 대표과목', width: '60%', dataKey: 'SJData' },
+      'SCForm': { component: SCForm, name: '특화', width: '60%', dataKey: 'SCData' }
     }
   }),
   computed: {
