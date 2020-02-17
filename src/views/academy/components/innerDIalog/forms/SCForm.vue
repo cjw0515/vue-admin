@@ -31,11 +31,10 @@
           :dialog-status="dialogStatus"
           :is-empty="isEmpty"
           :chked-nodes="chkedNodes"
-        >
-        </SCCard>
+        />
         <el-card shadow="hover" class="box-card">
-          <el-button plain icon="el-icon-plus" @click="addSC"></el-button>
-        </el-card>        
+          <el-button plain icon="el-icon-plus" @click="addSC" />
+        </el-card>
       </div>
     </el-main>
   </el-container>
@@ -46,7 +45,7 @@ import { getAMasterCodeTree } from '@/api/insti/master-code'
 import SCCard from './SCForm-SCCard'
 
 export default {
-  components: {SCCard},
+  components: { SCCard },
   props: {
     instiId: {
       type: Number,
@@ -61,7 +60,7 @@ export default {
     }
   },
   data: function() {
-    return {      
+    return {
       chkedNodes: [],
       filterText: '',
       subjects: [],
@@ -89,7 +88,7 @@ export default {
   mounted: function() {
   },
   methods: {
-    addSC(){
+    addSC() {
       this.formData.SCData.push({
         itemName: 'SC',
         seq: 1,
@@ -97,9 +96,9 @@ export default {
         itemValue: '',
         itemProperty: '',
         inputVisible: false,
-        inputValue: '',  
+        inputValue: '',
         edit: false,
-        editValue: ''                   
+        editValue: ''
       })
     },
     initialDataSetup() {
@@ -109,8 +108,8 @@ export default {
         inputVisible: false,
         inputValue: '',
         edit: false,
-        editValue: ''                   
-      }));
+        editValue: o.itemValue
+      }))
     },
     async getAMasterCodeTree() {
       const { data } = await getAMasterCodeTree(11000)
@@ -121,11 +120,14 @@ export default {
       return data.codeName.indexOf(value) !== -1
     },
     handleClickChk(current, chkObj) {
-      this.chkedNodes = chkObj.checkedNodes.map(o=>o.codeName)
+      this.chkedNodes = chkObj.checkedNodes.map(o => o.codeName)
     },
     resetChecked() {
       this.$refs.tree.setCheckedKeys([])
       this.chkedNodes = this.$refs.tree.getCheckedNodes()
+    },
+    sendAdditionalInstiData() {
+      return {}
     }
   }
 }

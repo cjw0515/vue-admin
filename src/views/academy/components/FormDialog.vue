@@ -340,7 +340,7 @@
                   empty-text="-"
                   style="width: 100%"
                 >
-                  <el-table-column :label="value.label" prop="disp" />
+                  <el-table-column :label="value.label" prop="disp" align="center" />
                 </el-table>
               </el-col>
             </el-row>
@@ -357,12 +357,12 @@
                 empty-text="-"
                 style="width: 60%"
               >
-                <el-table-column label="항목" width="100">
+                <el-table-column label="항목" width="100" align="center">
                   <template slot-scope="{row}">
                     <span>{{ row.itemValue }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="값">
+                <el-table-column label="값" align="center">
                   <template slot-scope="{row}">
                     <span>{{ row.itemProperty.replace(/\|/gi, ', ') }}</span>
                   </template>
@@ -727,7 +727,7 @@ export default {
     },
     currentFlexData: function() {
       return this.formData.insti.openFlexYn
-    },
+    }
     // dispSC: function() {
     //   const data = this.formData.SCData.map(o => {
     //     let tmpValues = ''
@@ -780,6 +780,7 @@ export default {
               })
               this.$emit('toggleDialog')
               this.resetForm()
+              this.$emit('refreshList')
             }
             )
           } else {

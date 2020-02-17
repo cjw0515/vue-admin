@@ -6,7 +6,7 @@
     >
       <div slot="header" class="clearfix">
         <span class="card-name">
-          <span v-if="!data.edit"> {{ data.itemValue }} </span>                  
+          <span v-if="!data.edit"> {{ data.itemValue }} </span>
           <el-input v-if="data.edit" v-model="data.editValue" class="edit-input" size="small" />
         </span>
         <span v-if="data.edit">
@@ -26,15 +26,15 @@
         </span>
         <el-button
           v-else
-          type="primary"
+          round
           size="small"
           icon="el-icon-edit"
           @click="data.edit=!data.edit"
-        >{{ !data.itemValue ? '항목 이름을 넣어주세요.' :'수정' }}</el-button>          
+        >{{ !data.itemValue ? '항목 이름을 넣어주세요.' :'수정' }}</el-button>
         <el-button v-if="dialogStatus == 'update'" type="primary" icon="el-icon-download" size="mini" circle @click="resetCS()" />
         <el-button type="danger" icon="el-icon-remove-outline" size="mini" circle @click="resetCS()" />
       </div>
-      <el-button :type="isEmpty ? getType(4) : getType(0)" icon="el-icon-arrow-right" circle class="add-btn" @click="handleClickAdd()" />          
+      <el-button :type="isEmpty ? getType(4) : getType(0)" icon="el-icon-arrow-right" circle class="add-btn" @click="handleClickAdd()" />
       <span v-if="data.itemProperty">
         <el-tag
           v-for="(txt, id) in data.itemProperty.split('|')"
@@ -48,16 +48,15 @@
         </el-tag>
       </span>
       <el-input
-        class="input-new-tag"
         v-if="data.inputVisible"
-        v-model="data.inputValue"
-        size="mini"
         ref="saveTagInput"
+        v-model="data.inputValue"
+        class="input-new-tag"
+        size="mini"
         @keyup.enter.native="handleInputConfirm()"
         @blur="handleInputConfirm()"
-      >
-      </el-input>        
-      <el-button v-else size="mini" class="button-new-tag" @click="showInput">+ New Tag</el-button>          
+      />
+      <el-button v-else size="mini" class="button-new-tag" @click="showInput">+ New Tag</el-button>
     </el-card>
   </div>
 </template>
@@ -71,7 +70,7 @@ export default {
     instiId: {
       type: Number,
       default: 0
-    },    
+    },
     data: {
       type: Object,
       default: () => {}
@@ -86,30 +85,31 @@ export default {
     }
   },
   data: function() {
-    return {      
+    return {
 
     }
   },
   methods: {
-    handleClickAdd(){
-      let text = ""
+    handleClickAdd() {
+      let text = ''
       this.chkedNodes.forEach(o => {
-        if(!this.chkDuplication(o)) text += `|${o}`        
-      });
+        if (!this.chkDuplication(o)) text += `|${o}`
+      })
       this.data.itemProperty += this.data.itemProperty ? text : text.substring(1)
     },
-    handleEdit(){
+    handleEdit() {
       this.data.itemValue = this.data.editValue
       this.data.edit = false
     },
-    cancelEdit(){
+    cancelEdit() {
       this.data.edit = false
     },
-    resetCS(){
-      this.data.itemProperty = ""
+    resetCS() {
+      this.data.itemProperty = ''
     },
     chkDuplication(txt, warning) {
-      const ret = this.data.itemProperty.split('|').some(o=>o === txt)      
+      if (!txt) return false
+      const ret = this.data.itemProperty.split('|').some(o => o === txt)
       if (ret && !warning) {
         this.$message({
           message: '이미 존재하는 특화 과목은 제외됩니다.',
@@ -117,30 +117,30 @@ export default {
         })
       }
       return ret
-    },    
+    },
     getType(idx) {
       const types = ['success', 'info', 'warning', 'danger', '']
       return types[(idx + 1) % types.length]
     },
     handleClickDeleteBtn(SC) {
-      this.data.itemProperty = this.data.itemProperty.split("|").filter(o=>o !== SC).join('|')
-    },    
+      this.data.itemProperty = this.data.itemProperty.split('|').filter(o => o !== SC).join('|')
+    },
     showInput() {
-      this.data.inputVisible = true;
+      this.data.inputVisible = true
       this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },   
-    handleInputConfirm() {      
-      let inputValue = this.data.inputValue;
-      if(this.chkDuplication(inputValue)){this.data.inputValue = ''; return false} 
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+    handleInputConfirm() {
+      const inputValue = this.data.inputValue
+      if (this.chkDuplication(inputValue)) { this.data.inputValue = ''; return false }
       if (inputValue) {
         this.data.itemProperty += this.data.itemProperty ? `|${inputValue}` : inputValue
       }
-      this.data.inputVisible = false;
-      this.data.inputValue = '';
-    },    
-  },
+      this.data.inputVisible = false
+      this.data.inputValue = ''
+    }
+  }
 }
 </script>
 <style scoped>
@@ -191,6 +191,6 @@ export default {
 .input-new-tag {
   width: 90px;
   margin-left: 10px;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
 }
 </style>

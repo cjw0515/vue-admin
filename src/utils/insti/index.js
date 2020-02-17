@@ -3,7 +3,8 @@ export function dataDivider() {
     OT: [],
     TG: [],
     AG: [],
-    TP: []
+    TP: [],
+    SC: []
   }
   this.detailData = {
     AG: [],
@@ -32,6 +33,7 @@ export function dataDivider() {
     this.makeTGData()
     this.makeSJData()
     this.makeTPData()
+    this.makeSCData()
 
     return this
   }
@@ -241,6 +243,14 @@ export function dataDivider() {
     this.result.TPData = data[0]
 
     return data[0]
+  }
+  this.makeSCData = function() {
+    const data = this.additionData.SC
+
+    if (data.length <= 0) return
+    this.result.SCData = data
+
+    return data
   }
 }
 

@@ -3,10 +3,11 @@
     <el-table
       :data="tableData"
       :row-class-name="tableRowClassName"
+      empty-text="-"
       style="width: 100%; cursor: pointer"
       @row-click="handleRowClick"
     >
-      <el-table-column label="학원번호" width="100">
+      <el-table-column label="학원번호" width="100" align="center">
         <template slot-scope="{row}">
           <span>{{ row.instiNumber }}</span>
         </template>
@@ -18,9 +19,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="과목" width="220">
+      <el-table-column label="인기도" width="220" align="center">
         <template slot-scope="{row}">
-          <span>{{ row.category1 }}</span>
+          <span>{{ row.likeCnt || '-' }}</span>
         </template>
       </el-table-column>
 
